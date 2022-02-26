@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox fx:id="box" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="40.0" style="-fx-background-color: #F8F8F8; -fx-border-color: #282828;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.code.dsa.dsa_automator.ListController">
+    <children>
+        <Label fx:id="valueList" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER" />
+    </children>
+</HBox>
