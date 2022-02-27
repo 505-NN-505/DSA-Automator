@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.Label?>
@@ -17,11 +18,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="DebugBoard" prefHeight="628.0" prefWidth="947.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.code.dsa.dsa_automator.DSA_AutomatorController">
     <children>
+      <Group fx:id="edgeGroup" />
         <VBox fx:id="dsMenu" focusTraversable="true" layoutX="14.0" layoutY="244.0" prefHeight="141.0" prefWidth="32.0">
             <children>
                 <Button fx:id="buttonMath" mnemonicParsing="false" prefHeight="36.0" prefWidth="33.0" style="-fx-background-color: #2c4f8f;" text="M" textFill="WHITE" />
@@ -105,7 +106,6 @@
             </AnchorPane>
         </content>
       </TitledPane>
-      <Line fx:id="line" endX="100.0" stroke="WHITE" visible="false" />
       <Label fx:id="gNode8" alignment="CENTER" layoutX="469.0" layoutY="567.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="8" visible="false">
          <font>
             <Font size="21.0" />

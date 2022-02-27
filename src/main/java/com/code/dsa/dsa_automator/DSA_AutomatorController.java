@@ -4,12 +4,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URL;
@@ -84,7 +88,9 @@ public class DSA_AutomatorController implements Initializable {
     @FXML
     private Label gNode10;
     @FXML
-    private Line line;
+    private Group edgeGroup;
+
+    ArrayList<Pair<Pair<Integer, Integer>, Line>> edgeList = new ArrayList<Pair<Pair<Integer, Integer>, Line>>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -205,11 +211,18 @@ public class DSA_AutomatorController implements Initializable {
                         }
                         else {
                             v[0] = finalI;
+                            Line line = new Line();
+                            line.setStroke(Color.WHITE);
                             line.setLayoutX(nodes[u[0]].getLayoutX() + nodes[u[0]].getWidth() / 2);
                             line.setLayoutY(nodes[u[0]].getLayoutY() + nodes[u[0]].getHeight() / 2);
                             line.setEndX(nodes[v[0]].getLayoutX() - line.getLayoutX() + nodes[v[0]].getWidth() / 2);
                             line.setEndY(nodes[v[0]].getLayoutY() - line.getLayoutY() + nodes[v[0]].getHeight() / 2);
-                            line.setVisible(true);
+
+                            edgeGroup.getChildren().add(line);
+
+                            Pair<Integer, Integer> uv = new Pair(u[0], v[0]);
+                            Pair<Pair<Integer, Integer>, Line> p = new Pair(uv, line);
+                            edgeList.add(p);
                             countEdge++;
                         }
                     }
