@@ -6,14 +6,16 @@ public class Dragger {
     private double cursorX;
     private double cursorY;
 
-    public void setDraggerOn(Node node) {
+    public void setDragger(Node node, boolean dec) {
         node.setOnMousePressed(mouseEvent -> {
             cursorX = mouseEvent.getX();
             cursorY = mouseEvent.getY();
         });
         node.setOnMouseDragged(mouseEvent -> {
-            node.setLayoutX(mouseEvent.getSceneX() - cursorX);
-            node.setLayoutY(mouseEvent.getSceneY() - cursorY);
+            if (dec) {
+                node.setLayoutX(mouseEvent.getSceneX() - cursorX);
+                node.setLayoutY(mouseEvent.getSceneY() - cursorY);
+            }
         });
     }
 }

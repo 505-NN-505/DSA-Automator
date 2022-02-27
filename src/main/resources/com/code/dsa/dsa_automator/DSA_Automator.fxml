@@ -6,7 +6,10 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -14,16 +17,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.code.dsa.dsa_automator.DSA_AutomatorController">
+<AnchorPane fx:id="DebugBoard" prefHeight="628.0" prefWidth="947.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.code.dsa.dsa_automator.DSA_AutomatorController">
     <children>
-        <VBox fx:id="dsMenu" focusTraversable="true" layoutX="14.0" layoutY="163.0" prefHeight="100.0" prefWidth="27.0">
+        <VBox fx:id="dsMenu" focusTraversable="true" layoutX="14.0" layoutY="244.0" prefHeight="141.0" prefWidth="32.0">
             <children>
-                <Button fx:id="buttonMath" mnemonicParsing="false" prefHeight="25.0" prefWidth="27.0" style="-fx-background-color: #2c4f8f;" text="M" textFill="WHITE" />
-                <Button fx:id="buttonList" mnemonicParsing="false" prefHeight="25.0" prefWidth="27.0" style="-fx-background-color: #2c4f8f;" text="L" textFill="WHITE" />
-                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="27.0" style="-fx-background-color: #2c4f8f;" text="T" textFill="WHITE" />
-                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="27.0" style="-fx-background-color: #2c4f8f;" text="G" textFill="WHITE" />
+                <Button fx:id="buttonMath" mnemonicParsing="false" prefHeight="36.0" prefWidth="33.0" style="-fx-background-color: #2c4f8f;" text="M" textFill="WHITE" />
+                <Button fx:id="buttonList" mnemonicParsing="false" prefHeight="34.0" prefWidth="33.0" style="-fx-background-color: #2c4f8f;" text="L" textFill="WHITE" />
+                <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" style="-fx-background-color: #2c4f8f;" text="T" textFill="WHITE" />
+                <Button fx:id="buttonGraph" mnemonicParsing="false" prefHeight="37.0" prefWidth="32.0" style="-fx-background-color: #2c4f8f;" text="G" textFill="WHITE" />
             </children>
         </VBox>
         <GridPane fx:id="gridListInput" layoutX="351.0" layoutY="14.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="75.0" prefWidth="235.0" visible="false">
@@ -86,5 +90,71 @@
             </menus>
         </MenuBar>
         <HBox fx:id="hBoxList1" alignment="CENTER" layoutX="88.0" layoutY="163.0" prefHeight="68.0" prefWidth="263.0" style="-: #333333;" visible="false" />
+      <TitledPane fx:id="inputToolBarGraph" animated="false" expanded="false" layoutX="498.0" layoutY="27.0" prefHeight="165.0" prefWidth="142.0" text="Input Toolbar" visible="false">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="139.0" prefWidth="148.0">
+               <children>
+                  <RadioButton fx:id="isVertexCreation" layoutX="12.0" layoutY="19.0" mnemonicParsing="false" onAction="#constructGraph" text="Vertex Creation">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="graphInput" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton fx:id="isEdgeCreation" layoutX="12.0" layoutY="44.0" mnemonicParsing="false" onAction="#constructGraph" text="Edge Creation" toggleGroup="$graphInput" />
+                  <RadioButton fx:id="isSource" layoutX="12.0" layoutY="70.0" mnemonicParsing="false" text="Assign Source" toggleGroup="$graphInput" />
+                  <RadioButton fx:id="isDestination" layoutX="12.0" layoutY="98.0" mnemonicParsing="false" text="Assign Destination" toggleGroup="$graphInput" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+      <Line fx:id="line" endX="100.0" stroke="WHITE" visible="false" />
+      <Label fx:id="gNode8" alignment="CENTER" layoutX="469.0" layoutY="567.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="8" visible="false">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="gNode2" alignment="CENTER" layoutX="88.0" layoutY="567.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="2" visible="false">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="gNode3" alignment="CENTER" layoutX="154.0" layoutY="567.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="3" visible="false">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="gNode7" alignment="CENTER" layoutX="411.0" layoutY="567.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="7" visible="false">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="gNode6" alignment="CENTER" layoutX="351.0" layoutY="567.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="6" visible="false">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="gNode5" alignment="CENTER" layoutX="287.0" layoutY="567.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="5" visible="false">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="gNode4" alignment="CENTER" layoutX="220.0" layoutY="567.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="4" visible="false">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="gNode9" alignment="CENTER" layoutX="525.0" layoutY="567.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="9" visible="false">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="gNode10" alignment="CENTER" layoutX="586.0" layoutY="567.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="10" visible="false">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="gNode1" alignment="CENTER" layoutX="24.0" layoutY="567.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="1" visible="false">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

@@ -11,7 +11,7 @@ public class DSA_Automator extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(DSA_Automator.class.getResource("DSA_Automator.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 640, 480);
+        Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("DSA");
         stage.setScene(scene);
         stage.show();
