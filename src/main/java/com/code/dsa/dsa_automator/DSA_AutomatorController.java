@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -31,6 +30,7 @@ public class DSA_AutomatorController implements Initializable {
     protected VBox dsMenu;
 
     // 1D List
+    Integer countList = -1;
     @FXML
     protected Button buttonList;
     @FXML
@@ -45,6 +45,16 @@ public class DSA_AutomatorController implements Initializable {
     protected Button buttonListInputRetry;
     @FXML
     protected HBox hBoxList1;
+    @FXML
+    protected HBox hBoxList2;
+    @FXML
+    protected HBox hBoxList3;
+    @FXML
+    protected HBox hBoxList4;
+    @FXML
+    protected HBox hBoxList5;
+    @FXML
+    private Group listGroup;
     private List<Integer> list1;
 
     // Math
@@ -52,9 +62,9 @@ public class DSA_AutomatorController implements Initializable {
     protected Button buttonMath;
 
     // Graph
-    int countNode = -1;
-    int countEdge = 0;
-    int selectedNodesForEdge = 0;
+    Integer countNode = -1;
+    Integer countEdge = 0;
+    Integer selectedNodesForEdge = 0;
     @FXML
     private Button buttonGraph;
     @FXML
@@ -100,6 +110,10 @@ public class DSA_AutomatorController implements Initializable {
         buttonMath.setOnAction(eventMath -> generateCalculator());
         buttonGraph.setOnAction(eventMath -> generateGraph());
         dragger.setDragger(hBoxList1, true);
+        dragger.setDragger(hBoxList2, true);
+        dragger.setDragger(hBoxList3, true);
+        dragger.setDragger(hBoxList4, true);
+        dragger.setDragger(hBoxList5, true);
     }
 
     public void toggleDS() {
@@ -125,8 +139,6 @@ public class DSA_AutomatorController implements Initializable {
 
                 placeList();
 
-                hBoxList1.setVisible(true);
-
                 inputSizeList.clear();
                 inputList.clear();
                 gridListInput.setVisible(false);
@@ -147,15 +159,18 @@ public class DSA_AutomatorController implements Initializable {
         });
     }
     public void placeList() {
+        HBox[] listContainer = {hBoxList1, hBoxList2, hBoxList3, hBoxList4, hBoxList5};
         try {
+            countList++;
             for (int i = 0; i < list1.size(); i++) {
                 FXMLLoader fxmlloader = new FXMLLoader();
                 fxmlloader.setLocation(getClass().getResource("List.fxml"));
                 HBox newBox = fxmlloader.load();
                 ListController listController = fxmlloader.getController();
                 listController.setData(list1.get(i));
-                hBoxList1.getChildren().add(newBox);
+                listContainer[countList].getChildren().add(newBox);
             }
+            listGroup.getChildren().add(listContainer[countList]);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -178,6 +193,7 @@ public class DSA_AutomatorController implements Initializable {
 
     public void constructGraph(ActionEvent event) {
         Label[] nodes = {gNode1, gNode2, gNode3, gNode4, gNode5, gNode6, gNode7, gNode8, gNode9, gNode10};
+
         int[] u = new int[1];
         int[] v = new int[1];
         if (isVertexCreation.isSelected()) {
@@ -188,14 +204,12 @@ public class DSA_AutomatorController implements Initializable {
                         nodes[countNode].setVisible(true);
                         nodes[countNode].setLayoutX(nodeC.getX() - nodes[countNode].getWidth() / 2);
                         nodes[countNode].setLayoutY(nodeC.getY() - nodes[countNode].getHeight() / 2);
-                        dragger.setDragger(nodes[countNode], true);
                     } else {
                         nodes[countNode].setVisible(false);
                         countNode--;
                     }
                 }
             });
-            System.out.println(countNode);
         }
         else if (isEdgeCreation.isSelected()) {
             for (int i = 0; i <= countNode; i++) {

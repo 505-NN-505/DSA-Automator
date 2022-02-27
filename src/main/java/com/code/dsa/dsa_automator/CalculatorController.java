@@ -33,7 +33,7 @@ public class CalculatorController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        SievePrime(100000000);
+        SievePrime(100000);
         buttonPrime.setOnAction(eventPrime -> getNthPrime());
     }
 
