@@ -1,8 +1,9 @@
 module com.code.dsa.dsa_automator {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
-    opens com.code.dsa.dsa_automator to javafx.fxml;
-    exports com.code.dsa.dsa_automator;
+    opens out.production.dsa_automator to javafx.fxml;
+    exports out.production.dsa_automator;
 }
