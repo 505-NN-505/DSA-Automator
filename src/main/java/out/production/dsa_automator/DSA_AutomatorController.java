@@ -253,11 +253,9 @@ public class DSA_AutomatorController implements Initializable {
                     ex.printStackTrace();
                 }
             });
-
             Stage stage = new Stage();
             stage.setTitle("Authentication");
             stage.setScene(scene);
-
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
         } catch (IOException e) {
