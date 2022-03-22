@@ -509,6 +509,8 @@ public class DSA_AutomatorController implements Initializable {
                             Integer lca=L.FindLCA(TreeEdges,countTreeNode,v1,v2);
                             //System.out.println(lca);
                             nodes[lca].setStyle("-fx-background-color: Blue");
+                            v1=-1;
+                            v2=-1;
                         }
                     }
                 });
