@@ -176,58 +176,61 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <RadioButton fx:id="CreateVertex" layoutY="5.0" mnemonicParsing="false" onAction="#constructTree" text="Create Vertex" />
-                  <RadioButton fx:id="CreateEdge" layoutX="1.0" layoutY="28.0" mnemonicParsing="false" onAction="#constructTree" text="Create Edge" />
+                  <RadioButton fx:id="CreateVertex" layoutY="5.0" mnemonicParsing="false" onAction="#constructTree" text="Create Vertex">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="treeInput" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton fx:id="CreateEdge" layoutX="1.0" layoutY="28.0" mnemonicParsing="false" onAction="#constructTree" text="Create Edge" toggleGroup="$treeInput" />
                </children>
             </AnchorPane>
         </content>
       </TitledPane>
-      <Label fx:id="tNode4" alignment="CENTER" layoutX="259.0" layoutY="444.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: Red;" text="4" textFill="WHITE" visible="false">
+      <Label fx:id="tNode4" alignment="CENTER" layoutX="259.0" layoutY="444.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="4" visible="false">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="tNode5" alignment="CENTER" layoutX="351.0" layoutY="431.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: Red;" text="5" textFill="WHITE" visible="false">
+      <Label fx:id="tNode5" alignment="CENTER" layoutX="351.0" layoutY="431.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="5" visible="false">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="tNode7" alignment="CENTER" layoutX="556.0" layoutY="467.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: Red;" text="7" textFill="WHITE" visible="false">
+      <Label fx:id="tNode7" alignment="CENTER" layoutX="556.0" layoutY="467.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="7" visible="false">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="tNode3" alignment="CENTER" layoutX="327.0" layoutY="266.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: Red;" text="3" textFill="WHITE" visible="false">
+      <Label fx:id="tNode3" alignment="CENTER" layoutX="327.0" layoutY="266.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="3" visible="false">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="tNode9" alignment="CENTER" layoutX="287.0" layoutY="550.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: Red;" text="9" textFill="WHITE" visible="false">
+      <Label fx:id="tNode9" alignment="CENTER" layoutX="287.0" layoutY="550.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="9" visible="false">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="tNode8" alignment="CENTER" layoutX="409.0" layoutY="532.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: Red;" text="8" textFill="WHITE" visible="false">
+      <Label fx:id="tNode8" alignment="CENTER" layoutX="409.0" layoutY="532.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="8" visible="false">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="tNode10" alignment="CENTER" layoutX="125.0" layoutY="543.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: red;" text="10" textFill="WHITE" visible="false">
+      <Label fx:id="tNode10" alignment="CENTER" layoutX="125.0" layoutY="543.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="10" visible="false">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="tNode6" alignment="CENTER" layoutX="455.0" layoutY="394.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: Red;" text="6" textFill="WHITE" visible="false">
+      <Label fx:id="tNode6" alignment="CENTER" layoutX="455.0" layoutY="394.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="6" visible="false">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="tNode1" alignment="CENTER" layoutX="156.0" layoutY="308.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: Red;" text="1" textFill="WHITE" visible="false">
+      <Label fx:id="tNode1" alignment="CENTER" layoutX="156.0" layoutY="308.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="1" visible="false">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="tNode2" alignment="CENTER" layoutX="578.0" layoutY="417.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: Red;" text="2" textFill="WHITE" visible="false">
+      <Label fx:id="tNode2" alignment="CENTER" layoutX="578.0" layoutY="417.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="2" visible="false">
          <font>
             <Font size="14.0" />
          </font>
@@ -236,8 +239,11 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
                <children>
-                  <RadioButton fx:id="LowestCommonAncestor" layoutY="14.0" mnemonicParsing="false" onAction="#ImplementTreeAlgorithms" text="Lowest Common Ancestor" />
-                  <RadioButton fx:id="FindCentroid" layoutX="1.0" layoutY="38.0" mnemonicParsing="false" text="Find Centroid" />
+                  <RadioButton fx:id="LowestCommonAncestor" layoutY="14.0" mnemonicParsing="false" onAction="#ImplementTreeAlgorithms" text="Lowest Common Ancestor">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="treeAlgorithms" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton fx:id="FindCentroid" layoutX="1.0" layoutY="38.0" mnemonicParsing="false" text="Find Centroid" toggleGroup="$treeAlgorithms" />
                </children>
             </AnchorPane>
         </content>

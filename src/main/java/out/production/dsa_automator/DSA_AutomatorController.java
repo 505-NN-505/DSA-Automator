@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -502,13 +503,19 @@ public class DSA_AutomatorController implements Initializable {
                 int finalI = i;
                 nodes[i].setOnMousePressed(mouseOnNode ->{
                     if(mouseOnNode.getButton()== MouseButton.PRIMARY){
-                        if(v1==-1) v1=finalI;
-                        else if(v2==-1) v2=finalI;
+                        if(v1==-1){
+                            v1=finalI;
+                            nodes[v1].setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, new CornerRadii(40.0), Insets.EMPTY)));
+                        }
+                        else if(v2==-1){
+                            v2=finalI;
+                            nodes[v2].setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, new CornerRadii(40.0), Insets.EMPTY)));
+                        }
                         if(v1>=0  && v2>=0){
                             out.production.dsa_automator.LowestCommonAncestor L=new LowestCommonAncestor(countTreeNode);
                             Integer lca=L.FindLCA(TreeEdges,countTreeNode,v1,v2);
                             //System.out.println(lca);
-                            nodes[lca].setStyle("-fx-background-color: Blue");
+                            nodes[lca].setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(40.0), Insets.EMPTY)));
                             v1=-1;
                             v2=-1;
                         }
