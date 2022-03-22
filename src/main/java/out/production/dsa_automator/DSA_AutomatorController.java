@@ -24,9 +24,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class DSA_AutomatorController implements Initializable {
     Dragger dragger = new Dragger();
@@ -123,9 +122,48 @@ public class DSA_AutomatorController implements Initializable {
     private Button buttonHome;
     @FXML
     private Button buttonSearchRepo;
-
+    // tree
+    Integer countTreeNode = -1;
+    Integer countTreeEdge = 0;
+    Integer selectedNodesForTreeEdge = 0;
+    Integer v1=-1,v2=-1;
+    @FXML
+    private Button buttonTree;
+    @FXML
+    private TitledPane InputToolBarTree;
+    @FXML
+    private TitledPane TreeAlgorithms;
+    @FXML
+    private RadioButton CreateVertex;
+    @FXML
+    private RadioButton CreateEdge;
+    @FXML
+    private RadioButton LowestCommonAncestor;
+    @FXML
+    private RadioButton FindCentroid;
+    @FXML
+    private Label tNode1;
+    @FXML
+    private Label tNode2;
+    @FXML
+    private Label tNode3;
+    @FXML
+    private Label tNode4;
+    @FXML
+    private Label tNode5;
+    @FXML
+    private Label tNode6;
+    @FXML
+    private Label tNode7;
+    @FXML
+    private Label tNode8;
+    @FXML
+    private Label tNode9;
+    @FXML
+    private Label tNode10;
     ArrayList<Pair<Pair<Integer, Integer>, Line>> edgeList = new ArrayList<Pair<Pair<Integer, Integer>, Line>>();
-
+    ArrayList<Pair<Pair<Integer, Integer>, Line>> edgeListTree = new ArrayList<Pair<Pair<Integer, Integer>, Line>>();
+    ArrayList<Pair<Integer, Integer>> TreeEdges = new ArrayList<Pair<Integer, Integer>>();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         gridListInput.setVisible(false);
@@ -133,6 +171,7 @@ public class DSA_AutomatorController implements Initializable {
         buttonList.setOnAction(eventList -> takeListInput());
         buttonMath.setOnAction(eventMath -> generateCalculator());
         buttonGraph.setOnAction(eventMath -> generateGraph());
+        buttonTree.setOnAction(eventMath-> generateTree());
         dragger.setDragger(hBoxList1, true);
         dragger.setDragger(hBoxList2, true);
         dragger.setDragger(hBoxList3, true);
@@ -394,5 +433,86 @@ public class DSA_AutomatorController implements Initializable {
     // Graph
     public void generateGraph() {
         inputToolBarGraph.setVisible(true);
+    }
+   //Tree Starts from here
+    public void constructTree(ActionEvent event) {
+        Label[] nodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
+        int[] u = new int[1];
+        int[] v = new int[1];
+        if (CreateVertex.isSelected()) {
+            DebugBoard.setOnMousePressed(nodeC -> {
+                if (CreateVertex.isSelected() && countTreeNode <= 9) {
+                    if (nodeC.getButton() == MouseButton.PRIMARY) {
+                        countTreeNode++;
+                        nodes[countTreeNode].setVisible(true);
+                        nodes[countTreeNode].setLayoutX(nodeC.getX() - nodes[countTreeNode].getWidth() / 2);
+                        nodes[countTreeNode].setLayoutY(nodeC.getY() - nodes[countTreeNode].getHeight() / 2);
+                    } else {
+                        nodes[countTreeNode].setVisible(false);
+                        countTreeNode--;
+                    }
+                }
+            });
+        }
+        else if (CreateEdge.isSelected()) {
+            for (int i = 0; i <= countTreeNode; i++) {
+                dragger.setDragger(nodes[i], false);
+            }
+            for (int i = 0; i <= countTreeNode; i++) {
+                int finalI = i;
+                nodes[i].setOnMousePressed(mouseOnNode -> {
+                    if (mouseOnNode.getButton() == MouseButton.PRIMARY) {
+                        selectedNodesForTreeEdge++;
+                        if (selectedNodesForTreeEdge % 2 == 1) {
+                            u[0] = finalI;
+                        }
+                        else {
+                            v[0] = finalI;
+                            Line line = new Line();
+                            line.setStroke(Color.WHITE);
+                            line.setLayoutX(nodes[u[0]].getLayoutX() + nodes[u[0]].getWidth() / 2);
+                            line.setLayoutY(nodes[u[0]].getLayoutY() + nodes[u[0]].getHeight() / 2);
+                            line.setEndX(nodes[v[0]].getLayoutX() - line.getLayoutX() + nodes[v[0]].getWidth() / 2);
+                            line.setEndY(nodes[v[0]].getLayoutY() - line.getLayoutY() + nodes[v[0]].getHeight() / 2);
+
+                            edgeGroup.getChildren().add(line);
+
+                            Pair<Integer, Integer> uv = new Pair(u[0], v[0]);
+                            Pair<Pair<Integer, Integer>, Line> p = new Pair(uv, line);
+                            edgeListTree.add(p);
+                            TreeEdges.add(uv);
+                            //System.out.println(u[0]);
+                            //System.out.println(v[0]);
+                            countTreeEdge++;
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+        public void generateTree() {
+        InputToolBarTree.setVisible(true);
+        TreeAlgorithms.setVisible(true);
+    }
+    public void ImplementTreeAlgorithms(ActionEvent event){
+        Label[] nodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
+        if(LowestCommonAncestor.isSelected()){
+            for(int i=0;i<=countTreeNode;i++){
+                int finalI = i;
+                nodes[i].setOnMousePressed(mouseOnNode ->{
+                    if(mouseOnNode.getButton()== MouseButton.PRIMARY){
+                        if(v1==-1) v1=finalI;
+                        else if(v2==-1) v2=finalI;
+                        if(v1>=0  && v2>=0){
+                            out.production.dsa_automator.LowestCommonAncestor L=new LowestCommonAncestor(countTreeNode);
+                            Integer lca=L.FindLCA(TreeEdges,countTreeNode,v1,v2);
+                            //System.out.println(lca);
+                            nodes[lca].setStyle("-fx-background-color: Blue");
+                        }
+                    }
+                });
+            }
+        }
     }
 }
