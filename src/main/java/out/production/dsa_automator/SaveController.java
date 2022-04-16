@@ -96,9 +96,11 @@ public class SaveController implements Initializable {
     }
 
     public void insertToCategoryTable(String tableName, int task_ID, String handle) throws SQLException, ClassNotFoundException {
+        System.out.println("tableName = " + tableName + ", task_ID = " + task_ID + ", handle = " + handle);
         Database database = new Database("dsa_automator", "root", "");
+        String[] column = {"task_id", "user_handle"};
         Object[] values = {task_ID, handle};
-        database.insert(tableName, values);
+        database.insert(tableName, column, values);
     }
 
     public int getTheLastTaskID(String taskName) throws SQLException, ClassNotFoundException {
