@@ -1,5 +1,8 @@
 package out.production.dsa_automator;
 
+import database.Database;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,6 +27,8 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -186,11 +191,12 @@ public class DSA_AutomatorController implements Initializable {
     @FXML
     public void switchToHome(ActionEvent event) {
         try {
-            FXMLLoader fxmlloader = new FXMLLoader();
-            fxmlloader.setLocation(getClass().getResource("Home.fxml"));
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene homeScene = new Scene(fxmlloader.load());
-            stage.setScene(homeScene);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Home.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Home");
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
         }
         catch (IOException e) {
@@ -492,7 +498,7 @@ public class DSA_AutomatorController implements Initializable {
         }
     }
 
-        public void generateTree() {
+    public void generateTree() {
         InputToolBarTree.setVisible(true);
         TreeAlgorithms.setVisible(true);
     }

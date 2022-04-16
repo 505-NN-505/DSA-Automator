@@ -4,10 +4,10 @@ import java.sql.*;
 
 public class Database {
     //connecting to the database
-    protected Connection connection;
+    public Connection connection;
 
     //the Query class instance
-    protected Query query;
+    public Query query;
 
     /**
      * The Database class constructor
