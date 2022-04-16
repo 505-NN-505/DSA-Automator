@@ -75,10 +75,10 @@
                   <TableView fx:id="RepoTable" prefHeight="557.0" prefWidth="933.0">
                     <columns>
                       <TableColumn fx:id="tableColumnID" prefWidth="75.0" text="TaskID" />
-                      <TableColumn fx:id="tableColumnHandle" prefWidth="75.0" text="Handle" />
-                        <TableColumn fx:id="tableColumnTitle" prefWidth="75.0" text="Title" />
-                        <TableColumn fx:id="tableColumnCategory" prefWidth="75.0" text="Category" />
-                        <TableColumn fx:id="tableColumnView" prefWidth="75.0" text="View" />
+                      <TableColumn fx:id="tableColumnHandle" prefWidth="123.0" text="Handle" />
+                        <TableColumn fx:id="tableColumnTitle" prefWidth="161.0" text="Title" />
+                        <TableColumn fx:id="tableColumnCategory" prefWidth="209.3333740234375" text="Category" />
+                        <TableColumn fx:id="tableColumnView" prefWidth="143.6666259765625" text="View" />
                     </columns>
                   </TableView>
                </content>

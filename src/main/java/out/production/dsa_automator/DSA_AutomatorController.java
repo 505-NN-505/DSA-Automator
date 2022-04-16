@@ -75,10 +75,15 @@ public class DSA_AutomatorController implements Initializable {
     @FXML
     private Group listGroup;
     private List<Integer> list1;
+    private List<Integer> list2;
 
     // Math
     @FXML
     protected Button buttonMath;
+    // Graph
+    private List<Integer> bfsoutput;
+    private Group graphGroup;
+    Integer countbfs = -1;
 
     // Graph
     Integer countNode = -1;
@@ -88,6 +93,8 @@ public class DSA_AutomatorController implements Initializable {
     private Button buttonGraph;
     @FXML
     private TitledPane inputToolBarGraph;
+    @FXML
+    private TitledPane inputToolBarGraphAlgo;
     @FXML
     private RadioButton isDestination;
     @FXML
@@ -118,6 +125,10 @@ public class DSA_AutomatorController implements Initializable {
     private Label gNode10;
     @FXML
     private Group edgeGroup;
+    @FXML
+    private RadioButton isBFS;
+    @FXML
+    private RadioButton isDFS;
 
     @FXML
     private Button buttonSignIn;
@@ -167,17 +178,26 @@ public class DSA_AutomatorController implements Initializable {
     private Label tNode9;
     @FXML
     private Label tNode10;
+
+    //graph
+    ArrayList<Pair<Pair<Integer, Integer>, Line>> graphedgeList = new ArrayList<Pair<Pair<Integer, Integer>, Line>>();
+    private int V;   // No. of vertices
+    private LinkedList<Integer> adj[]; //Adjacency Lists
+    int source,destination;
+    //graph
+
     ArrayList<Pair<Pair<Integer, Integer>, Line>> edgeList = new ArrayList<Pair<Pair<Integer, Integer>, Line>>();
     ArrayList<Pair<Pair<Integer, Integer>, Line>> edgeListTree = new ArrayList<Pair<Pair<Integer, Integer>, Line>>();
     ArrayList<Pair<Integer, Integer>> TreeEdges = new ArrayList<Pair<Integer, Integer>>();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         gridListInput.setVisible(false);
         dragger.setDragger(dsMenu, true);
         buttonList.setOnAction(eventList -> takeListInput());
         buttonMath.setOnAction(eventMath -> generateCalculator());
-        buttonGraph.setOnAction(eventMath -> generateGraph());
-        buttonTree.setOnAction(eventMath-> generateTree());
+        buttonGraph.setOnAction(eventGraph -> generateGraph());
+        buttonTree.setOnAction(eventTree-> generateTree());
         dragger.setDragger(hBoxList1, true);
         dragger.setDragger(hBoxList2, true);
         dragger.setDragger(hBoxList3, true);
@@ -427,20 +447,174 @@ public class DSA_AutomatorController implements Initializable {
 
                             edgeGroup.getChildren().add(line);
 
-                            Pair<Integer, Integer> uv = new Pair(u[0], v[0]);
+                            Pair<Integer, Integer> uv = new Pair(u[0]+1, v[0]+1);
                             Pair<Pair<Integer, Integer>, Line> p = new Pair(uv, line);
-                            edgeList.add(p);
+                            graphedgeList.add(p);
                             countEdge++;
                         }
                     }
                 });
             }
         }
+        else if (isSource.isSelected()) {
+            for (int i = 0; i <= countNode; i++) {
+                int finalI = i;
+                final boolean[] sel = {false};
+                nodes[i].setOnMousePressed(mouseOnNode -> {
+                    if (mouseOnNode.getButton() == MouseButton.PRIMARY) {
+                        source = finalI+1;
+                        nodes[source-1].setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(40.0),Insets.EMPTY)));
+                        sel[0] = true;
+                        System.out.println("thth");
+                    }
+                });
+                if (sel[0]) break;
+            }
+        }
+
+        else if (isDestination.isSelected()) {
+            for (int i = 0; i <= countNode; i++) {
+                int finalI = i;
+                final boolean[] sel = {false};
+                nodes[i].setOnMousePressed(mouseOnNode -> {
+                    if (mouseOnNode.getButton() == MouseButton.PRIMARY) {
+                        destination = finalI+1;
+                        nodes[destination-1].setBackground(new Background(new BackgroundFill(Color.LIMEGREEN , new CornerRadii(40.0),Insets.EMPTY)));
+                    }
+                });
+                if (sel[0]) break;
+            }
+        }
     }
     // Graph
     public void generateGraph() {
+
         inputToolBarGraph.setVisible(true);
+        inputToolBarGraphAlgo.setVisible(true);
     }
+
+
+    public void createAdjacencyList(){
+        V = countNode+2;
+        adj = new LinkedList[V];
+        for (int i=0; i<V; ++i)
+            adj[i] = new LinkedList();
+
+//        void addEdge(int v,int w)
+//        {
+//            adj[v].add(w);
+//        }
+        for(int i=0; i<countEdge; i++){
+            int v = graphedgeList.get(i).getKey().getKey();
+            int w = graphedgeList.get(i).getKey().getValue();
+            adj[v].add(w);
+            adj[w].add(v);
+        }
+
+    }
+
+    void DFSUtil(int v, boolean visited[],int cnt,List<Integer>list2)
+    {
+        cnt++;
+
+        // Mark the current node as visited and print it
+        visited[v-1] = true;
+        System.out.print(v + " ");
+        list1.add(v);
+        // Recur for all the vertices adjacent to this vertex
+        Iterator<Integer> i = adj[v].listIterator();
+        while (i.hasNext()) {
+            int n = i.next();
+            System.out.print(visited[n-1]);
+            if (!visited[n-1]) {
+                for (int j = 0; j < countEdge; j++) {
+                    if (graphedgeList.get(j).getKey().getKey() == v && graphedgeList.get(j).getKey().getValue() == n
+                            || graphedgeList.get(j).getKey().getKey() == n && graphedgeList.get(j).getKey().getValue() == v) {
+                        if (cnt == 1) graphedgeList.get(j).getValue().setStroke(Color.LIMEGREEN);
+                        if (cnt == 2) graphedgeList.get(j).getValue().setStroke(Color.YELLOW);
+                        if (cnt == 3) graphedgeList.get(j).getValue().setStroke(Color.BLUE);
+                        if (cnt == 4) graphedgeList.get(j).getValue().setStroke(Color.ORANGE);
+                        if (cnt == 5) graphedgeList.get(j).getValue().setStroke(Color.SKYBLUE);
+                    }
+                }
+                DFSUtil(n, visited, cnt, list2);
+            }
+
+        }
+    }
+
+    void DFS(int v)
+    {
+        list1 = new ArrayList<>();
+        boolean visited[] = new boolean[V];
+        DFSUtil(v, visited,0,list2);
+        placeList();
+    }
+
+    public void BFS(int s) throws IOException {
+        list1 = new ArrayList<>();
+        // Mark all the vertices as not visited(By default
+        // set as false)
+
+        boolean visited[] = new boolean[V];
+        // Create a queue for BFS
+        LinkedList<Integer> queue = new LinkedList<Integer>();
+
+        // Mark the current node as visited and enqueue it
+        visited[s]=true;
+        queue.add(s);
+        int cnt = 0;
+        while (queue.size() != 0)
+        {
+            cnt++;
+            // Dequeue a vertex from queue and print it
+            s = queue.poll();
+            System.out.print(s+" "+cnt+"\n");
+            // bfsoutput.add(s);
+            list1.add(s);
+
+            // Get all adjacent vertices of the dequeued vertex s
+            // If a adjacent has not been visited, then mark it
+            // visited and enqueue it
+            Iterator<Integer> i = adj[s].listIterator();
+            while (i.hasNext())
+            {
+                int n = i.next();
+
+                if (!visited[n])
+                {
+                    visited[n] = true;
+                    queue.add(n);
+                    for(int j=0; j<countEdge; j++){
+                        if(graphedgeList.get(j).getKey().getKey() == s && graphedgeList.get(j).getKey().getValue()==n
+                                || graphedgeList.get(j).getKey().getKey() == n && graphedgeList.get(j).getKey().getValue()==s){
+                            if(cnt == 1)  graphedgeList.get(j).getValue().setStroke(Color.LIMEGREEN);
+                            if(cnt == 2)  graphedgeList.get(j).getValue().setStroke(Color.YELLOW);
+                            if(cnt == 3)  graphedgeList.get(j).getValue().setStroke(Color.BLUE);
+                            if(cnt == 4)  graphedgeList.get(j).getValue().setStroke(Color.ORANGE);
+                            if(cnt == 5)  graphedgeList.get(j).getValue().setStroke(Color.SKYBLUE);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void graphAlgo(ActionEvent event) throws IOException {
+        createAdjacencyList();
+        if (isBFS.isSelected()){
+            System.out.println(countNode);
+            System.out.println(countEdge);
+            BFS(source);
+            placeList();
+        }
+        if (isDFS.isSelected()){
+            System.out.println("source: "+source);
+            DFS(source);
+            //placeList();
+        }
+    }
+
    //Tree Starts from here
     public void constructTree(ActionEvent event) {
         Label[] nodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
