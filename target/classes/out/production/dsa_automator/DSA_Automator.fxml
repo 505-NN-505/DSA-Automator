@@ -243,7 +243,7 @@
                      <toggleGroup>
                         <ToggleGroup fx:id="treeAlgorithms" />
                      </toggleGroup></RadioButton>
-                  <RadioButton fx:id="FindCentroid" layoutX="1.0" layoutY="38.0" mnemonicParsing="false" onAction="#ImplementTreeAlgorithms" text="Find Centroid" toggleGroup="$treeAlgorithms" />
+                  <RadioButton fx:id="FindCentroid" layoutX="1.0" layoutY="38.0" mnemonicParsing="false" text="Find Centroid" toggleGroup="$treeAlgorithms" />
                </children>
             </AnchorPane>
         </content>
