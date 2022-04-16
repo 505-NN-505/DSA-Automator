@@ -74,9 +74,9 @@ public class LowestCommonAncestor {
                 break;
             }
             //System.out.println(b);
+            mark[b] = true;
             b = g.par[b];
             if (b == -1) break;
-            mark[b] = true;
         }
 
 
