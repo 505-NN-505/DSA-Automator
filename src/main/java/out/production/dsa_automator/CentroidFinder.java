@@ -16,7 +16,7 @@ public class CentroidFinder {
         private int par[];
         private int sub[];
         private int c;
-        private int n;
+        private int n,m;
         // Graph creation
         Graph(int vertices) {
             adjLists = new LinkedList[vertices];
