@@ -497,8 +497,8 @@ public class DSA_AutomatorController implements Initializable {
         TreeAlgorithms.setVisible(true);
     }
     public void ImplementTreeAlgorithms(ActionEvent event){
-        Label[] nodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
         if(LowestCommonAncestor.isSelected()){
+            Label[] nodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
             for(int i=0;i<=countTreeNode;i++){
                 int finalI = i;
                 nodes[i].setOnMousePressed(mouseOnNode ->{
@@ -522,6 +522,12 @@ public class DSA_AutomatorController implements Initializable {
                     }
                 });
             }
+        }
+        if(FindCentroid.isSelected()){
+            Label[] nodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
+            out.production.dsa_automator.CentroidFinder CF=new CentroidFinder(countTreeNode);
+            Integer centroid= CF.FindCentroid(TreeEdges, countTreeNode);
+            nodes[centroid].setBackground(new Background(new BackgroundFill(Color.LIGHTCYAN, new CornerRadii(40.0), Insets.EMPTY)));
         }
     }
 }

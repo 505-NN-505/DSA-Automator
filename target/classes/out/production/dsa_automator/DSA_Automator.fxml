@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="DebugBoard" prefHeight="660.0" prefWidth="1155.0" style="-fx-background-color: #141414;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.DSA_AutomatorController">
+<AnchorPane fx:id="DebugBoard" prefHeight="660.0" prefWidth="1155.0" style="-fx-background-color: #141414;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.DSA_AutomatorController">
     <children>
       <Group fx:id="listGroup" />
       <Group fx:id="edgeGroup" />
@@ -243,7 +243,7 @@
                      <toggleGroup>
                         <ToggleGroup fx:id="treeAlgorithms" />
                      </toggleGroup></RadioButton>
-                  <RadioButton fx:id="FindCentroid" layoutX="1.0" layoutY="38.0" mnemonicParsing="false" text="Find Centroid" toggleGroup="$treeAlgorithms" />
+                  <RadioButton fx:id="FindCentroid" layoutX="1.0" layoutY="38.0" mnemonicParsing="false" onAction="#ImplementTreeAlgorithms" text="Find Centroid" toggleGroup="$treeAlgorithms" />
                </children>
             </AnchorPane>
         </content>
