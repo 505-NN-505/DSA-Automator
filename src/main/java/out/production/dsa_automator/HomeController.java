@@ -5,13 +5,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
+import javax.xml.transform.Result;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,7 +37,13 @@ public class HomeController implements Initializable {
     private Button buttonSignOut;
 
     @FXML
+    private Label currentUser;
+
+    @FXML
     private Pane paneHome;
+
+    @FXML
+    private Pane dashboardPane;
 
     @FXML
     private TableColumn<Repo, String> tableColumnCategory;
@@ -55,7 +60,10 @@ public class HomeController implements Initializable {
     @FXML
     private TableColumn<Repo, String> tableColumnView;
 
-    String activeHandle;
+    @FXML
+    private PieChart dashBoardChart;
+
+    String activeHandle = "505_NN_505";
 
     ObservableList<Repo> repoList = FXCollections.observableArrayList();
 
@@ -65,11 +73,84 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        currentUser.setText(activeHandle);
+        buttonDashboard.setOnAction(eDashboard -> loadDashboard());
         buttonRepository.setOnAction(eRepoTable -> genRepoTable(true));
         buttonMyWorks.setOnAction(eRepoTable -> genRepoTable(false));
+        try {
+            inPieChart();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void loadDashboard() {
+        RepoTablePane.setVisible(false);
+        dashboardPane.setVisible(true);
+    }
+
+    @FXML
+    private Label labelDPCount;
+
+    @FXML
+    private Label labelDSCount;
+
+    @FXML
+    private Label labelGraphsCount;
+
+    @FXML
+    private Label labelGreedyCount;
+
+    @FXML
+    private Label labelTreesCount;
+
+    public void inPieChart() throws SQLException, ClassNotFoundException {
+        Database database = new Database("dsa_automator", "root", "");
+
+        ResultSet rs;
+        rs = database.count("data_structures_table", "user_handle", activeHandle);
+        rs.next();
+        Integer dsCount = rs.getInt(1);
+
+        rs = database.count("dp_table", "user_handle", activeHandle);
+        rs.next();
+        Integer dpCount = rs.getInt(1);
+
+        rs = database.count("greedy_table", "user_handle", activeHandle);
+        rs.next();
+        Integer greedyCount = rs.getInt(1);
+
+        rs = database.count("graphs_table", "user_handle", activeHandle);
+        rs.next();
+        Integer graphCount = rs.getInt(1);
+
+        rs = database.count("trees_table", "user_handle", activeHandle);
+        rs.next();
+        Integer treeCount = rs.getInt(1);
+
+        System.out.println(dsCount + " " + dpCount + " " + greedyCount  + " " + graphCount  + " " + treeCount);
+
+        labelDPCount.setText(dsCount.toString());
+        labelDSCount.setText(dpCount.toString());
+        labelGraphsCount.setText(greedyCount.toString());
+        labelGreedyCount.setText(graphCount.toString());
+        labelTreesCount.setText(treeCount.toString());
+
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+            new PieChart.Data("DS", dsCount),
+            new PieChart.Data("DP", dpCount),
+            new PieChart.Data("Greedy", greedyCount),
+            new PieChart.Data("Graphs", graphCount),
+            new PieChart.Data("Trees", treeCount)
+        );
+        dashBoardChart.setData(pieChartData);
     }
 
     public void genRepoTable(boolean repo) {
+        dashboardPane.setVisible(false);
+        RepoTablePane.setVisible(true);
         try {
             database = new Database("dsa_automator", "root", "");
         } catch (SQLException e) {

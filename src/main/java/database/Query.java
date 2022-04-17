@@ -154,6 +154,14 @@ public class Query {
         return this;
     }
 
+    public Query count(String table, String column, String value) {
+        query = new StringBuilder();
+        query.append("SELECT COUNT(*) FROM ");
+        query.append(table);
+        query.append(" WHERE " + column + " = " + "'" + value + "';");
+        return this;
+    }
+
     //class variables
     //class methods
     /**
