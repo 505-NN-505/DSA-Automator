@@ -129,6 +129,14 @@ public class Database {
         return rs;
     }
 
+    public ResultSet count(String table, String column, String value) throws SQLException{
+        query = new Query();
+        query.count(table, column, value);
+        PreparedStatement ps = connection.prepareStatement(query.getQuery());
+        ResultSet rs = ps.executeQuery();
+        return rs;
+    }
+
     /**
      * Returns data from a table
      * @param table
