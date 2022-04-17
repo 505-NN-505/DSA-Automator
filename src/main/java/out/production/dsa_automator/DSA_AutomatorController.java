@@ -1,16 +1,13 @@
 package out.production.dsa_automator;
 
-import database.Database;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
@@ -27,11 +24,8 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class DSA_AutomatorController implements Initializable {
     Dragger dragger = new Dragger();
@@ -131,6 +125,8 @@ public class DSA_AutomatorController implements Initializable {
     private RadioButton isDFS;
     @FXML
     private RadioButton isAP;
+    @FXML
+    private RadioButton isshortestpath;
 
     @FXML
     private Button buttonSignIn;
@@ -183,15 +179,29 @@ public class DSA_AutomatorController implements Initializable {
 
     //graph
     ArrayList<Pair<Pair<Integer, Integer>, Line>> graphedgeList = new ArrayList<Pair<Pair<Integer, Integer>, Line>>();
+    ArrayList<Pair<Pair<Integer, Integer>, Integer>> edgesBellman = new ArrayList<Pair<Pair<Integer, Integer>, Integer>>();
     ArrayList<Pair<Integer, Integer>> GraphEdges = new ArrayList<Pair<Integer, Integer>>();
     private int V;   // No. of vertices
-    private LinkedList<Integer> adj[]; //Adjacency Lists
+    private LinkedList<Integer> adj[];
+    private LinkedList<Pair<Integer,Integer>> adjBellman[];//Adjacency Lists
+    ArrayList<Integer> weights = new ArrayList();
     int source,destination;
     //graph
 
+    @FXML
+    private TitledPane inputGraphType;
+
+    @FXML
+    private RadioButton isUnweighted;
+
+    @FXML
+    private RadioButton isWeighted;
+
+    //tree
     ArrayList<Pair<Pair<Integer, Integer>, Line>> edgeList = new ArrayList<Pair<Pair<Integer, Integer>, Line>>();
     ArrayList<Pair<Pair<Integer, Integer>, Line>> edgeListTree = new ArrayList<Pair<Pair<Integer, Integer>, Line>>();
     ArrayList<Pair<Integer, Integer>> TreeEdges = new ArrayList<Pair<Integer, Integer>>();
+    //tree
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -411,6 +421,67 @@ public class DSA_AutomatorController implements Initializable {
         }
     }
 
+    public void assignWeights(ActionEvent event) {
+        if (isWeighted.isSelected()) {
+            for (int i = 0; i < graphedgeList.size(); i++) {
+                int finalI = i;
+                int finalI1 = i;
+                int finalI2 = i;
+                graphedgeList.get(i).getValue().setOnMouseClicked(mouseOnLine -> {
+                    if (mouseOnLine.getButton() == MouseButton.PRIMARY) {
+                        System.out.println(graphedgeList.get(finalI2).getKey().getKey() + " " + graphedgeList.get(finalI2).getKey().getValue());
+                        System.out.println(mouseOnLine.getX() + " " + mouseOnLine.getY());
+                        try {
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GraphInput.fxml"));
+                            Scene weightScene = new Scene(fxmlLoader.load());
+                            Stage weightStage = new Stage();
+                            weightStage.setTitle("Graph Weight Input");
+                            weightStage.setScene(weightScene);
+
+                            GraphInputController GIController = fxmlLoader.getController();
+
+                            GIController.buttonEnter.setOnAction(eWeightInput -> {
+                                String[] str1 = GIController.WeightValue.getText().trim().split("\\s+");
+
+                                Label lb = new Label();
+                                lb.setText(str1[0]);
+
+                                double coX = mouseOnLine.getX();
+                                double coY = mouseOnLine.getY();
+
+                                lb.setLayoutX(coX);
+                                lb.setLayoutY(coY - 50);
+
+                                weightsGroup.getChildren().add(lb);
+
+                                lb.setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(0.0), Insets.EMPTY)));
+                                lb.setMinWidth(25);
+                                lb.setMinHeight(25);
+                                lb.setAlignment(Pos.CENTER);
+
+                                weights.add(Integer.parseInt(str1[0]));
+
+                                Pair<Integer, Integer> uv = new Pair(graphedgeList.get(finalI1).getKey().getKey(), graphedgeList.get(finalI1).getKey().getValue());
+                                Pair<Integer, Integer> vu = new Pair(graphedgeList.get(finalI1).getKey().getValue(), graphedgeList.get(finalI1).getKey().getKey());
+                                Pair<Pair<Integer, Integer>, Integer> p1 = new Pair(uv, Integer.parseInt(str1[0]));
+                                Pair<Pair<Integer, Integer>, Integer> p2 = new Pair(vu, Integer.parseInt(str1[0]));
+                                edgesBellman.add(p1);
+                                edgesBellman.add(p2);
+
+
+                                weightStage.close();
+                            });
+
+                            weightStage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        }
+    }
+
     public void constructGraph(ActionEvent event) {
         Label[] nodes = {gNode1, gNode2, gNode3, gNode4, gNode5, gNode6, gNode7, gNode8, gNode9, gNode10};
 
@@ -447,8 +518,11 @@ public class DSA_AutomatorController implements Initializable {
                             v[0] = finalI;
                             Line line = new Line();
                             line.setStroke(Color.WHITE);
-                            line.setLayoutX(nodes[u[0]].getLayoutX() + nodes[u[0]].getWidth() / 2);
-                            line.setLayoutY(nodes[u[0]].getLayoutY() + nodes[u[0]].getHeight() / 2);
+                            line.setStrokeWidth(10.0);
+                            line.setStartX(nodes[u[0]].getLayoutX() + nodes[u[0]].getWidth() / 2);
+                            line.setStartY(nodes[u[0]].getLayoutY() + nodes[u[0]].getHeight() / 2);
+//                            line.setLayoutX(nodes[u[0]].getLayoutX() + nodes[u[0]].getWidth() / 2);
+//                            line.setLayoutY(nodes[u[0]].getLayoutY() + nodes[u[0]].getHeight() / 2);
                             line.setEndX(nodes[v[0]].getLayoutX() - line.getLayoutX() + nodes[v[0]].getWidth() / 2);
                             line.setEndY(nodes[v[0]].getLayoutY() - line.getLayoutY() + nodes[v[0]].getHeight() / 2);
 
@@ -497,7 +571,7 @@ public class DSA_AutomatorController implements Initializable {
     }
     // Graph
     public void generateGraph() {
-
+        inputGraphType.setVisible(true);
         inputToolBarGraph.setVisible(true);
         inputToolBarGraphAlgo.setVisible(true);
     }
@@ -506,8 +580,12 @@ public class DSA_AutomatorController implements Initializable {
     public void createAdjacencyList(){
         V = countNode+2;
         adj = new LinkedList[V];
-        for (int i=0; i<V; ++i)
+       // adjBellman = new LinkedList[V];
+
+        for (int i=0; i<V; ++i) {
             adj[i] = new LinkedList();
+           // adjBellman[i] = new LinkedList();
+        }
 
 //        void addEdge(int v,int w)
 //        {
@@ -518,8 +596,79 @@ public class DSA_AutomatorController implements Initializable {
             int w = graphedgeList.get(i).getKey().getValue();
             adj[v].add(w);
             adj[w].add(v);
+
+           // int weight = weights.get(i);
+           // Pair<Integer,Integer> p1 = new Pair(w,weight);
+           // Pair<Integer,Integer> p2 = new Pair(v,weight);
+            //adjBellman[v].add(p1);
+           // adjBellman[w].add(p2);
         }
 
+    }
+
+    void BellmanFord(int src) {
+//        for (int i = 0; i < edgesBellman.size(); i++) {
+//            System.out.println(edgesBellman.get(i).getKey() + " " + edgesBellman.get(i).getValue());
+//        }
+
+//        System.out.println();
+//        System.out.println(V + " " + countEdge);
+
+        int dist[] = new int[V];
+
+        // Step 1: Initialize distances from src to all other
+        // vertices as INFINITE
+        for (int i = 0; i < V; ++i)
+            dist[i] = Integer.MAX_VALUE;
+        dist[src] = 0;
+        int cnt = 0;
+        // Step 2: Relax all edges |V| - 1 times. A simple
+        // shortest path from src to any other vertex can
+        // have at-most |V| - 1 edges
+        for (int i = 0; i < V; ++i) {
+            for (int j = 0; j < 2 * countEdge; ++j) {
+                int u = edgesBellman.get(j).getKey().getKey();
+                int v = edgesBellman.get(j).getKey().getValue();
+                int weight = edgesBellman.get(j).getValue();;
+                if (dist[u] < Integer.MAX_VALUE && dist[u] + weight < dist[v]) {
+                    dist[v] = dist[u] + weight;
+                    cnt++;
+                    System.out.println(cnt);
+                    for(int k=0; k<countEdge; k++){
+                        if(graphedgeList.get(k).getKey().getKey() == u && graphedgeList.get(k).getKey().getValue()==v
+                                || graphedgeList.get(k).getKey().getKey() == v && graphedgeList.get(k).getKey().getValue()==u){
+                            if(cnt == 1)  graphedgeList.get(k).getValue().setStroke(Color.LIMEGREEN);
+                            if(cnt == 2)  graphedgeList.get(k).getValue().setStroke(Color.YELLOW);
+                            if(cnt == 3)  graphedgeList.get(k).getValue().setStroke(Color.BLUE);
+                            if(cnt == 4)  graphedgeList.get(k).getValue().setStroke(Color.ORANGE);
+                            if(cnt == 5)  graphedgeList.get(k).getValue().setStroke(Color.SKYBLUE);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Step 3: check for negative-weight cycles. The above
+        // step guarantees shortest distances if graph doesn't
+        // contain negative weight cycle. If we get a shorter
+        // path, then there is a cycle.
+        for (int j = 0; j < 2 * countEdge; ++j) {
+            int u = edgesBellman.get(j).getKey().getKey();
+            int v = edgesBellman.get(j).getKey().getValue();
+            int weight = edgesBellman.get(j).getValue();
+            if (dist[u] != Integer.MAX_VALUE && dist[u] + weight < dist[v]) {
+                System.out.println("Graph contains negative weight cycle");
+                return;
+            }
+        }
+        printArr(dist);
+    }
+
+    void printArr(int dist[])
+    {
+        System.out.println("Vertex Distance from Source");
+        for (int i = 0; i < V; ++i)
+            System.out.println(i + "\t\t" + dist[i]);
     }
 
     void DFSUtil(int v, boolean visited[],int cnt,List<Integer>list2)
@@ -633,6 +782,13 @@ public class DSA_AutomatorController implements Initializable {
             }
              */
         }
+
+        if (isshortestpath.isSelected()){
+
+            BellmanFord(source);
+            System.out.println("source: "+source);
+            //placeList();
+        }
     }
 
    //Tree Starts from here
@@ -730,4 +886,9 @@ public class DSA_AutomatorController implements Initializable {
             nodes[centroid].setBackground(new Background(new BackgroundFill(Color.LIGHTCYAN, new CornerRadii(40.0), Insets.EMPTY)));
         }
     }
+
+    @FXML
+    private Group weightsGroup;
+    @FXML
+    protected TextField tf;
 }

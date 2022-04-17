@@ -21,9 +21,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="DebugBoard" prefHeight="660.0" prefWidth="1155.0" style="-fx-background-color: #141414;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.DSA_AutomatorController">
+<AnchorPane fx:id="DebugBoard" prefHeight="660.0" prefWidth="1155.0" style="-fx-background-color: #141414;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.DSA_AutomatorController">
     <children>
         <Group fx:id="listGroup" />
+      <Group fx:id="weightsGroup" />
         <Group fx:id="edgeGroup" />
         <HBox fx:id="hBoxList1" layoutX="110.0" layoutY="163.0" prefHeight="100.0" prefWidth="200.0" />
         <HBox fx:id="hBoxList2" layoutX="311.0" layoutY="89.0" prefHeight="100.0" prefWidth="200.0" visible="false" />
@@ -248,7 +249,7 @@
                 </AnchorPane>
             </content>
         </TitledPane>
-        <TitledPane fx:id="inputToolBarGraph" animated="false" expanded="false" layoutX="525.0" layoutY="56.0" prefHeight="165.0" prefWidth="142.0" text="Input Toolbar" visible="false">
+        <TitledPane fx:id="inputToolBarGraph" animated="false" expanded="false" layoutX="278.0" layoutY="56.0" prefHeight="165.0" prefWidth="142.0" text="Input Toolbar" visible="false">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="139.0" prefWidth="148.0">
                     <children>
@@ -264,9 +265,9 @@
                 </AnchorPane>
             </content>
         </TitledPane>
-        <TitledPane fx:id="inputToolBarGraphAlgo" animated="false" expanded="false" layoutX="291.0" layoutY="56.0" prefHeight="200.0" prefWidth="142.0" text="Graph Algorithms Toolbar" visible="false">
+        <TitledPane fx:id="inputToolBarGraphAlgo" animated="false" expanded="false" layoutX="439.0" layoutY="52.0" prefHeight="165.0" prefWidth="172.0" text="Graph Algorithms Toolbar" visible="false">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="139.0" prefWidth="148.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="140.0" prefWidth="170.0">
                     <children>
                         <RadioButton fx:id="isBFS" layoutX="12.0" layoutY="19.0" mnemonicParsing="false" onAction="#graphAlgo" text="BFS">
                             <toggleGroup>
@@ -274,12 +275,25 @@
                             </toggleGroup>
                         </RadioButton>
                         <RadioButton fx:id="isDFS" layoutX="12.0" layoutY="44.0" mnemonicParsing="false" onAction="#graphAlgo" text="DFS" toggleGroup="$algoInput" />
-                        <RadioButton fx:id="isSource1" layoutX="12.0" layoutY="70.0" mnemonicParsing="false" text="Djikstra" toggleGroup="$algoInput" />
-                        <RadioButton fx:id="isDestination1" layoutX="12.0" layoutY="98.0" mnemonicParsing="false" text="Bellman Ford" toggleGroup="$algoInput" />
-                  <RadioButton fx:id="isAP" layoutX="12.0" layoutY="125.0" mnemonicParsing="false" onAction="#graphAlgo" text="Articulation Point" />
+                        <RadioButton fx:id="isshortestpath" layoutX="12.0" layoutY="70.0" mnemonicParsing="false" onAction="#graphAlgo" text="Shortest Path" toggleGroup="$algoInput" />
+                  <RadioButton fx:id="isAP" layoutX="12.0" layoutY="97.0" mnemonicParsing="false" onAction="#graphAlgo" text="Articulation Point" />
                     </children>
                 </AnchorPane>
             </content>
         </TitledPane>
+      <TitledPane fx:id="inputGraphType" animated="false" expanded="false" layoutX="122.0" layoutY="56.0" prefHeight="110.0" prefWidth="142.0" text="Graph Type" visible="false">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="72.0" prefWidth="140.0">
+               <children>
+                  <RadioButton fx:id="isUnweighted" layoutX="12.0" layoutY="19.0" mnemonicParsing="false" onAction="#constructGraph" selected="true" text="Unweighted">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="graphInput1" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="isWeighted" layoutX="12.0" layoutY="44.0" mnemonicParsing="false" onAction="#assignWeights" text="Weighted" toggleGroup="$graphInput1" />
+               </children>
+            </AnchorPane>
+         </content>
+      </TitledPane>
     </children>
 </AnchorPane>
