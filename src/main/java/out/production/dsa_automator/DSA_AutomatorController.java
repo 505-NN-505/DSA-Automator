@@ -206,21 +206,25 @@ public class DSA_AutomatorController implements Initializable {
 
         buttonSignIn.setOnAction(eventSignIn -> startAuthentication(true));
         buttonSignUp.setOnAction(eventSignUp -> startAuthentication(false));
+        buttonHome.setOnAction(eventHome -> switchToHome());
     }
 
-    @FXML
-    public void switchToHome(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Home.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage stage = new Stage();
-            stage.setTitle("Home");
-            stage.setScene(scene);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
+    public void switchToHome() {
+        if (loggedIn) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Home.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                Stage stage = new Stage();
+                stage.setTitle("Home");
+                stage.setScene(scene);
+
+                HomeController homeController = fxmlLoader.getController();
+                homeController.activeHandle = currentUser;
+
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -517,11 +521,10 @@ public class DSA_AutomatorController implements Initializable {
     {
         cnt++;
 
-        // Mark the current node as visited and print it
         visited[v-1] = true;
         System.out.print(v + " ");
         list1.add(v);
-        // Recur for all the vertices adjacent to this vertex
+
         Iterator<Integer> i = adj[v].listIterator();
         while (i.hasNext()) {
             int n = i.next();
@@ -569,7 +572,7 @@ public class DSA_AutomatorController implements Initializable {
             cnt++;
             // Dequeue a vertex from queue and print it
             s = queue.poll();
-            System.out.print(s+" "+cnt+"\n");
+//            System.out.print(s+" "+cnt+"\n");
             // bfsoutput.add(s);
             list1.add(s);
 
@@ -603,13 +606,13 @@ public class DSA_AutomatorController implements Initializable {
     public void graphAlgo(ActionEvent event) throws IOException {
         createAdjacencyList();
         if (isBFS.isSelected()){
-            System.out.println(countNode);
-            System.out.println(countEdge);
+//            System.out.println(countNode);
+//            System.out.println(countEdge);
             BFS(source);
             placeList();
         }
         if (isDFS.isSelected()){
-            System.out.println("source: "+source);
+//            System.out.println("source: "+source);
             DFS(source);
             //placeList();
         }

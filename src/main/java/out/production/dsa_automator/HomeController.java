@@ -55,6 +55,8 @@ public class HomeController implements Initializable {
     @FXML
     private TableColumn<Repo, String> tableColumnView;
 
+    String activeHandle;
+
     ObservableList<Repo> repoList = FXCollections.observableArrayList();
 
     Database database;
@@ -63,6 +65,11 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        buttonRepository.setOnAction(eRepoTable -> genRepoTable(true));
+        buttonMyWorks.setOnAction(eRepoTable -> genRepoTable(false));
+    }
+
+    public void genRepoTable(boolean repo) {
         try {
             database = new Database("dsa_automator", "root", "");
         } catch (SQLException e) {
@@ -78,7 +85,7 @@ public class HomeController implements Initializable {
         tableColumnView.setCellValueFactory(new PropertyValueFactory<Repo, String>("viewLink"));
 
         try {
-            getRepoInfo();
+            getRepoInfo(repo);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -86,10 +93,14 @@ public class HomeController implements Initializable {
         }
     }
 
-    public void getRepoInfo() throws SQLException, ClassNotFoundException {
+    public void getRepoInfo(boolean repo) throws SQLException, ClassNotFoundException {
         repoList.clear();
         try {
-            String query = "SELECT task_table.ID, task_table.user_handle, task_table.title, data_structures_table.category, dp_table.category, graphs_table.category, greedy_table.category, trees_table.category, task_table.source_link FROM task_table LEFT JOIN data_structures_table ON task_table.ID = data_structures_table.task_id LEFT JOIN dp_table ON task_table.ID = dp_table.task_id LEFT JOIN graphs_table ON task_table.ID = graphs_table.task_id LEFT JOIN greedy_table ON task_table.ID = greedy_table.task_id LEFT JOIN trees_table ON task_table.ID = trees_table.task_id;";
+            String query;
+
+            if (repo) query = "SELECT task_table.ID, task_table.user_handle, task_table.title, data_structures_table.category, dp_table.category, graphs_table.category, greedy_table.category, trees_table.category, task_table.source_link FROM task_table LEFT JOIN data_structures_table ON task_table.ID = data_structures_table.task_id LEFT JOIN dp_table ON task_table.ID = dp_table.task_id LEFT JOIN graphs_table ON task_table.ID = graphs_table.task_id LEFT JOIN greedy_table ON task_table.ID = greedy_table.task_id LEFT JOIN trees_table ON task_table.ID = trees_table.task_id;";
+            else query = "SELECT task_table.ID, task_table.user_handle, task_table.title, data_structures_table.category, dp_table.category, graphs_table.category, greedy_table.category, trees_table.category, task_table.source_link FROM task_table LEFT JOIN data_structures_table ON (task_table.ID = data_structures_table.task_id) LEFT JOIN dp_table ON (task_table.ID = dp_table.task_id) LEFT JOIN graphs_table ON (task_table.ID = graphs_table.task_id) LEFT JOIN greedy_table ON (task_table.ID = greedy_table.task_id) LEFT JOIN trees_table ON (task_table.ID = trees_table.task_id) WHERE (task_table.user_handle = '" + activeHandle + "');";
+
             PreparedStatement ps = database.connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

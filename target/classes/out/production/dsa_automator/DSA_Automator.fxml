@@ -167,7 +167,7 @@
         </ToolBar>
         <ToolBar layoutX="844.0" prefHeight="26.0" prefWidth="182.0">
             <items>
-                <Button fx:id="buttonHome" mnemonicParsing="false" onAction="#switchToHome" text="Home" />
+                <Button fx:id="buttonHome" mnemonicParsing="false" text="Home" />
                 <Button fx:id="buttonSearchRepo" mnemonicParsing="false" text="Search" />
                 <Button mnemonicParsing="false" text="Tutorial" />
             </items>
