@@ -264,7 +264,7 @@
                 </AnchorPane>
             </content>
         </TitledPane>
-        <TitledPane fx:id="inputToolBarGraphAlgo" animated="false" expanded="false" layoutX="291.0" layoutY="56.0" prefHeight="165.0" prefWidth="142.0" text="Graph Algorithms Toolbar" visible="false">
+        <TitledPane fx:id="inputToolBarGraphAlgo" animated="false" expanded="false" layoutX="291.0" layoutY="56.0" prefHeight="200.0" prefWidth="142.0" text="Graph Algorithms Toolbar" visible="false">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="139.0" prefWidth="148.0">
                     <children>
@@ -276,6 +276,7 @@
                         <RadioButton fx:id="isDFS" layoutX="12.0" layoutY="44.0" mnemonicParsing="false" onAction="#graphAlgo" text="DFS" toggleGroup="$algoInput" />
                         <RadioButton fx:id="isSource1" layoutX="12.0" layoutY="70.0" mnemonicParsing="false" text="Djikstra" toggleGroup="$algoInput" />
                         <RadioButton fx:id="isDestination1" layoutX="12.0" layoutY="98.0" mnemonicParsing="false" text="Bellman Ford" toggleGroup="$algoInput" />
+                  <RadioButton fx:id="isAP" layoutX="12.0" layoutY="125.0" mnemonicParsing="false" onAction="#graphAlgo" text="Articulation Point" />
                     </children>
                 </AnchorPane>
             </content>

@@ -129,6 +129,8 @@ public class DSA_AutomatorController implements Initializable {
     private RadioButton isBFS;
     @FXML
     private RadioButton isDFS;
+    @FXML
+    private RadioButton isAP;
 
     @FXML
     private Button buttonSignIn;
@@ -181,6 +183,7 @@ public class DSA_AutomatorController implements Initializable {
 
     //graph
     ArrayList<Pair<Pair<Integer, Integer>, Line>> graphedgeList = new ArrayList<Pair<Pair<Integer, Integer>, Line>>();
+    ArrayList<Pair<Integer, Integer>> GraphEdges = new ArrayList<Pair<Integer, Integer>>();
     private int V;   // No. of vertices
     private LinkedList<Integer> adj[]; //Adjacency Lists
     int source,destination;
@@ -452,8 +455,10 @@ public class DSA_AutomatorController implements Initializable {
                             edgeGroup.getChildren().add(line);
 
                             Pair<Integer, Integer> uv = new Pair(u[0]+1, v[0]+1);
+                            Pair<Integer, Integer> puv = new Pair(u[0], v[0]);
                             Pair<Pair<Integer, Integer>, Line> p = new Pair(uv, line);
                             graphedgeList.add(p);
+                            GraphEdges.add(puv);
                             countEdge++;
                         }
                     }
@@ -615,6 +620,18 @@ public class DSA_AutomatorController implements Initializable {
 //            System.out.println("source: "+source);
             DFS(source);
             //placeList();
+        }
+        if(isAP.isSelected()){
+            System.out.println("AP");
+            Label[] nodes = {gNode1, gNode2, gNode3, gNode4, gNode5, gNode6, gNode7, gNode8, gNode9, gNode10};
+            out.production.dsa_automator.ArticulationPoint_and_Bridge APB=new ArticulationPoint_and_Bridge(countNode);
+            APB.FindArticulationPoint(GraphEdges,countNode,nodes);
+            /*ArrayList<Integer>ArticulationPoints = APB.FindArticulationPoint(GraphEdges,countNode);
+            for(int i=0;i<ArticulationPoints.size();i++){
+                int v=ArticulationPoints.get(i);
+                nodes[v].setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(40.0), Insets.EMPTY)));
+            }
+             */
         }
     }
 
