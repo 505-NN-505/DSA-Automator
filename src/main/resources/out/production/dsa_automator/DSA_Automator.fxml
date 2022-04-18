@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="DebugBoard" prefHeight="660.0" prefWidth="1155.0" style="-fx-background-color: #141414;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.DSA_AutomatorController">
+<AnchorPane fx:id="DebugBoard" prefHeight="660.0" prefWidth="1155.0" style="-fx-background-color: #141414;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.DSA_AutomatorController">
     <children>
         <TitledPane fx:id="TreeAlgorithms" animated="false" expanded="false" layoutX="377.0" layoutY="59.0" prefHeight="100.0" prefWidth="200.0" text="Algorithms" visible="false">
             <content>
@@ -241,56 +241,61 @@
                 </AnchorPane>
             </content>
         </TitledPane>
-        <Label fx:id="tNode4" alignment="CENTER" layoutX="259.0" layoutY="444.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="4" visible="false">
+        <Label fx:id="tNode4" alignment="CENTER" layoutX="259.0" layoutY="444.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="4" visible="false">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label fx:id="tNode5" alignment="CENTER" layoutX="351.0" layoutY="431.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="5" visible="false">
+        <Label fx:id="tNode5" alignment="CENTER" layoutX="351.0" layoutY="431.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="5" visible="false">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label fx:id="tNode7" alignment="CENTER" layoutX="556.0" layoutY="467.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="7" visible="false">
+        <Label fx:id="tNode7" alignment="CENTER" layoutX="556.0" layoutY="467.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="7" visible="false">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label fx:id="tNode3" alignment="CENTER" layoutX="327.0" layoutY="266.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="3" visible="false">
+        <Label fx:id="tNode3" alignment="CENTER" layoutX="327.0" layoutY="266.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="3" visible="false">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label fx:id="tNode9" alignment="CENTER" layoutX="287.0" layoutY="550.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="9" visible="false">
+        <Label fx:id="tNode9" alignment="CENTER" layoutX="287.0" layoutY="550.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="9" visible="false">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label fx:id="tNode8" alignment="CENTER" layoutX="409.0" layoutY="532.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="8" visible="false">
+        <Label fx:id="tNode8" alignment="CENTER" layoutX="409.0" layoutY="532.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="8" visible="false">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label fx:id="tNode10" alignment="CENTER" layoutX="125.0" layoutY="543.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="10" visible="false">
+        <Label fx:id="tNode10" alignment="CENTER" layoutX="125.0" layoutY="543.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="10" visible="false">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label fx:id="tNode6" alignment="CENTER" layoutX="455.0" layoutY="394.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="6" visible="false">
+        <Label fx:id="tNode6" alignment="CENTER" layoutX="455.0" layoutY="394.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="6" visible="false">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label fx:id="tNode1" alignment="CENTER" layoutX="156.0" layoutY="308.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="1" visible="false">
+        <Label fx:id="tNode1" alignment="CENTER" layoutX="156.0" layoutY="308.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="1" visible="false">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label fx:id="tNode2" alignment="CENTER" layoutX="578.0" layoutY="417.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FF7F7F;" text="2" visible="false">
+        <Label fx:id="tNode2" alignment="CENTER" layoutX="578.0" layoutY="417.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="2" visible="false">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
         <HBox fx:id="hBoxList1" layoutX="160.0" layoutY="216.0" prefHeight="47.0" prefWidth="150.0" />
+      <Label fx:id="warning" alignment="CENTER" cacheShape="false" layoutX="497.0" layoutY="321.0" prefHeight="47.0" prefWidth="150.0" style="-fx-background-color: #0A0A08;" text="warning" textFill="#0d0000">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

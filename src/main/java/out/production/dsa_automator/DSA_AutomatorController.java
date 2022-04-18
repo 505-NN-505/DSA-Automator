@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class DSA_AutomatorController implements Initializable {
@@ -159,6 +160,9 @@ public class DSA_AutomatorController implements Initializable {
     @FXML
     private Label tNode10;
 
+    @FXML
+    private Label warning;
+
     //graph
     ArrayList<Pair<Pair<Integer, Integer>, Line>> graphedgeList = new ArrayList<Pair<Pair<Integer, Integer>, Line>>();
     ArrayList<Pair<Pair<Integer, Integer>, Integer>> edgesBellman = new ArrayList<Pair<Pair<Integer, Integer>, Integer>>();
@@ -183,6 +187,9 @@ public class DSA_AutomatorController implements Initializable {
     ArrayList<Pair<Pair<Integer, Integer>, Line>> edgeList = new ArrayList<Pair<Pair<Integer, Integer>, Line>>();
     ArrayList<Pair<Pair<Integer, Integer>, Line>> edgeListTree = new ArrayList<Pair<Pair<Integer, Integer>, Line>>();
     ArrayList<Pair<Integer, Integer>> TreeEdges = new ArrayList<Pair<Integer, Integer>>();
+
+    public DSA_AutomatorController() {
+    }
     //tree
 
     @Override
@@ -198,6 +205,20 @@ public class DSA_AutomatorController implements Initializable {
         buttonSignUp.setOnAction(eventSignUp -> startAuthentication(false));
         buttonHome.setOnAction(eventHome -> switchToHome());
         buttonResetBoard.setOnAction(eventReset -> reset());
+
+//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+//        System.out.println(timeStamp);
+
+
+
+
+//        long u = (System.currentTimeMillis());
+//        System.out.println(u);
+//        System.out.println(u+5000);
+        warning.setText("sahhh");
+        warning.setLayoutX(900);
+        warning.setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(0.0), Insets.EMPTY)));
+        warning.setVisible(false);
 
         Label lb = new Label();
 
@@ -223,7 +244,7 @@ public class DSA_AutomatorController implements Initializable {
         buttonTree.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 lb.setLayoutX(50);
-                lb.setLayoutY(253+34+34);
+                lb.setLayoutY(253+34);
                 lb.setText("Tree Algorithms");
                 lb.setVisible(true);
             } else {
@@ -234,7 +255,7 @@ public class DSA_AutomatorController implements Initializable {
         buttonGraph.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 lb.setLayoutX(50);
-                lb.setLayoutY(355);
+                lb.setLayoutY(253+34+34);
                 lb.setText("Graph Algorithms");
                 lb.setVisible(true);
             } else {
@@ -411,9 +432,10 @@ public class DSA_AutomatorController implements Initializable {
         v2 = -1;
         selectedNodesForEdge = 0;
         selectedNodesForTreeEdge = 0;
-        System.out.println("Reset " + countNode);
+       // System.out.println("Reset " + countNode);
 
-        list1.clear();
+
+        if(list1 != null) list1.clear();
         if (!hBoxList1.getChildren().isEmpty()) hBoxList1.getChildren().clear();
 
         LowestCommonAncestor.setSelected(false);
@@ -432,6 +454,10 @@ public class DSA_AutomatorController implements Initializable {
         isWeighted.setSelected(false);
         CreateVertex.setSelected(false);
         CreateEdge.setSelected(false);
+
+        check = 0;
+        countweights = 0;
+        connectedcomponent = 1;
     }
 
     // List1D
@@ -440,7 +466,7 @@ public class DSA_AutomatorController implements Initializable {
         try {
             HBox[] listContainer = {hBoxList1};
             countList++;
-            System.out.println(countList + " " + list1);
+           // System.out.println(countList + " " + list1);
             for (int i = 0; i < list1.size(); i++) {
                 FXMLLoader fxmlloader = new FXMLLoader();
                 fxmlloader.setLocation(getClass().getResource("List.fxml"));
@@ -470,6 +496,7 @@ public class DSA_AutomatorController implements Initializable {
         }
     }
 
+    int countweights = 0;
     public void assignWeights(ActionEvent event) {
         if (isWeighted.isSelected()) {
             for (int i = 0; i < graphedgeList.size(); i++) {
@@ -478,8 +505,8 @@ public class DSA_AutomatorController implements Initializable {
                 int finalI2 = i;
                 graphedgeList.get(i).getValue().setOnMouseClicked(mouseOnLine -> {
                     if (mouseOnLine.getButton() == MouseButton.PRIMARY) {
-                        System.out.println(graphedgeList.get(finalI2).getKey().getKey() + " " + graphedgeList.get(finalI2).getKey().getValue());
-                        System.out.println(mouseOnLine.getX() + " " + mouseOnLine.getY());
+                       // System.out.println(graphedgeList.get(finalI2).getKey().getKey() + " " + graphedgeList.get(finalI2).getKey().getValue());
+                       // System.out.println(mouseOnLine.getX() + " " + mouseOnLine.getY());
                         try {
                             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GraphInput.fxml"));
                             Scene weightScene = new Scene(fxmlLoader.load());
@@ -495,6 +522,9 @@ public class DSA_AutomatorController implements Initializable {
                                 Label lb = new Label();
                                 lb.setText(str1[0]);
                                 WeightLabels.add(lb);
+
+                                countweights++;
+
 
                                 double coX = mouseOnLine.getX();
                                 double coY = mouseOnLine.getY();
@@ -537,6 +567,9 @@ public class DSA_AutomatorController implements Initializable {
     }
 
     public void constructGraph(ActionEvent event) {
+
+        warning.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(0.0), Insets.EMPTY)));
+
         Label[] nodes = {gNode1, gNode2, gNode3, gNode4, gNode5, gNode6, gNode7, gNode8, gNode9, gNode10};
 
         buttonResetBoard.setOnAction(eventReset -> {
@@ -554,10 +587,20 @@ public class DSA_AutomatorController implements Initializable {
                 if (isVertexCreation.isSelected() && countNode <= 9) {
                     if (nodeC.getButton() == MouseButton.PRIMARY) {
                         countNode++;
-                        System.out.println("Construct " + countNode);
-                        nodes[countNode].setVisible(true);
-                        nodes[countNode].setLayoutX(nodeC.getX() - nodes[countNode].getWidth() / 2);
-                        nodes[countNode].setLayoutY(nodeC.getY() - nodes[countNode].getHeight() / 2);
+                       // System.out.println("Construct " + countNode);
+                        if (countNode > 9) {
+                            countNode--;
+                            warning.setText("Node limit exceeded");
+                            warning.setVisible(true);
+                        }
+                        else {
+                            nodes[countNode].setVisible(true);
+                            nodes[countNode].setLayoutX(nodeC.getX() - nodes[countNode].getWidth() / 2);
+                            nodes[countNode].setLayoutY(nodeC.getY() - nodes[countNode].getHeight() / 2);
+
+                            warning.setVisible(false);
+                        }
+
                     } else {
                         nodes[countNode].setVisible(false);
                         countNode--;
@@ -566,40 +609,51 @@ public class DSA_AutomatorController implements Initializable {
             });
         }
         else if (isEdgeCreation.isSelected()) {
-            for (int i = 0; i <= countNode; i++) {
-                dragger.setDragger(nodes[i], false);
+
+            if(countNode == -1) {
+              //  System.out.println("choose source");
+                warning.setText("Create Vertex");
+                warning.setVisible(true);
+                isEdgeCreation.setSelected(false);
+                return;
             }
-            for (int i = 0; i <= countNode; i++) {
-                int finalI = i;
-                nodes[i].setOnMousePressed(mouseOnNode -> {
-                    if (mouseOnNode.getButton() == MouseButton.PRIMARY) {
-                        selectedNodesForEdge++;
-                        if (selectedNodesForEdge % 2 == 1) {
-                            u[0] = finalI;
-                        }
-                        else {
-                            v[0] = finalI;
-                            Line line = new Line();
-                            line.setStroke(Color.WHITE);
-                            line.setStrokeWidth(10.0);
-                            line.setStartX(nodes[u[0]].getLayoutX() + nodes[u[0]].getWidth() / 2);
-                            line.setStartY(nodes[u[0]].getLayoutY() + nodes[u[0]].getHeight() / 2);
+
+            else{
+                warning.setVisible(false);
+                for (int i = 0; i <= countNode; i++) {
+                    dragger.setDragger(nodes[i], false);
+                }
+                for (int i = 0; i <= countNode; i++) {
+                    int finalI = i;
+                    nodes[i].setOnMousePressed(mouseOnNode -> {
+                        if (mouseOnNode.getButton() == MouseButton.PRIMARY) {
+                            selectedNodesForEdge++;
+                            if (selectedNodesForEdge % 2 == 1) {
+                                u[0] = finalI;
+                            } else {
+                                v[0] = finalI;
+                                Line line = new Line();
+                                line.setStroke(Color.WHITE);
+                                line.setStrokeWidth(10.0);
+                                line.setStartX(nodes[u[0]].getLayoutX() + nodes[u[0]].getWidth() / 2);
+                                line.setStartY(nodes[u[0]].getLayoutY() + nodes[u[0]].getHeight() / 2);
 //                            line.setLayoutX(nodes[u[0]].getLayoutX() + nodes[u[0]].getWidth() / 2);
 //                            line.setLayoutY(nodes[u[0]].getLayoutY() + nodes[u[0]].getHeight() / 2);
-                            line.setEndX(nodes[v[0]].getLayoutX() - line.getLayoutX() + nodes[v[0]].getWidth() / 2);
-                            line.setEndY(nodes[v[0]].getLayoutY() - line.getLayoutY() + nodes[v[0]].getHeight() / 2);
+                                line.setEndX(nodes[v[0]].getLayoutX() - line.getLayoutX() + nodes[v[0]].getWidth() / 2);
+                                line.setEndY(nodes[v[0]].getLayoutY() - line.getLayoutY() + nodes[v[0]].getHeight() / 2);
 
-                            edgeGroup.getChildren().add(line);
+                                edgeGroup.getChildren().add(line);
 
-                            Pair<Integer, Integer> uv = new Pair(u[0]+1, v[0]+1);
-                            Pair<Integer, Integer> puv = new Pair(u[0], v[0]);
-                            Pair<Pair<Integer, Integer>, Line> p = new Pair(uv, line);
-                            graphedgeList.add(p);
-                            GraphEdges.add(puv);
-                            countEdge++;
+                                Pair<Integer, Integer> uv = new Pair(u[0] + 1, v[0] + 1);
+                                Pair<Integer, Integer> puv = new Pair(u[0], v[0]);
+                                Pair<Pair<Integer, Integer>, Line> p = new Pair(uv, line);
+                                graphedgeList.add(p);
+                                GraphEdges.add(puv);
+                                countEdge++;
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         }
         else if (isSource.isSelected()) {
@@ -611,7 +665,7 @@ public class DSA_AutomatorController implements Initializable {
                         source = finalI+1;
                         nodes[source-1].setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(40.0),Insets.EMPTY)));
                         sel[0] = true;
-                        System.out.println("thth");
+                       // System.out.println("thth");
                     }
                 });
                 if (sel[0]) break;
@@ -673,13 +727,23 @@ public class DSA_AutomatorController implements Initializable {
     }
 
     void BellmanFord(int src) {
-//        for (int i = 0; i < edgesBellman.size(); i++) {
-//            System.out.println(edgesBellman.get(i).getKey() + " " + edgesBellman.get(i).getValue());
-//        }
 
-//        System.out.println();
-//        System.out.println(V + " " + countEdge);
-
+        if(src == 0){
+           // System.out.println("choose source");
+            warning.setText("Choose Source");
+            warning.setVisible(true);
+            isshortestpath.setSelected(false);
+            return;
+        }
+        warning.setVisible(false);
+        if(countweights != countEdge){
+           // System.out.println("give weights");
+            warning.setText("give weights");
+            warning.setVisible(true);
+            isshortestpath.setSelected(false);
+            return;
+        }
+        warning.setVisible(false);
         int dist[] = new int[V];
 
         // Step 1: Initialize distances from src to all other
@@ -699,7 +763,7 @@ public class DSA_AutomatorController implements Initializable {
                 if (dist[u] < Integer.MAX_VALUE && dist[u] + weight < dist[v]) {
                     dist[v] = dist[u] + weight;
                     cnt++;
-                    System.out.println(cnt);
+                  //  System.out.println(cnt);
                     for(int k=0; k<countEdge; k++){
                         if(graphedgeList.get(k).getKey().getKey() == u && graphedgeList.get(k).getKey().getValue()==v
                                 || graphedgeList.get(k).getKey().getKey() == v && graphedgeList.get(k).getKey().getValue()==u){
@@ -723,7 +787,7 @@ public class DSA_AutomatorController implements Initializable {
             int v = edgesBellman.get(j).getKey().getValue();
             int weight = edgesBellman.get(j).getValue();
             if (dist[u] != Integer.MAX_VALUE && dist[u] + weight < dist[v]) {
-                System.out.println("Graph contains negative weight cycle");
+              //  System.out.println("Graph contains negative weight cycle");
                 return;
             }
         }
@@ -733,18 +797,29 @@ public class DSA_AutomatorController implements Initializable {
     void printArr(int dist[])
     {
         list1 = new ArrayList<>();
-        System.out.println("Vertex Distance from Source");
+       // System.out.println("Vertex Distance from Source");
         for (int i = 1; i < V; ++i) {
-            System.out.println(i + "\t\t" + dist[i]);
+          //  System.out.println(i + "\t\t" + dist[i]);
             if(dist[i] != Integer.MAX_VALUE) list1.add(dist[i]);
             else list1.add(-1);
         }
+        placeList();
     }
 
+    Integer check = 0;
     void DFSUtil(int v, boolean visited[],int cnt,List<Integer>list1)
     {
+        if(v == 0){
+           // System.out.println("choose source");
+            warning.setText("Choose Source");
+            warning.setVisible(true);
+            isDFS.setSelected(false);
+            check = 0;
+            return;
+        }
+        warning.setVisible(false);
+        check++;
         cnt++;
-
         visited[v-1] = true;
         System.out.print(v + " ");
         list1.add(v);
@@ -768,6 +843,7 @@ public class DSA_AutomatorController implements Initializable {
             }
 
         }
+
     }
 
     void DFS(int v)
@@ -775,14 +851,25 @@ public class DSA_AutomatorController implements Initializable {
         list1 = new ArrayList<>();
         boolean visited[] = new boolean[V];
         DFSUtil(v, visited,0,list1);
-        placeList();
+        if(check != 0)placeList();
+
     }
 
+
     public void BFS(int s) throws IOException {
+
         list1 = new ArrayList<>();
         // Mark all the vertices as not visited(By default
         // set as false)
-
+        //System.out.println(s);
+        if(s == 0){
+           // System.out.println("choose source");
+            warning.setText("Choose Source");
+            warning.setVisible(true);
+            isBFS.setSelected(false);
+            return;
+        }
+        warning.setVisible(false);
         boolean visited[] = new boolean[V];
         // Create a queue for BFS
         LinkedList<Integer> queue = new LinkedList<Integer>();
@@ -825,6 +912,49 @@ public class DSA_AutomatorController implements Initializable {
                 }
             }
         }
+
+        if(list1.size() != countNode)
+            connectedcomponent++;
+        //System.out.println("cc" + connectedcomponent);
+        placeList();
+    }
+
+    int connectedcomponent = 1;
+    public void hudaiBFS(int s) throws IOException {
+
+        int cnt = 0;
+        boolean visited[] = new boolean[V];
+        // Create a queue for BFS
+        LinkedList<Integer> queue = new LinkedList<Integer>();
+
+        // Mark the current node as visited and enqueue it
+        visited[s]=true;
+        queue.add(s);
+
+        while (queue.size() != 0)
+        {
+
+            s = queue.poll();
+
+            Iterator<Integer> i = adj[s].listIterator();
+            while (i.hasNext())
+            {
+                int n = i.next();
+
+                if (!visited[n])
+                {
+                    visited[n] = true;
+                    cnt++;
+                    queue.add(n);
+
+                }
+            }
+        }
+
+        if(cnt != countNode)
+            connectedcomponent++;
+       // System.out.println("cc "+connectedcomponent);
+
     }
 
     public void graphAlgo(ActionEvent event) throws IOException {
@@ -833,59 +963,96 @@ public class DSA_AutomatorController implements Initializable {
 //            System.out.println(countNode);
 //            System.out.println(countEdge);
             BFS(source);
-            placeList();
+
         }
         if (isDFS.isSelected()){
 //            System.out.println("source: "+source);
             DFS(source);
             //placeList();
         }
-        if(isAP.isSelected()){
-            System.out.println("AP");
-            Label[] nodes = {gNode1, gNode2, gNode3, gNode4, gNode5, gNode6, gNode7, gNode8, gNode9, gNode10};
-            buttonResetBoard.setOnAction(eventReset -> {
-                for (int i = 0; i < 10; i++) {
-                    nodes[i].setVisible(false);
-                    nodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+        if(isAP.isSelected()) {
 
-                }
-                reset();
+            hudaiBFS(1);
+            if (connectedcomponent > 1 ) {
+                // System.out.println("choose source");
+                warning.setText("graph is disconnected");
+                warning.setVisible(true);
+                isAP.setSelected(false);
+            }
+            else {
+                warning.setVisible(false);
+                // System.out.println("AP");
+                Label[] nodes = {gNode1, gNode2, gNode3, gNode4, gNode5, gNode6, gNode7, gNode8, gNode9, gNode10};
+                buttonResetBoard.setOnAction(eventReset -> {
+                    for (int i = 0; i < 10; i++) {
+                        nodes[i].setVisible(false);
+                        nodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
 
-            });
-            out.production.dsa_automator.ArticulationPoint_and_Bridge AP=new ArticulationPoint_and_Bridge(countNode);
-            AP.FindArticulationPoint(GraphEdges,countNode,nodes);
+                    }
+                    reset();
+
+                });
+                out.production.dsa_automator.ArticulationPoint_and_Bridge AP = new ArticulationPoint_and_Bridge(countNode);
+                AP.FindArticulationPoint(GraphEdges, countNode, nodes);
             /*ArrayList<Integer>ArticulationPoints = APB.FindArticulationPoint(GraphEdges,countNode);
             for(int i=0;i<ArticulationPoints.size();i++){
                 int v=ArticulationPoints.get(i);
                 nodes[v].setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(40.0), Insets.EMPTY)));
             }
              */
+            }
         }
         if(isBridge.isSelected()){
-            out.production.dsa_automator.ArticulationPoint_and_Bridge B=new ArticulationPoint_and_Bridge(countNode);
-            B.FindBridge(countNode,graphedgeList);
+            hudaiBFS(1);
+            if (connectedcomponent > 1 ) {
+                // System.out.println("choose source");
+                warning.setText("graph is disconnected");
+                warning.setVisible(true);
+                isBridge.setSelected(false);
+            }
+            else {
+                out.production.dsa_automator.ArticulationPoint_and_Bridge B = new ArticulationPoint_and_Bridge(countNode);
+                B.FindBridge(countNode, graphedgeList);
+            }
         }
 
         if (isshortestpath.isSelected()){
 
             BellmanFord(source);
-            System.out.println("source: "+source);
-            placeList();
+           // System.out.println("source: "+source);
+
         }
         if(isMST.isSelected()){
-            out.production.dsa_automator.MinimumSpanningTree MST= new MinimumSpanningTree(countNode);
-            ArrayList<Pair<Integer,Integer>> edgesMST= MST.FindMST(MSTEdges,countNode);
-            for(int j=0;j<graphedgeList.size();j++){
-                int p=graphedgeList.get(j).getKey().getKey();
-                int q=graphedgeList.get(j).getKey().getValue();
-                for(int i=0;i<edgesMST.size();i++){
-                    int u=edgesMST.get(i).getKey();
-                    int v=edgesMST.get(i).getValue();
-                    if((p-1==u && q-1==v) || (p-1==v && q-1==u)){
-                        graphedgeList.get(j).getValue().setStroke(Color.LIMEGREEN);
-                    }
-                }
+            hudaiBFS(1);
+            if(countweights != countEdge){
+               // System.out.println("give weights");
+                warning.setText("give weights");
+                warning.setVisible(true);
+                isMST.setSelected(false);
+            }
 
+            else if (connectedcomponent > 1 ) {
+                // System.out.println("choose source");
+                warning.setText("graph is disconnected");
+                warning.setVisible(true);
+                isMST.setSelected(false);
+            }
+            else {
+                warning.setVisible(false);
+                out.production.dsa_automator.MinimumSpanningTree MST = new MinimumSpanningTree(countNode);
+                ArrayList<Pair<Integer, Integer>> edgesMST = MST.FindMST(MSTEdges, countNode);
+                for (int j = 0; j < graphedgeList.size(); j++) {
+                    int p = graphedgeList.get(j).getKey().getKey();
+                    int q = graphedgeList.get(j).getKey().getValue();
+                    for (int i = 0; i < edgesMST.size(); i++) {
+                        int u = edgesMST.get(i).getKey();
+                        int v = edgesMST.get(i).getValue();
+                        if ((p - 1 == u && q - 1 == v) || (p - 1 == v && q - 1 == u)) {
+                            graphedgeList.get(j).getValue().setStroke(Color.LIMEGREEN);
+                        }
+                    }
+
+                }
             }
 
         }
@@ -893,9 +1060,16 @@ public class DSA_AutomatorController implements Initializable {
 
     //Tree Starts from here
     public void constructTree(ActionEvent event) {
+
+        warning.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(0.0), Insets.EMPTY)));
+
         Label[] tnodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
         int[] u = new int[1];
         int[] v = new int[1];
+
+        for(int i=0; i<10; i++)
+            tnodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+
 
         buttonResetBoard.setOnAction(eventReset -> {
             for (int i = 0; i < 10; i++) {
@@ -912,10 +1086,19 @@ public class DSA_AutomatorController implements Initializable {
                 if (CreateVertex.isSelected() && countTreeNode <= 9) {
                     if (nodeC.getButton() == MouseButton.PRIMARY) {
                         countTreeNode++;
-                        tnodes[countTreeNode].setVisible(true);
-                        tnodes[countTreeNode].setLayoutX(nodeC.getX() - tnodes[countTreeNode].getWidth() / 2);
-                        tnodes[countTreeNode].setLayoutY(nodeC.getY() - tnodes[countTreeNode].getHeight() / 2);
-                    } else {
+                        if (countTreeNode > 9) {
+                            warning.setText("Node limit exceeded");
+                            warning.setVisible(true);
+                        } else {
+                            warning.setVisible(false);
+                            tnodes[countTreeNode].setVisible(true);
+                            tnodes[countTreeNode].setLayoutX(nodeC.getX() - tnodes[countTreeNode].getWidth() / 2);
+                            tnodes[countTreeNode].setLayoutY(nodeC.getY() - tnodes[countTreeNode].getHeight() / 2);
+                        }
+                    }
+                    else {
+
+
                         tnodes[countTreeNode].setVisible(false);
                         countTreeNode--;
                     }
@@ -923,39 +1106,47 @@ public class DSA_AutomatorController implements Initializable {
             });
         }
         else if (CreateEdge.isSelected()) {
-            for (int i = 0; i <= countTreeNode; i++) {
-                dragger.setDragger(tnodes[i], false);
+            if(countTreeNode == -1){
+               // System.out.println("choose source");
+                warning.setText("Create Vertex");
+                warning.setVisible(true);
+                CreateEdge.setSelected(false);
             }
-            for (int i = 0; i <= countTreeNode; i++) {
-                int finalI = i;
-                tnodes[i].setOnMousePressed(mouseOnNode -> {
-                    if (mouseOnNode.getButton() == MouseButton.PRIMARY) {
-                        selectedNodesForTreeEdge++;
-                        if (selectedNodesForTreeEdge % 2 == 1) {
-                            u[0] = finalI;
-                        }
-                        else {
-                            v[0] = finalI;
-                            Line line = new Line();
-                            line.setStroke(Color.WHITE);
-                            line.setLayoutX(tnodes[u[0]].getLayoutX() + tnodes[u[0]].getWidth() / 2);
-                            line.setLayoutY(tnodes[u[0]].getLayoutY() + tnodes[u[0]].getHeight() / 2);
-                            line.setEndX(tnodes[v[0]].getLayoutX() - line.getLayoutX() + tnodes[v[0]].getWidth() / 2);
-                            line.setEndY(tnodes[v[0]].getLayoutY() - line.getLayoutY() + tnodes[v[0]].getHeight() / 2);
+            else {
+                warning.setVisible(false);
+                for (int i = 0; i <= countTreeNode; i++) {
+                    dragger.setDragger(tnodes[i], false);
+                }
+                for (int i = 0; i <= countTreeNode; i++) {
+                    int finalI = i;
+                    tnodes[i].setOnMousePressed(mouseOnNode -> {
+                        if (mouseOnNode.getButton() == MouseButton.PRIMARY) {
+                            selectedNodesForTreeEdge++;
+                            if (selectedNodesForTreeEdge % 2 == 1) {
+                                u[0] = finalI;
+                            } else {
+                                v[0] = finalI;
+                                Line line = new Line();
+                                line.setStroke(Color.WHITE);
+                                line.setLayoutX(tnodes[u[0]].getLayoutX() + tnodes[u[0]].getWidth() / 2);
+                                line.setLayoutY(tnodes[u[0]].getLayoutY() + tnodes[u[0]].getHeight() / 2);
+                                line.setEndX(tnodes[v[0]].getLayoutX() - line.getLayoutX() + tnodes[v[0]].getWidth() / 2);
+                                line.setEndY(tnodes[v[0]].getLayoutY() - line.getLayoutY() + tnodes[v[0]].getHeight() / 2);
 
-                            edgeGroup.getChildren().add(line);
+                                edgeGroup.getChildren().add(line);
 
-                            Pair<Integer, Integer> uv = new Pair(u[0], v[0]);
-                            Pair<Pair<Integer, Integer>, Line> p = new Pair(uv, line);
-                            p.getValue().setStrokeWidth(10);
-                            edgeListTree.add(p);
-                            TreeEdges.add(uv);
-                            //System.out.println(u[0]);
-                            //System.out.println(v[0]);
-                            countTreeEdge++;
+                                Pair<Integer, Integer> uv = new Pair(u[0], v[0]);
+                                Pair<Pair<Integer, Integer>, Line> p = new Pair(uv, line);
+                                p.getValue().setStrokeWidth(10);
+                                edgeListTree.add(p);
+                                TreeEdges.add(uv);
+                                //System.out.println(u[0]);
+                                //System.out.println(v[0]);
+                                countTreeEdge++;
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         }
     }
@@ -970,39 +1161,50 @@ public class DSA_AutomatorController implements Initializable {
     }
     public void ImplementTreeAlgorithms(ActionEvent event){
         if(LowestCommonAncestor.isSelected()){
-            Label[] tnodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
+           // System.out.println(countTreeNode + " " + countTreeEdge);
+            if(countTreeEdge != countTreeNode){
+               // System.out.println("choose source");
+                warning.setText("Not a tree,try again!");
+                warning.setVisible(true);
+                LowestCommonAncestor.setSelected(false);
+            }
 
-            buttonResetBoard.setOnAction(eventReset -> {
-                for (int i = 0; i < 10; i++) {
-                    tnodes[i].setVisible(false);
-                    tnodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+            else {
 
-                }
-                reset();
-            });
+                warning.setVisible(false);
+                Label[] tnodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
 
-            for(int i=0;i<=countTreeNode;i++){
-                int finalI = i;
-                tnodes[i].setOnMousePressed(mouseOnNode ->{
-                    if(mouseOnNode.getButton()== MouseButton.PRIMARY){
-                        if(v1==-1){
-                            v1=finalI;
-                            tnodes[v1].setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, new CornerRadii(40.0), Insets.EMPTY)));
-                        }
-                        else if(v2==-1){
-                            v2=finalI;
-                            tnodes[v2].setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, new CornerRadii(40.0), Insets.EMPTY)));
-                        }
-                        if(v1>=0  && v2>=0){
-                            out.production.dsa_automator.LowestCommonAncestor L=new LowestCommonAncestor(countTreeNode);
-                            Integer lca=L.FindLCA(TreeEdges,countTreeNode,v1,v2);
-                            //System.out.println(lca);
-                            tnodes[lca].setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(40.0), Insets.EMPTY)));
-                            v1=-1;
-                            v2=-1;
-                        }
+                buttonResetBoard.setOnAction(eventReset -> {
+                    for (int i = 0; i < 10; i++) {
+                        tnodes[i].setVisible(false);
+                        tnodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+
                     }
+                    reset();
                 });
+
+                for (int i = 0; i <= countTreeNode; i++) {
+                    int finalI = i;
+                    tnodes[i].setOnMousePressed(mouseOnNode -> {
+                        if (mouseOnNode.getButton() == MouseButton.PRIMARY) {
+                            if (v1 == -1) {
+                                v1 = finalI;
+                                tnodes[v1].setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, new CornerRadii(40.0), Insets.EMPTY)));
+                            } else if (v2 == -1) {
+                                v2 = finalI;
+                                tnodes[v2].setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, new CornerRadii(40.0), Insets.EMPTY)));
+                            }
+                            if (v1 >= 0 && v2 >= 0) {
+                                out.production.dsa_automator.LowestCommonAncestor L = new LowestCommonAncestor(countTreeNode);
+                                Integer lca = L.FindLCA(TreeEdges, countTreeNode, v1, v2);
+                                //System.out.println(lca);
+                                tnodes[lca].setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(40.0), Insets.EMPTY)));
+                                v1 = -1;
+                                v2 = -1;
+                            }
+                        }
+                    });
+                }
             }
         }
         if(FindCentroid.isSelected()){
