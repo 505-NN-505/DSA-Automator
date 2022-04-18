@@ -9,11 +9,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0" prefWidth="337.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.CalculatorController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="323.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.CalculatorController">
    <children>
-      <GridPane hgap="2.0" layoutY="130.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="256.0" prefWidth="337.0" style="-fx-background-color: #FFFFFF;" vgap="2.0">
+      <GridPane hgap="2.0" layoutY="130.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="294.0" prefWidth="324.0" style="-fx-background-color: #FFFFFF;" vgap="2.0">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -36,31 +35,26 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="func(x)" textFill="WHITE" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="func(x)" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="buttonSod" mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #F29611;" text="sod(n)" textFill="WHITE" GridPane.columnIndex="2">
+            <Button fx:id="buttongcd" mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="gcd(x)" textFill="WHITE" GridPane.rowIndex="1" />
+            <Button fx:id="buttonlcm" mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="lcm(x)" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="buttonSod" mnemonicParsing="false" prefHeight="52.0" prefWidth="121.0" style="-fx-background-color: #F29611;" text="sod(n)" textFill="WHITE" GridPane.columnIndex="2">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="buttonEtf" mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #F29611;" text="etf(n)" textFill="WHITE" GridPane.columnIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="func(x)" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #F29611;" text="func(x)" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="func(x)" textFill="WHITE" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="func(x)" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="func(x)" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #F29611;" text="func(x)" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="func(x)" textFill="WHITE" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="func(x)" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="func(x)" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #F29611;" text="func(x)" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="func(x)" textFill="WHITE" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="func(x)" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="func(x)" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #F29611;" text="func(x)" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <Button fx:id="buttonEtf" mnemonicParsing="false" prefHeight="52.0" prefWidth="118.0" style="-fx-background-color: #000000;" text="etf(n)" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button fx:id="buttonMobius" mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="mobius(x)" textFill="WHITE" GridPane.rowIndex="2" />
+            <Button fx:id="buttonInvMod" mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="invMod(a, m)" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="buttonBigMod" mnemonicParsing="false" prefHeight="52.0" prefWidth="118.0" style="-fx-background-color: #000000;" text="bMod(a, b, m)" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="buttonnCr" mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="nCr(n, r)" textFill="WHITE" GridPane.rowIndex="3" />
+            <Button fx:id="buttondrng" mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="drng(x)" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button fx:id="buttonCatalan" mnemonicParsing="false" prefHeight="52.0" prefWidth="116.0" style="-fx-background-color: #000000;" text="catalan(x)" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Button fx:id="buttondlog" mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="dLog(a, b, m)" textFill="WHITE" GridPane.rowIndex="4" />
+            <Button fx:id="buttonproot" mnemonicParsing="false" prefHeight="52.0" prefWidth="105.0" style="-fx-background-color: #000000;" text="pRoot(x)" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button fx:id="buttonXor" mnemonicParsing="false" prefHeight="52.0" prefWidth="116.0" style="-fx-background-color: #000000;" text="rangeXor(l ,r)" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="3.0" layoutY="6.0" prefHeight="119.0" prefWidth="331.0" style="-fx-background-color: #000000;">
+      <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="3.0" layoutY="6.0" prefHeight="119.0" prefWidth="318.0" style="-fx-background-color: #000000;">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="176.0" minWidth="10.0" prefWidth="88.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="253.0" minWidth="10.0" prefWidth="243.0" />
