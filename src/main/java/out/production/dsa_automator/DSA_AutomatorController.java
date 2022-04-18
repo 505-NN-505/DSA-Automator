@@ -120,6 +120,10 @@ public class DSA_AutomatorController implements Initializable {
     private Button buttonHome;
     @FXML
     private Button buttonResetBoard;
+
+    @FXML
+    private Button buttonTutorial;
+
     // tree
     Integer countTreeNode = -1;
     Integer countTreeEdge = 0;
@@ -205,6 +209,7 @@ public class DSA_AutomatorController implements Initializable {
         buttonSignUp.setOnAction(eventSignUp -> startAuthentication(false));
         buttonHome.setOnAction(eventHome -> switchToHome());
         buttonResetBoard.setOnAction(eventReset -> reset());
+        buttonTutorial.setOnAction(eventReset -> switchToTutorial());
 
 //        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 //        System.out.println(timeStamp);
@@ -293,6 +298,19 @@ public class DSA_AutomatorController implements Initializable {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void switchToTutorial() {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Tutorial.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                Stage stage = new Stage();
+                stage.setTitle("Tutorial");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 
     @FXML

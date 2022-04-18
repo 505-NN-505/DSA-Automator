@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="DebugBoard" prefHeight="660.0" prefWidth="1155.0" style="-fx-background-color: #141414;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.DSA_AutomatorController">
+<AnchorPane fx:id="DebugBoard" prefHeight="660.0" prefWidth="1155.0" style="-fx-background-color: #141414;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.DSA_AutomatorController">
     <children>
         <Group fx:id="edgeGroup" />
         <TitledPane fx:id="TreeAlgorithms" animated="false" expanded="false" layoutX="377.0" layoutY="59.0" prefHeight="100.0" prefWidth="200.0" text="Algorithms" visible="false">
@@ -224,7 +224,7 @@
             <items>
                 <Button fx:id="buttonHome" mnemonicParsing="false" text="Home" />
                 <Button fx:id="buttonResetBoard" mnemonicParsing="false" text="Reset" />
-                <Button mnemonicParsing="false" text="Tutorial" />
+                <Button fx:id="buttonTutorial" mnemonicParsing="false" text="Tutorial" />
             </items>
         </ToolBar>
         <TitledPane fx:id="InputToolBarTree" animated="false" expanded="false" layoutX="154.0" layoutY="59.0" prefHeight="100.0" prefWidth="150.0" text="Tree Input" visible="false">

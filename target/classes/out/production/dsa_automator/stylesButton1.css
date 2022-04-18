@@ -1,7 +1,7 @@
 .button {
     -fx-font-weight: bold;
-    -fx-background-color: #666699;
-    -fx-background-radius: 22;
+    -fx-background-color: #000000;
+    -fx-background-radius: 13;
     -fx-font-size: 16;
     -fx-text-fill: white;
 }
@@ -11,7 +11,7 @@
     -fx-background-color: white;
     -fx-font-size: 16;
     -fx-text-fill: #000000;
-    -fx-border-radius: 20;
+    -fx-border-radius: 13;
     -fx-border-width: 3;
 }
 
@@ -20,7 +20,7 @@
     -fx-background-color: white;
     -fx-font-size: 16;
     -fx-text-fill: #000000;
-    -fx-border-radius: 20;
+    -fx-border-radius: 13;
     -fx-border-width: 3;
     -fx-rotate: 10;
 }
