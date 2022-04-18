@@ -7,11 +7,49 @@
 }
 
 .container {
-    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-color: #1c2e4a;
     -fx-background-radius: 10;
 }
 
 .transparent {
     -fx-background-color: rgba(255, 255, 255, 0);
     -fx-background-radius: 10;
+}
+
+.button {
+    -fx-background-color: rgba(255, 255, 255, 0);
+    -fx-background-radius: 22;
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-font-weight: bold;
+    -fx-background-color: white;
+    -fx-font-size: 16;
+    -fx-text-fill: #000000;
+    -fx-border-radius: 20;
+    -fx-border-width: 3;
+}
+
+.button:pressed {
+    -fx-font-weight: bold;
+    -fx-background-color: white;
+    -fx-font-size: 16;
+    -fx-text-fill: #000000;
+    -fx-border-radius: 20;
+    -fx-border-width: 3;
+    -fx-rotate: 10;
+}
+
+.default-color0.chart-pie{-fx-pie-color: transparent;}
+.default-color1.chart-pie{-fx-pie-color: transparent;}
+.default-color2.chart-pie{-fx-pie-color: transparent;}
+.default-color3.chart-pie{-fx-pie-color: transparent;}
+.default-color4.chart-pie{-fx-pie-color: transparent;}
+
+.chart-pie-label {
+    -fx-fill: #dbe9f4;
+    -fx-stroke: #dbe9f4;
+    -fx-font-size: 15;
 }

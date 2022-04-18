@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="660.0" prefWidth="1155.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.SSLoaderController">
+   <children>
+      <ImageView fx:id="ssTask" fitHeight="660.0" fitWidth="1155.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>
