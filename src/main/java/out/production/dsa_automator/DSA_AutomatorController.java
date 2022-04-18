@@ -46,27 +46,13 @@ public class DSA_AutomatorController implements Initializable {
     // 1D List
     Integer countList = -1;
     @FXML
-    protected Button buttonList;
-    @FXML
     protected GridPane gridListInput;
     @FXML
     protected TextField inputSizeList;
     @FXML
     protected TextField inputList;
     @FXML
-    protected Button buttonListInputEnter;
-    @FXML
-    protected Button buttonListInputRetry;
-    @FXML
     protected HBox hBoxList1;
-    @FXML
-    protected HBox hBoxList2;
-    @FXML
-    protected HBox hBoxList3;
-    @FXML
-    protected HBox hBoxList4;
-    @FXML
-    protected HBox hBoxList5;
     @FXML
     private Group listGroup;
     private List<Integer> list1;
@@ -75,11 +61,6 @@ public class DSA_AutomatorController implements Initializable {
     // Math
     @FXML
     protected Button buttonMath;
-    // Graph
-    private List<Integer> bfsoutput;
-    private Group graphGroup;
-    Integer countbfs = -1;
-
     // Graph
     Integer countNode = -1;
     Integer countEdge = 0;
@@ -137,7 +118,7 @@ public class DSA_AutomatorController implements Initializable {
     @FXML
     private Button buttonHome;
     @FXML
-    private Button buttonSearchRepo;
+    private Button buttonResetBoard;
     // tree
     Integer countTreeNode = -1;
     Integer countTreeEdge = 0;
@@ -208,19 +189,15 @@ public class DSA_AutomatorController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         gridListInput.setVisible(false);
         dragger.setDragger(dsMenu, true);
-        buttonList.setOnAction(eventList -> takeListInput());
         buttonMath.setOnAction(eventMath -> generateCalculator());
         buttonGraph.setOnAction(eventGraph -> generateGraph());
         buttonTree.setOnAction(eventTree-> generateTree());
         dragger.setDragger(hBoxList1, true);
-        dragger.setDragger(hBoxList2, true);
-        dragger.setDragger(hBoxList3, true);
-        dragger.setDragger(hBoxList4, true);
-        dragger.setDragger(hBoxList5, true);
 
         buttonSignIn.setOnAction(eventSignIn -> startAuthentication(true));
         buttonSignUp.setOnAction(eventSignUp -> startAuthentication(false));
         buttonHome.setOnAction(eventHome -> switchToHome());
+        buttonResetBoard.setOnAction(eventReset -> reset());
 
         Label lb = new Label();
 
@@ -237,17 +214,6 @@ public class DSA_AutomatorController implements Initializable {
                 lb.setLayoutX(50);
                 lb.setLayoutY(251);
                 lb.setText("Math Algorithms");
-                lb.setVisible(true);
-            } else {
-                lb.setVisible(false);
-            }
-        });
-
-        buttonList.hoverProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                lb.setLayoutX(50);
-                lb.setLayoutY(253+34);
-                lb.setText("List Algorithms");
                 lb.setVisible(true);
             } else {
                 lb.setVisible(false);
@@ -420,45 +386,61 @@ public class DSA_AutomatorController implements Initializable {
             dsMenu.setVisible(true);
     }
 
-    // List1D
-    public void takeListInput() {
-        gridListInput.setVisible(true);
-        buttonListInputEnter.setVisible(true);
-        buttonListInputRetry.setVisible(false);
+    public void reset() {
+        if (!edgeGroup.getChildren().isEmpty()) edgeGroup.getChildren().clear();
+        if (!weightsGroup.getChildren().isEmpty()) weightsGroup.getChildren().clear();
+        if (!listGroup.getChildren().isEmpty()) listGroup.getChildren().clear();
 
-        buttonListInputEnter.setOnAction(eventListInputEnter -> {
-            try {
-                list1 = new ArrayList<>();
-                String[] str1 = inputList.getText().trim().split("\\s+");
-                for (int i = 0; i < str1.length; i++) {
-                    list1.add(Integer.parseInt(str1[i]));
-                }
+        edgeList.clear();
+        edgesBellman.clear();
+        graphedgeList.clear();
+        edgeListTree.clear();
+        TreeEdges.clear();
+        weights.clear();
+        MSTEdges.clear();
 
-                placeList();
+        GraphEdges.clear();
 
-                inputSizeList.clear();
-                inputList.clear();
-                gridListInput.setVisible(false);
-            } catch (NumberFormatException listEx) {
-                String prev = inputList.getText();
-                inputList.setText(prev + " (Error: Format integers only)");
+        V = 0;
+        countNode = -1;
+        countEdge = 0;
+        countTreeNode = -1;
+        countTreeEdge = 0;
+        countList = -1;
+        v1 = -1;
+        v2 = -1;
+        selectedNodesForEdge = 0;
+        selectedNodesForTreeEdge = 0;
+        System.out.println("Reset " + countNode);
 
-                buttonListInputEnter.setVisible(false);
-                buttonListInputRetry.setVisible(true);
+        list1.clear();
+        if (!hBoxList1.getChildren().isEmpty()) hBoxList1.getChildren().clear();
 
-                buttonListInputRetry.setOnAction(eventListInputRetry -> {
-                    inputSizeList.clear();
-                    inputList.clear();
-                    gridListInput.setVisible(false);
-                    buttonListInputRetry.setVisible(false);
-                });
-            }
-        });
+        LowestCommonAncestor.setSelected(false);
+        FindCentroid.setSelected(false);
+        isVertexCreation.setSelected(false);
+        isEdgeCreation.setSelected(false);
+        isSource.setSelected(false);
+        isDestination.setSelected(false);
+        isBFS.setSelected(false);
+        isDFS.setSelected(false);
+        isshortestpath.setSelected(false);
+        isAP.setSelected(false);
+        isMST.setSelected(false);
+        isBridge.setSelected(false);
+        isUnweighted.setSelected(true);
+        isWeighted.setSelected(false);
+        CreateVertex.setSelected(false);
+        CreateEdge.setSelected(false);
     }
+
+    // List1D
+
     public void placeList() {
-        HBox[] listContainer = {hBoxList1, hBoxList2, hBoxList3, hBoxList4, hBoxList5};
         try {
+            HBox[] listContainer = {hBoxList1};
             countList++;
+            System.out.println(countList + " " + list1);
             for (int i = 0; i < list1.size(); i++) {
                 FXMLLoader fxmlloader = new FXMLLoader();
                 fxmlloader.setLocation(getClass().getResource("List.fxml"));
@@ -557,6 +539,14 @@ public class DSA_AutomatorController implements Initializable {
     public void constructGraph(ActionEvent event) {
         Label[] nodes = {gNode1, gNode2, gNode3, gNode4, gNode5, gNode6, gNode7, gNode8, gNode9, gNode10};
 
+        buttonResetBoard.setOnAction(eventReset -> {
+            for (int i = 0; i < 10; i++) {
+                nodes[i].setVisible(false);
+                nodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+            }
+            reset();
+        });
+
         int[] u = new int[1];
         int[] v = new int[1];
         if (isVertexCreation.isSelected()) {
@@ -564,6 +554,7 @@ public class DSA_AutomatorController implements Initializable {
                 if (isVertexCreation.isSelected() && countNode <= 9) {
                     if (nodeC.getButton() == MouseButton.PRIMARY) {
                         countNode++;
+                        System.out.println("Construct " + countNode);
                         nodes[countNode].setVisible(true);
                         nodes[countNode].setLayoutX(nodeC.getX() - nodes[countNode].getWidth() / 2);
                         nodes[countNode].setLayoutY(nodeC.getY() - nodes[countNode].getHeight() / 2);
@@ -646,6 +637,9 @@ public class DSA_AutomatorController implements Initializable {
         inputGraphType.setVisible(true);
         inputToolBarGraph.setVisible(true);
         inputToolBarGraphAlgo.setVisible(true);
+        InputToolBarTree.setVisible(false);
+        TreeAlgorithms.setVisible(false);
+        gridListInput.setVisible(false);
     }
 
 
@@ -747,7 +741,7 @@ public class DSA_AutomatorController implements Initializable {
         }
     }
 
-    void DFSUtil(int v, boolean visited[],int cnt,List<Integer>list2)
+    void DFSUtil(int v, boolean visited[],int cnt,List<Integer>list1)
     {
         cnt++;
 
@@ -770,7 +764,7 @@ public class DSA_AutomatorController implements Initializable {
                         if (cnt %5 == 0) graphedgeList.get(j).getValue().setStroke(Color.SKYBLUE);
                     }
                 }
-                DFSUtil(n, visited, cnt, list2);
+                DFSUtil(n, visited, cnt, list1);
             }
 
         }
@@ -780,7 +774,7 @@ public class DSA_AutomatorController implements Initializable {
     {
         list1 = new ArrayList<>();
         boolean visited[] = new boolean[V];
-        DFSUtil(v, visited,0,list2);
+        DFSUtil(v, visited,0,list1);
         placeList();
     }
 
@@ -849,6 +843,15 @@ public class DSA_AutomatorController implements Initializable {
         if(isAP.isSelected()){
             System.out.println("AP");
             Label[] nodes = {gNode1, gNode2, gNode3, gNode4, gNode5, gNode6, gNode7, gNode8, gNode9, gNode10};
+            buttonResetBoard.setOnAction(eventReset -> {
+                for (int i = 0; i < 10; i++) {
+                    nodes[i].setVisible(false);
+                    nodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+
+                }
+                reset();
+
+            });
             out.production.dsa_automator.ArticulationPoint_and_Bridge AP=new ArticulationPoint_and_Bridge(countNode);
             AP.FindArticulationPoint(GraphEdges,countNode,nodes);
             /*ArrayList<Integer>ArticulationPoints = APB.FindArticulationPoint(GraphEdges,countNode);
@@ -888,21 +891,32 @@ public class DSA_AutomatorController implements Initializable {
         }
     }
 
-   //Tree Starts from here
+    //Tree Starts from here
     public void constructTree(ActionEvent event) {
-        Label[] nodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
+        Label[] tnodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
         int[] u = new int[1];
         int[] v = new int[1];
+
+        buttonResetBoard.setOnAction(eventReset -> {
+            for (int i = 0; i < 10; i++) {
+                tnodes[i].setVisible(false);
+                tnodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+
+            }
+            reset();
+
+        });
+
         if (CreateVertex.isSelected()) {
             DebugBoard.setOnMousePressed(nodeC -> {
                 if (CreateVertex.isSelected() && countTreeNode <= 9) {
                     if (nodeC.getButton() == MouseButton.PRIMARY) {
                         countTreeNode++;
-                        nodes[countTreeNode].setVisible(true);
-                        nodes[countTreeNode].setLayoutX(nodeC.getX() - nodes[countTreeNode].getWidth() / 2);
-                        nodes[countTreeNode].setLayoutY(nodeC.getY() - nodes[countTreeNode].getHeight() / 2);
+                        tnodes[countTreeNode].setVisible(true);
+                        tnodes[countTreeNode].setLayoutX(nodeC.getX() - tnodes[countTreeNode].getWidth() / 2);
+                        tnodes[countTreeNode].setLayoutY(nodeC.getY() - tnodes[countTreeNode].getHeight() / 2);
                     } else {
-                        nodes[countTreeNode].setVisible(false);
+                        tnodes[countTreeNode].setVisible(false);
                         countTreeNode--;
                     }
                 }
@@ -910,11 +924,11 @@ public class DSA_AutomatorController implements Initializable {
         }
         else if (CreateEdge.isSelected()) {
             for (int i = 0; i <= countTreeNode; i++) {
-                dragger.setDragger(nodes[i], false);
+                dragger.setDragger(tnodes[i], false);
             }
             for (int i = 0; i <= countTreeNode; i++) {
                 int finalI = i;
-                nodes[i].setOnMousePressed(mouseOnNode -> {
+                tnodes[i].setOnMousePressed(mouseOnNode -> {
                     if (mouseOnNode.getButton() == MouseButton.PRIMARY) {
                         selectedNodesForTreeEdge++;
                         if (selectedNodesForTreeEdge % 2 == 1) {
@@ -924,10 +938,10 @@ public class DSA_AutomatorController implements Initializable {
                             v[0] = finalI;
                             Line line = new Line();
                             line.setStroke(Color.WHITE);
-                            line.setLayoutX(nodes[u[0]].getLayoutX() + nodes[u[0]].getWidth() / 2);
-                            line.setLayoutY(nodes[u[0]].getLayoutY() + nodes[u[0]].getHeight() / 2);
-                            line.setEndX(nodes[v[0]].getLayoutX() - line.getLayoutX() + nodes[v[0]].getWidth() / 2);
-                            line.setEndY(nodes[v[0]].getLayoutY() - line.getLayoutY() + nodes[v[0]].getHeight() / 2);
+                            line.setLayoutX(tnodes[u[0]].getLayoutX() + tnodes[u[0]].getWidth() / 2);
+                            line.setLayoutY(tnodes[u[0]].getLayoutY() + tnodes[u[0]].getHeight() / 2);
+                            line.setEndX(tnodes[v[0]].getLayoutX() - line.getLayoutX() + tnodes[v[0]].getWidth() / 2);
+                            line.setEndY(tnodes[v[0]].getLayoutY() - line.getLayoutY() + tnodes[v[0]].getHeight() / 2);
 
                             edgeGroup.getChildren().add(line);
 
@@ -947,29 +961,43 @@ public class DSA_AutomatorController implements Initializable {
     }
 
     public void generateTree() {
+        inputGraphType.setVisible(false);
+        inputToolBarGraph.setVisible(false);
+        inputToolBarGraphAlgo.setVisible(false);
         InputToolBarTree.setVisible(true);
         TreeAlgorithms.setVisible(true);
+        gridListInput.setVisible(false);
     }
     public void ImplementTreeAlgorithms(ActionEvent event){
         if(LowestCommonAncestor.isSelected()){
-            Label[] nodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
+            Label[] tnodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
+
+            buttonResetBoard.setOnAction(eventReset -> {
+                for (int i = 0; i < 10; i++) {
+                    tnodes[i].setVisible(false);
+                    tnodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+
+                }
+                reset();
+            });
+
             for(int i=0;i<=countTreeNode;i++){
                 int finalI = i;
-                nodes[i].setOnMousePressed(mouseOnNode ->{
+                tnodes[i].setOnMousePressed(mouseOnNode ->{
                     if(mouseOnNode.getButton()== MouseButton.PRIMARY){
                         if(v1==-1){
                             v1=finalI;
-                            nodes[v1].setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, new CornerRadii(40.0), Insets.EMPTY)));
+                            tnodes[v1].setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, new CornerRadii(40.0), Insets.EMPTY)));
                         }
                         else if(v2==-1){
                             v2=finalI;
-                            nodes[v2].setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, new CornerRadii(40.0), Insets.EMPTY)));
+                            tnodes[v2].setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, new CornerRadii(40.0), Insets.EMPTY)));
                         }
                         if(v1>=0  && v2>=0){
                             out.production.dsa_automator.LowestCommonAncestor L=new LowestCommonAncestor(countTreeNode);
                             Integer lca=L.FindLCA(TreeEdges,countTreeNode,v1,v2);
                             //System.out.println(lca);
-                            nodes[lca].setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(40.0), Insets.EMPTY)));
+                            tnodes[lca].setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(40.0), Insets.EMPTY)));
                             v1=-1;
                             v2=-1;
                         }
@@ -978,10 +1006,17 @@ public class DSA_AutomatorController implements Initializable {
             }
         }
         if(FindCentroid.isSelected()){
-            Label[] nodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
+            Label[] tnodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
+            buttonResetBoard.setOnAction(eventReset -> {
+                for (int i = 0; i < 10; i++) {
+                    tnodes[i].setVisible(false);
+                    tnodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+                }
+                reset();
+            });
             out.production.dsa_automator.CentroidFinder CF=new CentroidFinder(countTreeNode);
             Integer centroid= CF.FindCentroid(TreeEdges, countTreeNode);
-            nodes[centroid].setBackground(new Background(new BackgroundFill(Color.YELLOW, new CornerRadii(40.0), Insets.EMPTY)));
+            tnodes[centroid].setBackground(new Background(new BackgroundFill(Color.YELLOW, new CornerRadii(40.0), Insets.EMPTY)));
         }
     }
 
