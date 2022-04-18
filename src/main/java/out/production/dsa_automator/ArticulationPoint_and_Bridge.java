@@ -6,6 +6,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class ArticulationPoint_and_Bridge {
         private int start[];
         private int low[];
         private boolean AP[];
+        private boolean Bridge[][];
         // Graph creation
         Graph(int vertices) {
             adjLists = new LinkedList[vertices];
@@ -32,6 +34,7 @@ public class ArticulationPoint_and_Bridge {
             start = new int[vertices];
             low = new int[vertices];
             AP = new boolean[vertices+1];
+            Bridge=new boolean[vertices][vertices];
             n=vertices;
             for (int i = 0; i < vertices; i++) {
                 adjLists[i] = new LinkedList<Integer>();
@@ -83,6 +86,7 @@ public class ArticulationPoint_and_Bridge {
                     if(cnt>1) AP[vertex]=true;
                 }
                 else if(low[v]>=start[vertex] && p!=-1) AP[vertex]=true;
+                if(low[v]>start[vertex]) Bridge[vertex][v]=Bridge[v][vertex]=true;
             }
         }
     }
@@ -106,11 +110,39 @@ public class ArticulationPoint_and_Bridge {
         for(int i=0;i<=countNodes;i++){
             if(g.AP[i]==true){
                 System.out.println(i);
-                nodes[i].setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(40.0), Insets.EMPTY)));
+                nodes[i].setBackground(new Background(new BackgroundFill(Color.PALEVIOLETRED, new CornerRadii(40.0), Insets.EMPTY)));
                 ArticulationPoints.add(i);
             }
         }
         //return ArticulationPoints;
 
     }
+    public void FindBridge(Integer countNodes,ArrayList<Pair<Pair<Integer, Integer>, Line>> graphedgeList) {
+        ArticulationPoint_and_Bridge.Graph g = new ArticulationPoint_and_Bridge.Graph(countNodes + 1);
+
+        for (int i = 0; i < graphedgeList.size(); i++) {
+            Pair<Integer, Integer> uv = graphedgeList.get(i).getKey();
+            Integer u = uv.getKey()-1;
+            Integer v = uv.getValue()-1;
+            //System.out.println(u);
+            //System.out.println(v);
+            g.addEdge(u, v);
+            g.addEdge(v, u);
+        }
+        g.par[0] = -1;
+        Boolean[] mark = new Boolean[countNodes + 1];
+        for (int i = 0; i <= countNodes; i++) mark[i] = false;
+        g.DFS(0, -1);
+        ArrayList<Integer>ArticulationPoints = new ArrayList<Integer>();
+        for(int i=0;i<graphedgeList.size();i++){
+            int u=graphedgeList.get(i).getKey().getKey()-1;
+            int v=graphedgeList.get(i).getKey().getValue()-1;
+            if(g.Bridge[u][v]==true) graphedgeList.get(i).getValue().setStroke(Color.VIOLET);
+        }
+        //return ArticulationPoints;
+
+    }
+
+
+
 }

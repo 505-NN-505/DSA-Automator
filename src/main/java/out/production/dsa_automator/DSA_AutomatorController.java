@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Pair;
 
 import javax.imageio.ImageIO;
@@ -445,6 +446,7 @@ public class DSA_AutomatorController implements Initializable {
 
                                 Label lb = new Label();
                                 lb.setText(str1[0]);
+                                WeightLabels.add(lb);
 
                                 double coX = mouseOnLine.getX();
                                 double coY = mouseOnLine.getY();
@@ -461,12 +463,13 @@ public class DSA_AutomatorController implements Initializable {
 
                                 weights.add(Integer.parseInt(str1[0]));
 
-                                Pair<Integer, Integer> uv = new Pair(graphedgeList.get(finalI1).getKey().getKey(), graphedgeList.get(finalI1).getKey().getValue());
+                                Pair<Integer, Integer> uv = new Pair(graphedgeList.get(finalI1).getKey().getKey()-1, graphedgeList.get(finalI1).getKey().getValue()-1);
                                 Pair<Integer, Integer> vu = new Pair(graphedgeList.get(finalI1).getKey().getValue(), graphedgeList.get(finalI1).getKey().getKey());
                                 Pair<Pair<Integer, Integer>, Integer> p1 = new Pair(uv, Integer.parseInt(str1[0]));
                                 Pair<Pair<Integer, Integer>, Integer> p2 = new Pair(vu, Integer.parseInt(str1[0]));
                                 edgesBellman.add(p1);
                                 edgesBellman.add(p2);
+                                MSTEdges.add(p1);
 
 
                                 weightStage.close();
@@ -773,8 +776,8 @@ public class DSA_AutomatorController implements Initializable {
         if(isAP.isSelected()){
             System.out.println("AP");
             Label[] nodes = {gNode1, gNode2, gNode3, gNode4, gNode5, gNode6, gNode7, gNode8, gNode9, gNode10};
-            out.production.dsa_automator.ArticulationPoint_and_Bridge APB=new ArticulationPoint_and_Bridge(countNode);
-            APB.FindArticulationPoint(GraphEdges,countNode,nodes);
+            out.production.dsa_automator.ArticulationPoint_and_Bridge AP=new ArticulationPoint_and_Bridge(countNode);
+            AP.FindArticulationPoint(GraphEdges,countNode,nodes);
             /*ArrayList<Integer>ArticulationPoints = APB.FindArticulationPoint(GraphEdges,countNode);
             for(int i=0;i<ArticulationPoints.size();i++){
                 int v=ArticulationPoints.get(i);
@@ -782,12 +785,33 @@ public class DSA_AutomatorController implements Initializable {
             }
              */
         }
+        if(isBridge.isSelected()){
+            out.production.dsa_automator.ArticulationPoint_and_Bridge B=new ArticulationPoint_and_Bridge(countNode);
+            B.FindBridge(countNode,graphedgeList);
+        }
 
         if (isshortestpath.isSelected()){
 
             BellmanFord(source);
             System.out.println("source: "+source);
             //placeList();
+        }
+        if(isMST.isSelected()){
+            out.production.dsa_automator.MinimumSpanningTree MST= new MinimumSpanningTree(countNode);
+            ArrayList<Pair<Integer,Integer>> edgesMST= MST.FindMST(MSTEdges,countNode);
+            for(int j=0;j<graphedgeList.size();j++){
+                int p=graphedgeList.get(j).getKey().getKey();
+                int q=graphedgeList.get(j).getKey().getValue();
+                for(int i=0;i<edgesMST.size();i++){
+                    int u=edgesMST.get(i).getKey();
+                    int v=edgesMST.get(i).getValue();
+                    if((p-1==u && q-1==v) || (p-1==v && q-1==u)){
+                        graphedgeList.get(j).getValue().setStroke(Color.LIMEGREEN);
+                    }
+                }
+
+            }
+
         }
     }
 
@@ -836,6 +860,7 @@ public class DSA_AutomatorController implements Initializable {
 
                             Pair<Integer, Integer> uv = new Pair(u[0], v[0]);
                             Pair<Pair<Integer, Integer>, Line> p = new Pair(uv, line);
+                            p.getValue().setStrokeWidth(10);
                             edgeListTree.add(p);
                             TreeEdges.add(uv);
                             //System.out.println(u[0]);
@@ -883,7 +908,7 @@ public class DSA_AutomatorController implements Initializable {
             Label[] nodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
             out.production.dsa_automator.CentroidFinder CF=new CentroidFinder(countTreeNode);
             Integer centroid= CF.FindCentroid(TreeEdges, countTreeNode);
-            nodes[centroid].setBackground(new Background(new BackgroundFill(Color.LIGHTCYAN, new CornerRadii(40.0), Insets.EMPTY)));
+            nodes[centroid].setBackground(new Background(new BackgroundFill(Color.YELLOW, new CornerRadii(40.0), Insets.EMPTY)));
         }
     }
 
@@ -891,4 +916,11 @@ public class DSA_AutomatorController implements Initializable {
     private Group weightsGroup;
     @FXML
     protected TextField tf;
+    // For MST
+    @FXML
+    private RadioButton isMST;
+    @FXML
+    private RadioButton isBridge;
+    ArrayList<Pair<Pair<Integer, Integer>, Integer>> MSTEdges=new ArrayList<>();
+    ArrayList<Label> WeightLabels=new ArrayList<>();
 }
