@@ -475,13 +475,16 @@ public class DSA_AutomatorController implements Initializable {
 
                                 weights.add(Integer.parseInt(str1[0]));
 
-                                Pair<Integer, Integer> uv = new Pair(graphedgeList.get(finalI1).getKey().getKey()-1, graphedgeList.get(finalI1).getKey().getValue()-1);
-                                Pair<Integer, Integer> vu = new Pair(graphedgeList.get(finalI1).getKey().getValue(), graphedgeList.get(finalI1).getKey().getKey());
+                                Pair<Integer, Integer> uv = new Pair(graphedgeList.get(finalI1).getKey().getKey(), graphedgeList.get(finalI1).getKey().getValue());
+                                Pair<Integer, Integer> vu = new Pair(graphedgeList.get(finalI1).getKey().getValue(),graphedgeList.get(finalI1).getKey().getKey());
                                 Pair<Pair<Integer, Integer>, Integer> p1 = new Pair(uv, Integer.parseInt(str1[0]));
                                 Pair<Pair<Integer, Integer>, Integer> p2 = new Pair(vu, Integer.parseInt(str1[0]));
                                 edgesBellman.add(p1);
                                 edgesBellman.add(p2);
-                                MSTEdges.add(p1);
+
+                                Pair<Integer, Integer> uvMST = new Pair(graphedgeList.get(finalI1).getKey().getKey()-1, graphedgeList.get(finalI1).getKey().getValue()-1);
+                                Pair<Pair<Integer, Integer>, Integer> MSTp1 = new Pair(uvMST, Integer.parseInt(str1[0]));
+                                MSTEdges.add(MSTp1);
 
 
                                 weightStage.close();
@@ -652,11 +655,11 @@ public class DSA_AutomatorController implements Initializable {
                     for(int k=0; k<countEdge; k++){
                         if(graphedgeList.get(k).getKey().getKey() == u && graphedgeList.get(k).getKey().getValue()==v
                                 || graphedgeList.get(k).getKey().getKey() == v && graphedgeList.get(k).getKey().getValue()==u){
-                            if(cnt == 1)  graphedgeList.get(k).getValue().setStroke(Color.LIMEGREEN);
-                            if(cnt == 2)  graphedgeList.get(k).getValue().setStroke(Color.YELLOW);
-                            if(cnt == 3)  graphedgeList.get(k).getValue().setStroke(Color.BLUE);
-                            if(cnt == 4)  graphedgeList.get(k).getValue().setStroke(Color.ORANGE);
-                            if(cnt == 5)  graphedgeList.get(k).getValue().setStroke(Color.SKYBLUE);
+                            if(cnt % 5 == 0)  graphedgeList.get(k).getValue().setStroke(Color.LIMEGREEN);
+                            if(cnt % 5 == 1)  graphedgeList.get(k).getValue().setStroke(Color.YELLOW);
+                            if(cnt % 5 == 2)  graphedgeList.get(k).getValue().setStroke(Color.BLUE);
+                            if(cnt % 5 == 3)  graphedgeList.get(k).getValue().setStroke(Color.ORANGE);
+                            if(cnt % 5 == 4)  graphedgeList.get(k).getValue().setStroke(Color.SKYBLUE);
                         }
                     }
                 }
@@ -681,9 +684,13 @@ public class DSA_AutomatorController implements Initializable {
 
     void printArr(int dist[])
     {
+        list1 = new ArrayList<>();
         System.out.println("Vertex Distance from Source");
-        for (int i = 0; i < V; ++i)
+        for (int i = 1; i < V; ++i) {
             System.out.println(i + "\t\t" + dist[i]);
+            if(dist[i] != Integer.MAX_VALUE) list1.add(dist[i]);
+            else list1.add(-1);
+        }
     }
 
     void DFSUtil(int v, boolean visited[],int cnt,List<Integer>list2)
@@ -702,11 +709,11 @@ public class DSA_AutomatorController implements Initializable {
                 for (int j = 0; j < countEdge; j++) {
                     if (graphedgeList.get(j).getKey().getKey() == v && graphedgeList.get(j).getKey().getValue() == n
                             || graphedgeList.get(j).getKey().getKey() == n && graphedgeList.get(j).getKey().getValue() == v) {
-                        if (cnt == 1) graphedgeList.get(j).getValue().setStroke(Color.LIMEGREEN);
-                        if (cnt == 2) graphedgeList.get(j).getValue().setStroke(Color.YELLOW);
-                        if (cnt == 3) graphedgeList.get(j).getValue().setStroke(Color.BLUE);
-                        if (cnt == 4) graphedgeList.get(j).getValue().setStroke(Color.ORANGE);
-                        if (cnt == 5) graphedgeList.get(j).getValue().setStroke(Color.SKYBLUE);
+                        if (cnt %5 == 1) graphedgeList.get(j).getValue().setStroke(Color.LIMEGREEN);
+                        if (cnt %5 == 2) graphedgeList.get(j).getValue().setStroke(Color.YELLOW);
+                        if (cnt %5 == 3) graphedgeList.get(j).getValue().setStroke(Color.BLUE);
+                        if (cnt %5 == 4) graphedgeList.get(j).getValue().setStroke(Color.ORANGE);
+                        if (cnt %5 == 0) graphedgeList.get(j).getValue().setStroke(Color.SKYBLUE);
                     }
                 }
                 DFSUtil(n, visited, cnt, list2);
@@ -760,11 +767,11 @@ public class DSA_AutomatorController implements Initializable {
                     for(int j=0; j<countEdge; j++){
                         if(graphedgeList.get(j).getKey().getKey() == s && graphedgeList.get(j).getKey().getValue()==n
                                 || graphedgeList.get(j).getKey().getKey() == n && graphedgeList.get(j).getKey().getValue()==s){
-                            if(cnt == 1)  graphedgeList.get(j).getValue().setStroke(Color.LIMEGREEN);
-                            if(cnt == 2)  graphedgeList.get(j).getValue().setStroke(Color.YELLOW);
-                            if(cnt == 3)  graphedgeList.get(j).getValue().setStroke(Color.BLUE);
-                            if(cnt == 4)  graphedgeList.get(j).getValue().setStroke(Color.ORANGE);
-                            if(cnt == 5)  graphedgeList.get(j).getValue().setStroke(Color.SKYBLUE);
+                            if(cnt %5 == 1)  graphedgeList.get(j).getValue().setStroke(Color.LIMEGREEN);
+                            if(cnt %5 == 2)  graphedgeList.get(j).getValue().setStroke(Color.YELLOW);
+                            if(cnt %5 == 3)  graphedgeList.get(j).getValue().setStroke(Color.BLUE);
+                            if(cnt %5 == 4)  graphedgeList.get(j).getValue().setStroke(Color.ORANGE);
+                            if(cnt %5 == 0)  graphedgeList.get(j).getValue().setStroke(Color.SKYBLUE);
                         }
                     }
                 }
@@ -806,7 +813,7 @@ public class DSA_AutomatorController implements Initializable {
 
             BellmanFord(source);
             System.out.println("source: "+source);
-            //placeList();
+            placeList();
         }
         if(isMST.isSelected()){
             out.production.dsa_automator.MinimumSpanningTree MST= new MinimumSpanningTree(countNode);
