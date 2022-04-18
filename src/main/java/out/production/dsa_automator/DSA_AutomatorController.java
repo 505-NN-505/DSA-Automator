@@ -221,6 +221,60 @@ public class DSA_AutomatorController implements Initializable {
         buttonSignIn.setOnAction(eventSignIn -> startAuthentication(true));
         buttonSignUp.setOnAction(eventSignUp -> startAuthentication(false));
         buttonHome.setOnAction(eventHome -> switchToHome());
+
+        Label lb = new Label();
+
+        weightsGroup.getChildren().add(lb);
+        lb.setVisible(false);
+
+        lb.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(0.0), Insets.EMPTY)));
+        lb.setMinWidth(115);
+        lb.setMinHeight(25);
+        lb.setAlignment(Pos.CENTER);
+
+        buttonMath.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                lb.setLayoutX(50);
+                lb.setLayoutY(251);
+                lb.setText("Math Algorithms");
+                lb.setVisible(true);
+            } else {
+                lb.setVisible(false);
+            }
+        });
+
+        buttonList.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                lb.setLayoutX(50);
+                lb.setLayoutY(253+34);
+                lb.setText("List Algorithms");
+                lb.setVisible(true);
+            } else {
+                lb.setVisible(false);
+            }
+        });
+
+        buttonTree.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                lb.setLayoutX(50);
+                lb.setLayoutY(253+34+34);
+                lb.setText("Tree Algorithms");
+                lb.setVisible(true);
+            } else {
+                lb.setVisible(false);
+            }
+        });
+
+        buttonGraph.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                lb.setLayoutX(50);
+                lb.setLayoutY(355);
+                lb.setText("Graph Algorithms");
+                lb.setVisible(true);
+            } else {
+                lb.setVisible(false);
+            }
+        });
     }
 
     public void switchToHome() {
