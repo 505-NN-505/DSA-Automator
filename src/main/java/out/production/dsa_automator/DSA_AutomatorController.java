@@ -520,7 +520,10 @@ public class DSA_AutomatorController implements Initializable {
                                 String[] str1 = GIController.WeightValue.getText().trim().split("\\s+");
 
                                 Label lb = new Label();
+                                lb.toFront();
                                 lb.setText(str1[0]);
+
+                                dragger.setDragger(lb, true);
                                 WeightLabels.add(lb);
 
                                 countweights++;
@@ -633,6 +636,7 @@ public class DSA_AutomatorController implements Initializable {
                             } else {
                                 v[0] = finalI;
                                 Line line = new Line();
+                                line.toBack();
                                 line.setStroke(Color.WHITE);
                                 line.setStrokeWidth(10.0);
                                 line.setStartX(nodes[u[0]].getLayoutX() + nodes[u[0]].getWidth() / 2);
