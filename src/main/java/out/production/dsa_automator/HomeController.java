@@ -19,49 +19,49 @@ import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
     @FXML
-    private TableView<Repo> RepoTable;
+    public TableView<Repo> RepoTable;
 
     @FXML
-    private ScrollPane RepoTablePane;
+    public ScrollPane RepoTablePane;
 
     @FXML
-    private Button buttonDashboard;
+    public Button buttonDashboard;
 
     @FXML
-    private Button buttonMyWorks;
+    public Button buttonMyWorks;
 
     @FXML
-    private Button buttonRepository;
+    public Button buttonRepository;
 
     @FXML
-    private Button buttonSignOut;
+    public Button buttonSignOut;
 
     @FXML
-    private Label currentUser;
+    public Label currentUserLabel;
 
     @FXML
-    private Pane paneHome;
+    public Pane paneHome;
 
     @FXML
-    private Pane dashboardPane;
+    public Pane dashboardPane;
 
     @FXML
-    private TableColumn<Repo, String> tableColumnCategory;
+    public TableColumn<Repo, String> tableColumnCategory;
 
     @FXML
-    private TableColumn<Repo, String> tableColumnHandle;
+    public TableColumn<Repo, String> tableColumnHandle;
 
     @FXML
-    private TableColumn<Repo, Integer> tableColumnID;
+    public TableColumn<Repo, Integer> tableColumnID;
 
     @FXML
-    private TableColumn<Repo, String> tableColumnTitle;
+    public TableColumn<Repo, String> tableColumnTitle;
 
     @FXML
-    private TableColumn<Repo, String> tableColumnView;
+    public TableColumn<Repo, String> tableColumnView;
 
     @FXML
-    private PieChart dashBoardChart;
+    public PieChart dashBoardChart;
 
     String activeHandle = "505_NN_505";
 
@@ -73,7 +73,12 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        currentUser.setText(activeHandle);
+
+    }
+
+    public void setActiveHandle(String handle) {
+        activeHandle = handle;
+        currentUserLabel.setText(activeHandle);
         buttonDashboard.setOnAction(eDashboard -> loadDashboard());
         buttonRepository.setOnAction(eRepoTable -> genRepoTable(true));
         buttonMyWorks.setOnAction(eRepoTable -> genRepoTable(false));

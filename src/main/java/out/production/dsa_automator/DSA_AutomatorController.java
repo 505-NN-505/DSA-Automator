@@ -228,12 +228,24 @@ public class DSA_AutomatorController implements Initializable {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Home.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
+
+                HomeController homeController = fxmlLoader.getController();
+                homeController.setActiveHandle(currentUser);
+                homeController.currentUserLabel.setText(currentUser);
+                homeController.buttonDashboard.setOnAction(eDashboard -> homeController.loadDashboard());
+                homeController.buttonRepository.setOnAction(eRepoTable -> homeController.genRepoTable(true));
+                homeController.buttonMyWorks.setOnAction(eRepoTable -> homeController.genRepoTable(false));
+                try {
+                    homeController.inPieChart();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+
                 Stage stage = new Stage();
                 stage.setTitle("Home");
                 stage.setScene(scene);
-
-                HomeController homeController = fxmlLoader.getController();
-                homeController.activeHandle = currentUser;
 
                 stage.show();
             } catch (IOException e) {
