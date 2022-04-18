@@ -58,7 +58,7 @@ public class HomeController implements Initializable {
     public TableColumn<Repo, String> tableColumnTitle;
 
     @FXML
-    public TableColumn<Repo, String> tableColumnView;
+    public TableColumn<Repo, Button> tableColumnView;
 
     @FXML
     public PieChart dashBoardChart;
@@ -168,7 +168,7 @@ public class HomeController implements Initializable {
         tableColumnHandle.setCellValueFactory(new PropertyValueFactory<Repo, String>("Handle"));
         tableColumnTitle.setCellValueFactory(new PropertyValueFactory<Repo, String>("Title"));
         tableColumnCategory.setCellValueFactory(new PropertyValueFactory<Repo, String>("Category"));
-        tableColumnView.setCellValueFactory(new PropertyValueFactory<Repo, String>("viewLink"));
+        tableColumnView.setCellValueFactory(new PropertyValueFactory<Repo, Button>("button"));
 
         try {
             getRepoInfo(repo);
