@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
@@ -15,16 +16,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1155.0" styleClass="gradient-background" stylesheets="@stylesHome.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.HomeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1154.0" style="-fx-background-color: #000000;" stylesheets="@stylesHome.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.HomeController">
    <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="1201.0" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="CENTER" prefHeight="60.0" prefWidth="155.0" text="HOME" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Pane maxHeight="-Infinity" prefHeight="1.0" prefWidth="802.0" styleClass="line-color" stylesheets="@stylesHome.css" HBox.hgrow="ALWAYS" />
+            <Pane maxHeight="-Infinity" prefHeight="0.0" prefWidth="1024.0" styleClass="line-color" stylesheets="@stylesHome.css" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </top>
@@ -47,37 +48,53 @@
                </VBox.margin>
             </HBox>
             <Pane maxHeight="-Infinity" prefHeight="1.0" prefWidth="802.0" styleClass="line-color" stylesheets="@stylesHome.css" />
-            <Button fx:id="buttonDashboard" lineSpacing="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="212.0" styleClass="transparent" stylesheets="@stylesHome.css" text="Dashboard" textFill="WHITE">
+            <Button fx:id="buttonDashboard" lineSpacing="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="212.0" stylesheets="@stylesHome.css" text="Dashboard" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
+               <styleClass>
+                  <String fx:value="transparent" />
+                  <String fx:value="button" />
+               </styleClass>
             </Button>
-            <Button fx:id="buttonRepository" lineSpacing="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="212.0" styleClass="transparent" stylesheets="@stylesHome.css" text="Repository" textFill="WHITE">
+            <Button fx:id="buttonRepository" lineSpacing="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="212.0" stylesheets="@stylesHome.css" text="Repository" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
+               <styleClass>
+                  <String fx:value="transparent" />
+                  <String fx:value="button" />
+               </styleClass>
             </Button>
-            <Button fx:id="buttonMyWorks" lineSpacing="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="212.0" styleClass="transparent" stylesheets="@stylesHome.css" text="My Works" textFill="WHITE">
+            <Button fx:id="buttonMyWorks" lineSpacing="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="212.0" stylesheets="@stylesHome.css" text="My Works" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
+               <styleClass>
+                  <String fx:value="transparent" />
+                  <String fx:value="button" />
+               </styleClass>
             </Button>
-            <Button fx:id="buttonSignOut" lineSpacing="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="212.0" styleClass="transparent" stylesheets="@stylesHome.css" text="Sign Out" textFill="WHITE">
+            <Button fx:id="buttonSignOut" lineSpacing="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="212.0" stylesheets="@stylesHome.css" text="Sign Out" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
+               <styleClass>
+                  <String fx:value="transparent" />
+                  <String fx:value="button" />
+               </styleClass>
             </Button>
          </children>
       </VBox>
    </left>
    <center>
-      <Pane fx:id="paneHome" prefHeight="567.0" prefWidth="902.0" BorderPane.alignment="CENTER">
+      <Pane fx:id="paneHome" prefHeight="600.0" prefWidth="919.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="dashboardPane" prefHeight="600.0" prefWidth="932.0">
+            <Pane fx:id="dashboardPane" prefHeight="600.0" prefWidth="924.0" stylesheets="@stylesHome.css">
                <children>
-                  <HBox alignment="CENTER" layoutX="47.0" layoutY="17.0" prefHeight="115.0" prefWidth="845.0">
+                  <HBox alignment="CENTER" layoutX="21.0" layoutY="9.0" prefHeight="162.0" prefWidth="871.0" styleClass="container" stylesheets="@stylesHome.css">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="158.0" prefWidth="150.0" stylesheets="@stylesHome.css">
+                        <Button fx:id="buttonContinueToDSA" mnemonicParsing="false" prefHeight="158.0" prefWidth="150.0" stylesheets="@stylesHome.css">
                            <graphic>
                               <ImageView fitHeight="126.0" fitWidth="129.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -88,12 +105,19 @@
                         </Button>
                      </children>
                   </HBox>
-                  <HBox alignment="TOP_CENTER" layoutX="35.0" layoutY="185.0" prefHeight="260.0" prefWidth="857.0">
+                  <HBox alignment="TOP_CENTER" layoutX="21.0" layoutY="185.0" prefHeight="260.0" prefWidth="873.0" styleClass="container" stylesheets="@stylesHome.css">
                      <children>
-                        <PieChart fx:id="dashBoardChart" prefHeight="228.0" prefWidth="500.0" />
+                        <PieChart fx:id="dashBoardChart" legendVisible="false" prefHeight="228.0" prefWidth="500.0" stylesheets="@stylesHome.css">
+                           <styleClass>
+                              <String fx:value="default-color0" />
+                              <String fx:value="default-color1" />
+                              <String fx:value="default-color2" />
+                              <String fx:value="default-color3" />
+                              <String fx:value="default-color4" />
+                           </styleClass></PieChart>
                      </children>
                   </HBox>
-                  <HBox layoutX="35.0" layoutY="457.0" prefHeight="134.0" prefWidth="857.0" spacing="20.0">
+                  <HBox layoutX="21.0" layoutY="457.0" prefHeight="134.0" prefWidth="873.0" spacing="20.0" styleClass="container" stylesheets="@stylesHome.css">
                      <children>
                         <VBox prefHeight="174.0" prefWidth="196.0">
                            <children>
@@ -169,9 +193,9 @@
                   </HBox>
                </children>
             </Pane>
-            <ScrollPane fx:id="RepoTablePane" layoutX="3.0" layoutY="13.0" prefHeight="582.0" prefWidth="923.0" visible="false">
+            <ScrollPane fx:id="RepoTablePane" layoutX="3.0" layoutY="13.0" prefHeight="582.0" prefWidth="923.0" styleClass="gradient-background" stylesheets="@stylesHome.css" visible="false">
                <content>
-                  <TableView fx:id="RepoTable" prefHeight="557.0" prefWidth="933.0">
+                  <TableView fx:id="RepoTable" prefHeight="557.0" prefWidth="933.0" stylesheets="@table.css">
                     <columns>
                       <TableColumn fx:id="tableColumnID" prefWidth="75.0" text="TaskID" />
                       <TableColumn fx:id="tableColumnHandle" prefWidth="123.0" text="Handle" />
@@ -179,6 +203,18 @@
                         <TableColumn fx:id="tableColumnCategory" prefWidth="209.3333740234375" text="Category" />
                         <TableColumn fx:id="tableColumnView" prefWidth="143.6666259765625" text="View" />
                     </columns>
+                     <styleClass>
+                        <String fx:value="scroll-bar" />
+                        <String fx:value="column-header" />
+                        <String fx:value="column-header-background" />
+                        <String fx:value="corner" />
+                        <String fx:value="decrement-button" />
+                        <String fx:value="filler" />
+                        <String fx:value="increment-button" />
+                        <String fx:value="table-cell" />
+                        <String fx:value="table-row-cell" />
+                        <String fx:value="virtual-flow" />
+                     </styleClass>
                   </TableView>
                </content>
             </ScrollPane>

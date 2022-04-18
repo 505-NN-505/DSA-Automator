@@ -37,6 +37,9 @@ public class HomeController implements Initializable {
     public Button buttonSignOut;
 
     @FXML
+    public Button buttonContinueToDSA;
+
+    @FXML
     public Label currentUserLabel;
 
     @FXML
@@ -135,12 +138,10 @@ public class HomeController implements Initializable {
         rs.next();
         Integer treeCount = rs.getInt(1);
 
-        System.out.println(dsCount + " " + dpCount + " " + greedyCount  + " " + graphCount  + " " + treeCount);
-
-        labelDPCount.setText(dsCount.toString());
-        labelDSCount.setText(dpCount.toString());
-        labelGraphsCount.setText(greedyCount.toString());
-        labelGreedyCount.setText(graphCount.toString());
+        labelDSCount.setText(dsCount.toString());
+        labelDPCount.setText(dpCount.toString());
+        labelGreedyCount.setText(greedyCount.toString());
+        labelGraphsCount.setText(graphCount.toString());
         labelTreesCount.setText(treeCount.toString());
 
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
