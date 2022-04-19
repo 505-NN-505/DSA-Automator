@@ -35,9 +35,9 @@
                 </AnchorPane>
             </content>
         </TitledPane>
-        <TitledPane fx:id="inputToolBarGraph" animated="false" expanded="false" layoutX="226.0" layoutY="70.0" prefHeight="165.0" prefWidth="142.0" text="Input Toolbar" visible="false">
+        <TitledPane fx:id="inputToolBarGraph" animated="false" expanded="false" layoutX="226.0" layoutY="70.0" prefHeight="129.0" prefWidth="142.0" text="Input Toolbar" visible="false">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="139.0" prefWidth="148.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="139.0" prefWidth="148.0" visible="false">
                     <children>
                         <RadioButton fx:id="isVertexCreation" layoutX="12.0" layoutY="19.0" mnemonicParsing="false" onAction="#constructGraph" text="Vertex Creation">
                             <toggleGroup>
@@ -46,7 +46,6 @@
                         </RadioButton>
                         <RadioButton fx:id="isEdgeCreation" layoutX="12.0" layoutY="44.0" mnemonicParsing="false" onAction="#constructGraph" text="Edge Creation" toggleGroup="$graphInput" />
                         <RadioButton fx:id="isSource" layoutX="12.0" layoutY="70.0" mnemonicParsing="false" onAction="#constructGraph" text="Assign Source" toggleGroup="$graphInput" />
-                        <RadioButton fx:id="isDestination" layoutX="12.0" layoutY="98.0" mnemonicParsing="false" onAction="#constructGraph" text="Assign Destination" toggleGroup="$graphInput" />
                     </children>
                 </AnchorPane>
             </content>
@@ -264,7 +263,7 @@
             </font>
         </Label>
         <HBox fx:id="hBoxList1" layoutX="160.0" layoutY="216.0" prefHeight="47.0" prefWidth="150.0" />
-      <Label fx:id="warning" alignment="CENTER" cacheShape="false" layoutX="497.0" layoutY="321.0" prefHeight="75.0" prefWidth="150.0" style="-fx-background-color: #0A0A08;" text="warning" textFill="#0d0000">
+      <Label fx:id="warning" alignment="CENTER" cacheShape="false" layoutX="497.0" layoutY="321.0" prefHeight="75.0" prefWidth="150.0" style="-fx-background-color: #0A0A08;" text="warning" textFill="#0d0000" visible="false">
          <font>
             <Font size="13.0" />
          </font>

@@ -71,8 +71,6 @@ public class DSA_AutomatorController implements Initializable {
     @FXML
     private TitledPane inputToolBarGraphAlgo;
     @FXML
-    private RadioButton isDestination;
-    @FXML
     private RadioButton isEdgeCreation;
     @FXML
     private RadioButton isSource;
@@ -520,7 +518,6 @@ public class DSA_AutomatorController implements Initializable {
         isVertexCreation.setSelected(false);
         isEdgeCreation.setSelected(false);
         isSource.setSelected(false);
-        isDestination.setSelected(false);
         isBFS.setSelected(false);
         isDFS.setSelected(false);
         isshortestpath.setSelected(false);
@@ -704,7 +701,7 @@ public class DSA_AutomatorController implements Initializable {
 
             if(countNode == -1) {
               //  System.out.println("choose source");
-                warning.setText("Create Vertex");
+                warning.setText("No vertex available\nCreate Vertex first");
                 warning.setVisible(true);
                 isEdgeCreation.setSelected(false);
                 return;
@@ -765,19 +762,7 @@ public class DSA_AutomatorController implements Initializable {
             }
         }
 
-        else if (isDestination.isSelected()) {
-            for (int i = 0; i <= countNode; i++) {
-                int finalI = i;
-                final boolean[] sel = {false};
-                nodes[i].setOnMousePressed(mouseOnNode -> {
-                    if (mouseOnNode.getButton() == MouseButton.PRIMARY) {
-                        destination = finalI+1;
-                        nodes[destination-1].setBackground(new Background(new BackgroundFill(Color.LIMEGREEN , new CornerRadii(40.0),Insets.EMPTY)));
-                    }
-                });
-                if (sel[0]) break;
-            }
-        }
+
     }
     // Graph
     public void generateGraph() {
@@ -823,7 +808,7 @@ public class DSA_AutomatorController implements Initializable {
 
         if(src == 0){
            // System.out.println("choose source");
-            warning.setText("Choose Source");
+            warning.setText("No source selected\nChoose Source first");
             warning.setVisible(true);
             isshortestpath.setSelected(false);
             return;
@@ -831,7 +816,7 @@ public class DSA_AutomatorController implements Initializable {
         warning.setVisible(false);
         if(countweights != countEdge){
            // System.out.println("give weights");
-            warning.setText("give weights");
+            warning.setText("No weights given\nGive weights first");
             warning.setVisible(true);
             isshortestpath.setSelected(false);
             return;
@@ -906,7 +891,7 @@ public class DSA_AutomatorController implements Initializable {
     {
         if(v == 0){
            // System.out.println("choose source");
-            warning.setText("Choose Source");
+            warning.setText("No source selected\nChoose Source first");
             warning.setVisible(true);
             isDFS.setSelected(false);
             check = 0;
@@ -961,7 +946,7 @@ public class DSA_AutomatorController implements Initializable {
         //System.out.println(s);
         if(s == 0){
            // System.out.println("choose source");
-            warning.setText("Choose Source");
+            warning.setText("Bfs cannot run \nwithout a source!\nChoose Source");
             warning.setVisible(true);
             isBFS.setSelected(false);
             return;
@@ -1143,7 +1128,7 @@ public class DSA_AutomatorController implements Initializable {
             hudaiBFS(1);
             if(countweights != countEdge){
                // System.out.println("give weights");
-                warning.setText("give weights");
+                warning.setText("No weights given\nGive weights first");
                 warning.setVisible(true);
                 isMST.setSelected(false);
             }
@@ -1236,7 +1221,7 @@ public class DSA_AutomatorController implements Initializable {
         else if (CreateEdge.isSelected()) {
             if(countTreeNode == -1){
                // System.out.println("choose source");
-                warning.setText("Create Vertex");
+                warning.setText("No vertex available\ncreate Vertex first");
                 warning.setVisible(true);
                 CreateEdge.setSelected(false);
             }
