@@ -270,7 +270,7 @@ public class DSA_AutomatorController implements Initializable {
         buttonGraph.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 lb.setLayoutX(50);
-                lb.setLayoutY(253+34+34);
+                lb.setLayoutY(253+34+34+5);
                 lb.setText("Graph Algorithms");
                 lb.setVisible(true);
             } else {
