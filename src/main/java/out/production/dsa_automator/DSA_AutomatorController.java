@@ -41,9 +41,6 @@ public class DSA_AutomatorController implements Initializable {
     @FXML
     protected VBox dsMenu;
 
-    @FXML
-    private MenuItem buttonSave;
-
     // 1D List
     Integer countList = -1;
     @FXML
@@ -119,7 +116,15 @@ public class DSA_AutomatorController implements Initializable {
     @FXML
     private Button buttonHome;
     @FXML
+    private Button buttonSave;
+    @FXML
     private Button buttonResetBoard;
+
+    @FXML
+    public Button buttonSignout;
+
+    @FXML
+    public Button buttonClose;
 
     @FXML
     private Button buttonTutorial;
@@ -211,6 +216,10 @@ public class DSA_AutomatorController implements Initializable {
         buttonResetBoard.setOnAction(eventReset -> reset());
         buttonTutorial.setOnAction(eventReset -> switchToTutorial());
 
+        buttonSignout.setOnAction(eventSignOut -> {
+            loggedIn = false;
+        });
+
 //        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 //        System.out.println(timeStamp);
 
@@ -281,6 +290,8 @@ public class DSA_AutomatorController implements Initializable {
                 homeController.buttonDashboard.setOnAction(eDashboard -> homeController.loadDashboard());
                 homeController.buttonRepository.setOnAction(eRepoTable -> homeController.genRepoTable(true));
                 homeController.buttonMyWorks.setOnAction(eRepoTable -> homeController.genRepoTable(false));
+
+
                 try {
                     homeController.inPieChart();
                 } catch (SQLException e) {
@@ -292,6 +303,14 @@ public class DSA_AutomatorController implements Initializable {
                 Stage stage = new Stage();
                 stage.setTitle("Home");
                 stage.setScene(scene);
+
+                homeController.buttonContinueToDSA.setOnAction(eventContinue -> {
+                    stage.close();
+                });
+                homeController.buttonSignOut.setOnAction(eventContinue -> {
+                    loggedIn = false;
+                    stage.close();
+                });
 
                 stage.show();
             } catch (IOException e) {
@@ -315,45 +334,46 @@ public class DSA_AutomatorController implements Initializable {
 
     @FXML
     void saveTheWork(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Save.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage stage = new Stage();
-            stage.setTitle("Save your work");
-            stage.setScene(scene);
+        if (loggedIn) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Save.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                Stage stage = new Stage();
+                stage.setTitle("Save your work");
+                stage.setScene(scene);
 
-            SaveController saveController = fxmlLoader.getController();
+                SaveController saveController = fxmlLoader.getController();
 
-            saveController.buttonSave.setOnAction(e -> {
-                String fileName = saveController.getTaskTitle();
-                Stage sStage = (Stage)saveController.savePane.getScene().getWindow();
-                sStage.close();
-                takeScreenShot(fileName);
-                try {
-                    saveController.insertToTaskTable(currentUser, saveController.getTaskTitle(), address);
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                } catch (ClassNotFoundException ex) {
-                    ex.printStackTrace();
-                }
-
-                // populating the category tables
-                for (int i = 0; i < saveController.selectedTag.size(); i++) {
+                saveController.buttonSave.setOnAction(e -> {
+                    String fileName = saveController.getTaskTitle();
+                    Stage sStage = (Stage) saveController.savePane.getScene().getWindow();
+                    sStage.close();
+                    takeScreenShot(fileName);
                     try {
-                        saveController.populateCatTable(currentUser, fileName, saveController.selectedTag.get(i));
+                        saveController.insertToTaskTable(currentUser, saveController.getTaskTitle(), address);
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     } catch (ClassNotFoundException ex) {
                         ex.printStackTrace();
                     }
-                }
-            });
 
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
+                    // populating the category tables
+                    for (int i = 0; i < saveController.selectedTag.size(); i++) {
+                        try {
+                            saveController.populateCatTable(currentUser, fileName, saveController.selectedTag.get(i));
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        } catch (ClassNotFoundException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

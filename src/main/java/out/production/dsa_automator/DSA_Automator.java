@@ -16,6 +16,10 @@ public class DSA_Automator extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(DSA_Automator.class.getResource("DSA_Automator.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+        DSA_AutomatorController dsaController = fxmlLoader.getController();
+        dsaController.buttonClose.setOnAction(eventClose -> {
+            stage.close();
+        });
         stage.setTitle("DSA_Automator");
         stage.setScene(scene);
         stage.show();
