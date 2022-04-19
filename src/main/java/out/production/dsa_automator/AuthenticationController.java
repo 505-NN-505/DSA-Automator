@@ -148,9 +148,8 @@ public class AuthenticationController implements Initializable {
         ResultSet rs = database.select("user_table", column, "Handle = ?", values);
 
         if (!rs.next()) {
-            authenticationMsg.setText("Handle doesn't exist");
+            authenticationMsg.setText("Handle doesn't exist!");
             authenticationMsg.setTextFill(Color.RED);
-            authenticationMsg.setVisible(true);
             authenticationMsg.setVisible(true);
             return false;
         }
@@ -158,18 +157,35 @@ public class AuthenticationController implements Initializable {
             String hashed = encryptSrting(signInPassword.getText());
             boolean matched = rs.getString("Password").equals(hashed);
             if (!matched) {
-                authenticationMsg.setText("Wrong password");
+                authenticationMsg.setText("Wrong password!");
                 authenticationMsg.setTextFill(Color.RED);
                 authenticationMsg.setVisible(true);
                 return false;
             }
-            authenticationMsg.setVisible(true);
-            return true;
+            else {
+                authenticationMsg.setText("You're logged in!");
+                authenticationMsg.setTextFill(Color.GREEN);
+                authenticationMsg.setVisible(true);
+                return true;
+            }
         }
     }
 
-    public void insertInfo() throws SQLException, ClassNotFoundException, NoSuchAlgorithmException {
+    public boolean insertInfo() throws SQLException, ClassNotFoundException, NoSuchAlgorithmException {
         Database database = new Database("dsa_automator", "root", "");
+
+        if (signUpEmail.getText().isEmpty() || signUpHandle.getText().isEmpty() || signUpPassword.getText().isEmpty()) {
+            String msg = "";
+            if (signUpEmail.getText().isEmpty()) msg = "Email can't be empty!";
+            if (signUpHandle.getText().isEmpty()) msg = "Handle can't be empty!";
+            if (signUpPassword.getText().isEmpty()) msg = "Password can't be empty!";
+
+            authenticationMsg.setText(msg);
+            authenticationMsg.setTextFill(Color.RED);
+            authenticationMsg.setVisible(true);
+            return false;
+        }
+
         String password = signUpPassword.getText();
         String hashedPassword = encryptSrting(password);
         Object[] values = {signUpEmail.getText(), signUpHandle.getText(), hashedPassword};
@@ -178,5 +194,7 @@ public class AuthenticationController implements Initializable {
         authenticationMsg.setText("You're registered!");
         authenticationMsg.setTextFill(Color.LIGHTGREEN);
         authenticationMsg.setVisible(true);
+
+        return true;
     }
 }

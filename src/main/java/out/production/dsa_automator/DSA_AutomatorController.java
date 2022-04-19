@@ -220,6 +220,12 @@ public class DSA_AutomatorController implements Initializable {
         buttonResetBoard.setOnAction(eventReset -> reset());
         buttonTutorial.setOnAction(eventReset -> switchToTutorial());
 
+        warning.setOnMousePressed(eventWarningOff -> {
+            if (eventWarningOff.getButton() == MouseButton.SECONDARY) {
+                warning.setVisible(false);
+            }
+        });
+
         buttonSignout.setOnAction(eventSignOut -> {
             loggedIn = false;
             reset();
@@ -408,6 +414,8 @@ public class DSA_AutomatorController implements Initializable {
 
     public void startAuthentication(boolean isLogInActive) {
         try {
+            warning.setVisible(false);
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Authentication.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
 
@@ -419,6 +427,7 @@ public class DSA_AutomatorController implements Initializable {
 
             atc.buttonSignIn.setOnAction(e -> {
                 try {
+                    System.out.println(loggedIn);
                     loggedIn = atc.verifyLogIn();
                     if (loggedIn) {
                         currentUser = atc.signInHandle.getText();
@@ -434,12 +443,14 @@ public class DSA_AutomatorController implements Initializable {
 
             atc.buttonSignUp.setOnAction(e -> {
                 try {
-                    atc.insertInfo();
-                    String path = "src\\main\\myDocuments\\" + atc.signUpHandle.getText();
-                    File f = new File(path);
-                    boolean created = f.mkdir();
-                    if (!created) {
-                        System.out.println("Error!!! can't make new folder\n");
+                    boolean reg = atc.insertInfo();
+                    if (reg) {
+                        String path = "src\\main\\myDocuments\\" + atc.signUpHandle.getText();
+                        File f = new File(path);
+                        boolean created = f.mkdir();
+                        if (!created) {
+                            System.out.println("Error!!! can't make new folder\n");
+                        }
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();
