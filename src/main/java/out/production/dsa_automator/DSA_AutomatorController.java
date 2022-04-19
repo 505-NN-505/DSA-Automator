@@ -172,6 +172,8 @@ public class DSA_AutomatorController implements Initializable {
 
     @FXML
     private Label warning;
+    @FXML
+    private Label explanation;
 
     //graph
     ArrayList<Pair<Pair<Integer, Integer>, Line>> graphedgeList = new ArrayList<Pair<Pair<Integer, Integer>, Line>>();
@@ -210,6 +212,7 @@ public class DSA_AutomatorController implements Initializable {
         buttonGraph.setOnAction(eventGraph -> generateGraph());
         buttonTree.setOnAction(eventTree-> generateTree());
         dragger.setDragger(hBoxList1, true);
+        dragger.setDragger(warning, true);
 
         buttonSignIn.setOnAction(eventSignIn -> startAuthentication(true));
         buttonSignUp.setOnAction(eventSignUp -> startAuthentication(false));
@@ -230,6 +233,8 @@ public class DSA_AutomatorController implements Initializable {
 //        long u = (System.currentTimeMillis());
 //        System.out.println(u);
 //        System.out.println(u+5000);
+        warning.setVisible(true);
+
         warning.setText("sahhh");
         warning.setLayoutX(900);
         warning.setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(0.0), Insets.EMPTY)));
@@ -318,6 +323,11 @@ public class DSA_AutomatorController implements Initializable {
                 e.printStackTrace();
             }
         }
+        else{
+            warning.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(0.0), Insets.EMPTY)));
+            warning.setText("Log in to access\nthe repository");
+            warning.setVisible(true);
+        }
     }
 
     public void switchToTutorial() {
@@ -375,6 +385,11 @@ public class DSA_AutomatorController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        else{
+            warning.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(0.0), Insets.EMPTY)));
+            warning.setText("Log in to access\nthe repository");
+            warning.setVisible(true);
         }
     }
 
@@ -455,6 +470,13 @@ public class DSA_AutomatorController implements Initializable {
         if (!weightsGroup.getChildren().isEmpty()) weightsGroup.getChildren().clear();
         if (!listGroup.getChildren().isEmpty()) listGroup.getChildren().clear();
 
+        inputGraphType.setVisible(false);
+        inputToolBarGraph.setVisible(false);
+        inputToolBarGraphAlgo.setVisible(false);
+        InputToolBarTree.setVisible(false);
+        TreeAlgorithms.setVisible(false);
+        gridListInput.setVisible(false);
+
         edgeList.clear();
         edgesBellman.clear();
         graphedgeList.clear();
@@ -501,6 +523,9 @@ public class DSA_AutomatorController implements Initializable {
         check = 0;
         countweights = 0;
         connectedcomponent = 1;
+        source = 0;
+        warning.setVisible(false);
+
     }
 
     // List1D
@@ -839,6 +864,8 @@ public class DSA_AutomatorController implements Initializable {
             }
         }
         printArr(dist);
+        warning.setText("Source: Blue \nBlue Labels: weights\nUsed edges: colored\nUnused edges: white");
+        warning.setVisible(true);
     }
 
     void printArr(int dist[])
@@ -899,6 +926,8 @@ public class DSA_AutomatorController implements Initializable {
         boolean visited[] = new boolean[V];
         DFSUtil(v, visited,0,list1);
         if(check != 0)placeList();
+        warning.setText("Source: Blue \nUsed edges: colored\nUnused edges: white");
+        warning.setVisible(true);
 
     }
 
@@ -964,6 +993,8 @@ public class DSA_AutomatorController implements Initializable {
             connectedcomponent++;
         //System.out.println("cc" + connectedcomponent);
         placeList();
+        warning.setText("Source: Blue \nUsed edges: colored\nUnused edges: white");
+        warning.setVisible(true);
     }
 
     int connectedcomponent = 1;
@@ -1048,6 +1079,9 @@ public class DSA_AutomatorController implements Initializable {
             }
              */
             }
+
+            warning.setText("Red node:\nArticulation point\nUncolored node: No\narticulation point");
+            warning.setVisible(true);
         }
         if(isBridge.isSelected()){
             hudaiBFS(1);
@@ -1060,6 +1094,8 @@ public class DSA_AutomatorController implements Initializable {
             else {
                 out.production.dsa_automator.ArticulationPoint_and_Bridge B = new ArticulationPoint_and_Bridge(countNode);
                 B.FindBridge(countNode, graphedgeList);
+                warning.setText("Articulation edges:\ncolored");
+                warning.setVisible(true);
             }
         }
 
@@ -1100,6 +1136,8 @@ public class DSA_AutomatorController implements Initializable {
                     }
 
                 }
+                warning.setText("Source: Blue \nBlue Labels: weights\ntree edges: colored\nUnused edges: white");
+                warning.setVisible(true);
             }
 
         }
@@ -1252,20 +1290,34 @@ public class DSA_AutomatorController implements Initializable {
                         }
                     });
                 }
+                warning.setText("green nodes: inputs \nBlue node: LCA");
+                warning.setVisible(true);
             }
         }
-        if(FindCentroid.isSelected()){
-            Label[] tnodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
-            buttonResetBoard.setOnAction(eventReset -> {
-                for (int i = 0; i < 10; i++) {
-                    tnodes[i].setVisible(false);
-                    tnodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
-                }
-                reset();
-            });
-            out.production.dsa_automator.CentroidFinder CF=new CentroidFinder(countTreeNode);
-            Integer centroid= CF.FindCentroid(TreeEdges, countTreeNode);
-            tnodes[centroid].setBackground(new Background(new BackgroundFill(Color.YELLOW, new CornerRadii(40.0), Insets.EMPTY)));
+        if(FindCentroid.isSelected()) {
+
+            if (countTreeEdge != countTreeNode) {
+                // System.out.println("choose source");
+                warning.setText("Not a tree,try again!");
+                warning.setVisible(true);
+                FindCentroid.setSelected(false);
+            } else {
+                Label[] tnodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
+                buttonResetBoard.setOnAction(eventReset -> {
+                    for (int i = 0; i < 10; i++) {
+                        tnodes[i].setVisible(false);
+                        tnodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+                    }
+                    reset();
+                });
+                out.production.dsa_automator.CentroidFinder CF = new CentroidFinder(countTreeNode);
+                Integer centroid = CF.FindCentroid(TreeEdges, countTreeNode);
+                tnodes[centroid].setBackground(new Background(new BackgroundFill(Color.YELLOW, new CornerRadii(40.0), Insets.EMPTY)));
+
+                warning.setText("yellow node: centroid");
+                warning.setVisible(true);
+            }
+
         }
     }
 
