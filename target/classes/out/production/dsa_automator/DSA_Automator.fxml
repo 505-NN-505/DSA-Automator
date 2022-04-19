@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -24,7 +22,7 @@
 <AnchorPane fx:id="DebugBoard" prefHeight="660.0" prefWidth="1155.0" style="-fx-background-color: #141414;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.DSA_AutomatorController">
     <children>
         <Group fx:id="edgeGroup" />
-        <TitledPane fx:id="TreeAlgorithms" animated="false" expanded="false" layoutX="377.0" layoutY="59.0" prefHeight="100.0" prefWidth="200.0" text="Algorithms" visible="false">
+        <TitledPane fx:id="TreeAlgorithms" animated="false" expanded="false" layoutX="300.0" layoutY="9.0" prefHeight="100.0" prefWidth="176.0" text="Algo Toolbar" visible="false">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
                     <children>
@@ -37,7 +35,7 @@
                 </AnchorPane>
             </content>
         </TitledPane>
-        <TitledPane fx:id="inputToolBarGraph" animated="false" expanded="false" layoutX="278.0" layoutY="56.0" prefHeight="165.0" prefWidth="142.0" text="Input Toolbar" visible="false">
+        <TitledPane fx:id="inputToolBarGraph" animated="false" expanded="false" layoutX="226.0" layoutY="9.0" prefHeight="165.0" prefWidth="142.0" text="Input Toolbar" visible="false">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="139.0" prefWidth="148.0">
                     <children>
@@ -53,9 +51,9 @@
                 </AnchorPane>
             </content>
         </TitledPane>
-        <TitledPane fx:id="inputToolBarGraphAlgo" animated="false" expanded="false" layoutX="439.0" layoutY="52.0" prefHeight="200.0" prefWidth="175.0" text="Graph Algorithms Toolbar" visible="false">
+        <TitledPane fx:id="inputToolBarGraphAlgo" animated="false" expanded="false" layoutX="389.0" layoutY="9.0" prefHeight="200.0" prefWidth="150.0" text="Algo Toolbar" visible="false">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="140.0" prefWidth="170.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="174.0" prefWidth="146.0">
                     <children>
                         <RadioButton fx:id="isBFS" layoutX="12.0" layoutY="19.0" mnemonicParsing="false" onAction="#graphAlgo" text="BFS">
                             <toggleGroup>
@@ -65,13 +63,13 @@
                         <RadioButton fx:id="isDFS" layoutX="12.0" layoutY="44.0" mnemonicParsing="false" onAction="#graphAlgo" text="DFS" toggleGroup="$algoInput" />
                         <RadioButton fx:id="isshortestpath" layoutX="12.0" layoutY="70.0" mnemonicParsing="false" onAction="#graphAlgo" text="Shortest Path" toggleGroup="$algoInput" />
                   <RadioButton fx:id="isAP" layoutX="12.0" layoutY="97.0" mnemonicParsing="false" onAction="#graphAlgo" text="Articulation Point" toggleGroup="$algoInput" />
-                  <RadioButton fx:id="isMST" layoutX="12.0" layoutY="146.0" mnemonicParsing="false" onAction="#graphAlgo" text="Minimum Spanning Tree" toggleGroup="$algoInput" />
+                  <RadioButton fx:id="isMST" layoutX="12.0" layoutY="146.0" mnemonicParsing="false" onAction="#graphAlgo" text="MST" toggleGroup="$algoInput" />
                   <RadioButton fx:id="isBridge" layoutX="12.0" layoutY="121.0" mnemonicParsing="false" onAction="#graphAlgo" text="Articulation Bridge" toggleGroup="$algoInput" />
                     </children>
                 </AnchorPane>
             </content>
         </TitledPane>
-      <TitledPane fx:id="inputGraphType" animated="false" expanded="false" layoutX="122.0" layoutY="56.0" prefHeight="110.0" prefWidth="142.0" text="Graph Type" visible="false">
+      <TitledPane fx:id="inputGraphType" animated="false" expanded="false" layoutX="61.0" layoutY="9.0" prefHeight="110.0" prefWidth="142.0" text="Graph Type" visible="false">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="72.0" prefWidth="140.0">
                <children>
@@ -86,11 +84,11 @@
          </content>
       </TitledPane>
         <Group fx:id="listGroup" />
-        <VBox fx:id="dsMenu" focusTraversable="true" layoutX="14.0" layoutY="244.0" prefHeight="110.0" prefWidth="32.0">
+        <VBox fx:id="dsMenu" focusTraversable="true" layoutX="14.0" layoutY="244.0" prefHeight="117.0" prefWidth="42.0">
             <children>
-                <Button fx:id="buttonMath" mnemonicParsing="false" prefHeight="36.0" prefWidth="33.0" style="-fx-background-color: #2c4f8f;" text="M" textFill="WHITE" />
-                <Button fx:id="buttonTree" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" style="-fx-background-color: #2c4f8f;" text="T" textFill="WHITE" />
-                <Button fx:id="buttonGraph" mnemonicParsing="false" prefHeight="37.0" prefWidth="32.0" style="-fx-background-color: #2c4f8f;" text="G" textFill="WHITE" />
+                <Button fx:id="buttonMath" mnemonicParsing="false" prefHeight="39.0" prefWidth="38.0" stylesheets="@DSAToolbar.css" text="M" textFill="WHITE" />
+                <Button fx:id="buttonTree" mnemonicParsing="false" prefHeight="39.0" prefWidth="37.0" stylesheets="@DSAToolbar.css" text="T" textFill="WHITE" />
+                <Button fx:id="buttonGraph" mnemonicParsing="false" prefHeight="39.0" prefWidth="37.0" stylesheets="@DSAToolbar.css" text="G" textFill="WHITE" />
             </children>
         </VBox>
         <GridPane fx:id="gridListInput" layoutX="351.0" layoutY="14.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="75.0" prefWidth="235.0" visible="false">
@@ -120,42 +118,6 @@
                 <Button fx:id="buttonListInputRetry" mnemonicParsing="false" text="Retry" textAlignment="JUSTIFY" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>
         </GridPane>
-        <MenuBar style="-fx-background-color: #FFFFFF;">
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem fx:id="buttonSave" mnemonicParsing="false" onAction="#saveTheWork" text="Save">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                            </accelerator></MenuItem>
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="View">
-                    <items>
-                        <Menu mnemonicParsing="false" text="Apperance">
-                            <items>
-                                <CheckMenuItem mnemonicParsing="false" onAction="#toggleDS" selected="true" text="DSBar">
-                                    <accelerator>
-                                        <KeyCodeCombination alt="DOWN" code="D" control="UP" meta="UP" shift="UP" shortcut="UP" />
-                                    </accelerator>
-                                </CheckMenuItem>
-                            </items>
-                        </Menu>
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Support">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
         <Label fx:id="gNode8" alignment="CENTER" layoutX="469.0" layoutY="567.0" prefHeight="47.0" prefWidth="44.0" style="-fx-background-radius: 30; -fx-background-color: #FFFFFF;" text="8" visible="false">
             <font>
                 <Font size="21.0" />
@@ -206,28 +168,39 @@
                 <Font size="21.0" />
             </font>
         </Label>
-        <ToolBar layoutX="1028.0" prefHeight="28.0" prefWidth="127.0" style="-fx-background-color: #2142AB;">
+        <ToolBar layoutX="540.0" layoutY="6.0" prefHeight="45.0" prefWidth="614.0" style="-fx-background-color: #141414;">
             <items>
-                <Button fx:id="buttonSignUp" mnemonicParsing="false" style="-fx-background-color: #292927;" text="Sign up" textFill="WHITE">
+                <Button fx:id="buttonHome" mnemonicParsing="false" stylesheets="@DSAToolbar.css" text="Home" />
+            <Button fx:id="buttonSave" mnemonicParsing="false" onAction="#saveTheWork" stylesheets="@DSAToolbar.css" text="Save" />
+                <Button fx:id="buttonResetBoard" mnemonicParsing="false" stylesheets="@DSAToolbar.css" text="Reset" />
+                <Button fx:id="buttonTutorial" mnemonicParsing="false" stylesheets="@DSAToolbar.css" text="Tutorial" />
+                <Button fx:id="buttonSignUp" mnemonicParsing="false" stylesheets="@AuthenticationButtons.css" text="Sign up" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Button>
-                <Button fx:id="buttonSignIn" mnemonicParsing="false" style="-fx-background-color: #292927;" text="Log in" textFill="WHITE">
+                <Button fx:id="buttonSignIn" mnemonicParsing="false" stylesheets="@AuthenticationButtons.css" text="Log in" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Button>
+            <Button fx:id="buttonSignout" mnemonicParsing="false" stylesheets="@AuthenticationButtons.css" text="Sign Out" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonClose" mnemonicParsing="false" text="Close" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <stylesheets>
+                  <URL value="@closeButton.css" />
+                  <URL value="@closeButton.css" />
+               </stylesheets>
+            </Button>
             </items>
         </ToolBar>
-        <ToolBar layoutX="844.0" prefHeight="26.0" prefWidth="182.0">
-            <items>
-                <Button fx:id="buttonHome" mnemonicParsing="false" text="Home" />
-                <Button fx:id="buttonResetBoard" mnemonicParsing="false" text="Reset" />
-                <Button fx:id="buttonTutorial" mnemonicParsing="false" text="Tutorial" />
-            </items>
-        </ToolBar>
-        <TitledPane fx:id="InputToolBarTree" animated="false" expanded="false" layoutX="154.0" layoutY="59.0" prefHeight="100.0" prefWidth="150.0" text="Tree Input" visible="false">
+        <TitledPane fx:id="InputToolBarTree" animated="false" expanded="false" layoutX="135.0" layoutY="9.0" prefHeight="100.0" prefWidth="150.0" text="Tree Input" visible="false">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
@@ -297,5 +270,10 @@
          </font>
       </Label>
       <Group fx:id="weightsGroup" />
+      <ImageView fitHeight="46.0" fitWidth="48.0" layoutX="10.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@robot-flat-icon.main.jpg" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

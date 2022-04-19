@@ -35,8 +35,8 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="buttongcd" mnemonicParsing="false" prefHeight="52.0" prefWidth="123.0" stylesheets="@stylesButton1.css" text="gcd(x)" textFill="WHITE" GridPane.rowIndex="1" />
-            <Button fx:id="buttonlcm" mnemonicParsing="false" prefHeight="52.0" prefWidth="168.0" stylesheets="@stylesButton1.css" text="lcm(x)" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="buttongcd" mnemonicParsing="false" prefHeight="52.0" prefWidth="123.0" stylesheets="@stylesButton1.css" text="gcd(list)" textFill="WHITE" GridPane.rowIndex="1" />
+            <Button fx:id="buttonlcm" mnemonicParsing="false" prefHeight="52.0" prefWidth="168.0" stylesheets="@stylesButton1.css" text="lcm(list)" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button fx:id="buttonSod" mnemonicParsing="false" prefHeight="52.0" prefWidth="154.0" style="-fx-background-color: #F29611;" stylesheets="@stylesButton1.css" text="sod(n)" textFill="WHITE" GridPane.columnIndex="2">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -74,7 +74,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="input" alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="255.0" promptText="x y (as per parameter)" style="-fx-background-color: #000000;" styleClass="text-field" stylesheets="@textfield.css" GridPane.columnIndex="1" />
+            <TextField fx:id="input" alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="255.0" promptText="(as per parameter)" style="-fx-background-color: #000000;" styleClass="text-field" stylesheets="@textfield.css" GridPane.columnIndex="1" />
             <Label fx:id="output" alignment="CENTER_RIGHT" prefHeight="114.0" prefWidth="341.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="12.0" />
