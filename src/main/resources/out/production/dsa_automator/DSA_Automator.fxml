@@ -263,7 +263,7 @@
             </font>
         </Label>
         <HBox fx:id="hBoxList1" layoutX="160.0" layoutY="216.0" prefHeight="47.0" prefWidth="150.0" />
-      <Label fx:id="warning" alignment="CENTER" cacheShape="false" layoutX="497.0" layoutY="321.0" prefHeight="75.0" prefWidth="150.0" style="-fx-background-color: #0A0A08;" text="warning" textFill="#0d0000" visible="false">
+      <Label fx:id="warning" alignment="CENTER" cacheShape="false" layoutX="497.0" layoutY="321.0" prefHeight="75.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF;" text="warning" textFill="#0d0000" visible="false">
          <font>
             <Font size="13.0" />
          </font>

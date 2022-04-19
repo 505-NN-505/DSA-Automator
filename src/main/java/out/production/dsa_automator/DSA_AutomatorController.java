@@ -242,7 +242,7 @@ public class DSA_AutomatorController implements Initializable {
 
         warning.setText("sahhh");
         warning.setLayoutX(900);
-        warning.setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(0.0), Insets.EMPTY)));
+        warning.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(0.0), Insets.EMPTY)));
         warning.setVisible(false);
 
         Label lb = new Label();
@@ -870,7 +870,7 @@ public class DSA_AutomatorController implements Initializable {
             }
         }
         printArr(dist);
-        warning.setText("Source: Blue \nBlue Labels: weights\nUsed edges: colored\nUnused edges: white");
+        warning.setText("Source : Blue Node \nBlue Labels: weights\nUsed edges: colored\nUnused edges: white");
         warning.setVisible(true);
     }
 
@@ -898,6 +898,19 @@ public class DSA_AutomatorController implements Initializable {
             return;
         }
         warning.setVisible(false);
+
+        if(countNode == -1){
+            // System.out.println("choose source");
+            warning.setText("No vertex created\nCreate vertex first");
+            warning.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(0.0), Insets.EMPTY)));
+            warning.setVisible(true);
+            isDFS.setSelected(false);
+            check = 0;
+            System.out.println("rgrgreg");
+            return;
+        }
+        warning.setVisible(false);
+
         check++;
         cnt++;
         visited[v-1] = true;
@@ -923,6 +936,8 @@ public class DSA_AutomatorController implements Initializable {
             }
 
         }
+        warning.setText("Source: Blue Node \nUsed edges: colored\nUnused edges: white");
+        warning.setVisible(true);
 
     }
 
@@ -932,8 +947,6 @@ public class DSA_AutomatorController implements Initializable {
         boolean visited[] = new boolean[V];
         DFSUtil(v, visited,0,list1);
         if(check != 0)placeList();
-        warning.setText("Source: Blue \nUsed edges: colored\nUnused edges: white");
-        warning.setVisible(true);
 
     }
 
@@ -999,7 +1012,7 @@ public class DSA_AutomatorController implements Initializable {
             connectedcomponent++;
         //System.out.println("cc" + connectedcomponent);
         placeList();
-        warning.setText("Source: Blue \nUsed edges: colored\nUnused edges: white");
+        warning.setText("Source: Blue Node\nUsed edges: colored\nUnused edges: white");
         warning.setVisible(true);
     }
 
@@ -1059,11 +1072,18 @@ public class DSA_AutomatorController implements Initializable {
         }
         if(isAP.isSelected()) {
 
-            hudaiBFS(1);
+            if(countNode!=-1)hudaiBFS(1);
             if (connectedcomponent > 1 ) {
                 // System.out.println("choose source");
 
                 warning.setText("graph is disconnected");
+                warning.setVisible(true);
+                isAP.setSelected(false);
+            }
+            else if (countNode == -1 ) {
+                // System.out.println("choose source");
+
+                warning.setText("no vertex created!");
                 warning.setVisible(true);
                 isAP.setSelected(false);
             }
@@ -1103,10 +1123,17 @@ public class DSA_AutomatorController implements Initializable {
 
         }
         if(isBridge.isSelected()){
-            hudaiBFS(1);
+            if(countNode != -1) hudaiBFS(1);
             if (connectedcomponent > 1 ) {
                 // System.out.println("choose source");
                 warning.setText("graph is disconnected");
+                warning.setVisible(true);
+                isBridge.setSelected(false);
+            }
+            else if (countNode == -1 ) {
+                // System.out.println("choose source");
+
+                warning.setText("no vertex created!");
                 warning.setVisible(true);
                 isBridge.setSelected(false);
             }
@@ -1125,14 +1152,20 @@ public class DSA_AutomatorController implements Initializable {
 
         }
         if(isMST.isSelected()){
-            hudaiBFS(1);
+            if(countNode != -1)hudaiBFS(1);
             if(countweights != countEdge){
                // System.out.println("give weights");
                 warning.setText("No weights given\nGive weights first");
                 warning.setVisible(true);
                 isMST.setSelected(false);
             }
+            else if (countNode == -1 ) {
+                // System.out.println("choose source");
 
+                warning.setText("no vertex created!");
+                warning.setVisible(true);
+                isMST.setSelected(false);
+            }
             else if (connectedcomponent > 1 ) {
                 // System.out.println("choose source");
                 warning.setText("graph is disconnected");
@@ -1155,7 +1188,7 @@ public class DSA_AutomatorController implements Initializable {
                     }
 
                 }
-                warning.setText("Source: Blue \nBlue Labels: weights\ntree edges: colored\nUnused edges: white");
+                warning.setText("Source: Blue Node\nBlue Labels: weights\ntree edges: colored\nUnused edges: white");
                 warning.setVisible(true);
             }
 
