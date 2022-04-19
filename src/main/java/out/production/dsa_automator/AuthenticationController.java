@@ -11,10 +11,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+import java.math.BigInteger;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class AuthenticationController implements Initializable {
     @FXML
@@ -51,6 +55,13 @@ public class AuthenticationController implements Initializable {
 
     @FXML
     private Label authenticationMsg;
+
+    public String encryptSrting(String input) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] messageDigest = md.digest(input.getBytes());
+        BigInteger bigInt = new BigInteger(1, messageDigest);
+        return bigInt.toString(16);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -129,7 +140,7 @@ public class AuthenticationController implements Initializable {
         showAuthUi(true);
     }
 
-    public boolean verifyLogIn() throws SQLException, ClassNotFoundException {
+    public boolean verifyLogIn() throws SQLException, ClassNotFoundException, NoSuchAlgorithmException {
         Database database = new Database("dsa_automator", "root", "");
 
         String[] column = {"Handle", "Password"};
@@ -144,7 +155,8 @@ public class AuthenticationController implements Initializable {
             return false;
         }
         else {
-            boolean matched = rs.getString("Password").equals(signInPassword.getText());
+            String hashed = encryptSrting(signInPassword.getText());
+            boolean matched = rs.getString("Password").equals(hashed);
             if (!matched) {
                 authenticationMsg.setText("Wrong password");
                 authenticationMsg.setTextFill(Color.RED);
@@ -156,9 +168,11 @@ public class AuthenticationController implements Initializable {
         }
     }
 
-    public void insertInfo() throws SQLException, ClassNotFoundException {
+    public void insertInfo() throws SQLException, ClassNotFoundException, NoSuchAlgorithmException {
         Database database = new Database("dsa_automator", "root", "");
-        Object[] values = {signUpEmail.getText(), signUpHandle.getText(), signUpPassword.getText()};
+        String password = signUpPassword.getText();
+        String hashedPassword = encryptSrting(password);
+        Object[] values = {signUpEmail.getText(), signUpHandle.getText(), hashedPassword};
         database.insert("user_table", values);
 
         authenticationMsg.setText("You're registered!");
