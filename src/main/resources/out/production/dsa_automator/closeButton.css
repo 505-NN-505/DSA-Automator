@@ -1,3 +1,11 @@
+.label {
+    -fx-font-weight: bold;
+    -fx-background-color: #fbebd8;
+    -fx-background-radius: 13;
+    -fx-text-fill: #141414;
+    -fx-font-size: 13;
+}
+
 .button {
     -fx-font-weight: bold;
     -fx-background-color: #FF3131;

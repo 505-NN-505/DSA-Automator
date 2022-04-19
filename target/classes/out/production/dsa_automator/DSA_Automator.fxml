@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="DebugBoard" prefHeight="660.0" prefWidth="1155.0" style="-fx-background-color: #141414;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.DSA_AutomatorController">
+<AnchorPane fx:id="DebugBoard" prefHeight="660.0" prefWidth="1155.0" style="-fx-background-color: #141414;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.DSA_AutomatorController">
     <children>
         <Group fx:id="edgeGroup" />
         <TitledPane fx:id="TreeAlgorithms" animated="false" expanded="false" layoutX="300.0" layoutY="70.0" prefHeight="100.0" prefWidth="176.0" text="Algo Toolbar" visible="false">
@@ -263,7 +263,7 @@
             </font>
         </Label>
         <HBox fx:id="hBoxList1" layoutX="160.0" layoutY="216.0" prefHeight="47.0" prefWidth="150.0" />
-      <Label fx:id="warning" alignment="CENTER" cacheShape="false" layoutX="497.0" layoutY="321.0" prefHeight="75.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF;" text="warning" textFill="#0d0000" visible="false">
+      <Label fx:id="warning" alignment="CENTER" cacheShape="false" layoutX="497.0" layoutY="321.0" prefHeight="75.0" prefWidth="150.0" stylesheets="@closeButton.css" text="warning">
          <font>
             <Font size="13.0" />
          </font>
