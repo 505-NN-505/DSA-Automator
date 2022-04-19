@@ -222,6 +222,7 @@ public class DSA_AutomatorController implements Initializable {
 
         buttonSignout.setOnAction(eventSignOut -> {
             loggedIn = false;
+            reset();
         });
 
 //        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
@@ -644,6 +645,15 @@ public class DSA_AutomatorController implements Initializable {
         Label[] nodes = {gNode1, gNode2, gNode3, gNode4, gNode5, gNode6, gNode7, gNode8, gNode9, gNode10};
 
         buttonResetBoard.setOnAction(eventReset -> {
+            for (int i = 0; i < 10; i++) {
+                nodes[i].setVisible(false);
+                nodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+            }
+            reset();
+        });
+
+        buttonSignout.setOnAction(eventSignOut -> {
+            loggedIn = false;
             for (int i = 0; i < 10; i++) {
                 nodes[i].setVisible(false);
                 nodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
@@ -1074,6 +1084,14 @@ public class DSA_AutomatorController implements Initializable {
                     reset();
 
                 });
+                buttonSignout.setOnAction(eventSignOut -> {
+                    loggedIn = false;
+                    for (int i = 0; i < 10; i++) {
+                        nodes[i].setVisible(false);
+                        nodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+                    }
+                    reset();
+                });
                 out.production.dsa_automator.ArticulationPoint_and_Bridge AP = new ArticulationPoint_and_Bridge(countNode);
                 AP.FindArticulationPoint(GraphEdges, countNode, nodes);
             /*ArrayList<Integer>ArticulationPoints = APB.FindArticulationPoint(GraphEdges,countNode);
@@ -1169,6 +1187,15 @@ public class DSA_AutomatorController implements Initializable {
             }
             reset();
 
+        });
+
+        buttonSignout.setOnAction(eventSignOut -> {
+            loggedIn = false;
+            for (int i = 0; i < 10; i++) {
+                tnodes[i].setVisible(false);
+                tnodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+            }
+            reset();
         });
 
         if (CreateVertex.isSelected()) {
@@ -1272,6 +1299,14 @@ public class DSA_AutomatorController implements Initializable {
                     }
                     reset();
                 });
+                buttonSignout.setOnAction(eventSignOut -> {
+                    loggedIn = false;
+                    for (int i = 0; i < 10; i++) {
+                        tnodes[i].setVisible(false);
+                        tnodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+                    }
+                    reset();
+                });
 
                 for (int i = 0; i <= countTreeNode; i++) {
                     int finalI = i;
@@ -1310,6 +1345,14 @@ public class DSA_AutomatorController implements Initializable {
             } else {
                 Label[] tnodes = {tNode1, tNode2, tNode3, tNode4, tNode5, tNode6, tNode7, tNode8, tNode9, tNode10};
                 buttonResetBoard.setOnAction(eventReset -> {
+                    for (int i = 0; i < 10; i++) {
+                        tnodes[i].setVisible(false);
+                        tnodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+                    }
+                    reset();
+                });
+                buttonSignout.setOnAction(eventSignOut -> {
+                    loggedIn = false;
                     for (int i = 0; i < 10; i++) {
                         tnodes[i].setVisible(false);
                         tnodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
