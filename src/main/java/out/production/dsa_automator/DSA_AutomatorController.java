@@ -1029,8 +1029,11 @@ public class DSA_AutomatorController implements Initializable {
             }
         }
 
-        if(cnt != countNode)
+        if(cnt != countNode) {
             connectedcomponent++;
+            //System.out.println(cnt+ " "+ countNode);
+        }
+        else connectedcomponent=1;
        // System.out.println("cc "+connectedcomponent);
 
     }
@@ -1053,6 +1056,7 @@ public class DSA_AutomatorController implements Initializable {
             hudaiBFS(1);
             if (connectedcomponent > 1 ) {
                 // System.out.println("choose source");
+
                 warning.setText("graph is disconnected");
                 warning.setVisible(true);
                 isAP.setSelected(false);
@@ -1078,10 +1082,11 @@ public class DSA_AutomatorController implements Initializable {
                 nodes[v].setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(40.0), Insets.EMPTY)));
             }
              */
+                warning.setText("Red node:\nArticulation point\nUncolored node: No\narticulation point");
+                warning.setVisible(true);
             }
 
-            warning.setText("Red node:\nArticulation point\nUncolored node: No\narticulation point");
-            warning.setVisible(true);
+
         }
         if(isBridge.isSelected()){
             hudaiBFS(1);
@@ -1286,12 +1291,13 @@ public class DSA_AutomatorController implements Initializable {
                                 tnodes[lca].setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(40.0), Insets.EMPTY)));
                                 v1 = -1;
                                 v2 = -1;
+                                warning.setText("green nodes: inputs \nBlue node: LCA");
+                                warning.setVisible(true);
                             }
                         }
                     });
                 }
-                warning.setText("green nodes: inputs \nBlue node: LCA");
-                warning.setVisible(true);
+
             }
         }
         if(FindCentroid.isSelected()) {
