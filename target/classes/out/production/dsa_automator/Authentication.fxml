@@ -9,30 +9,30 @@
 
 <AnchorPane fx:id="layer1" prefHeight="360.0" prefWidth="600.0" style="-fx-background-color: #d8d8d8;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.AuthenticationController">
    <children>
-      <Button fx:id="buttonSignUp" layoutX="351.0" layoutY="256.0" mnemonicParsing="false" style="-fx-background-color: #141414;" text="Sign Up" textFill="WHITE" />
+      <Button fx:id="buttonSignUp" layoutX="351.0" layoutY="256.0" mnemonicParsing="false" stylesheets="@Login.css" text="Sign Up" textFill="WHITE" visible="false" />
       <PasswordField fx:id="signUpPassword" layoutX="351.0" layoutY="212.0" promptText="Password" visible="false" />
       <TextField fx:id="signUpHandle" layoutX="351.0" layoutY="168.0" promptText="Handle" visible="false" />
       <TextField fx:id="signUpEmail" layoutX="351.0" layoutY="123.0" promptText="Email" visible="false" />
-      <Button fx:id="buttonSignIn" layoutX="351.0" layoutY="212.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" style="-fx-background-color: #141414;" text="Sign In" textFill="WHITE" />
-      <PasswordField fx:id="signInPassword" layoutX="351.0" layoutY="169.0" promptText="Password" />
-      <TextField fx:id="signInHandle" layoutX="351.0" layoutY="123.0" promptText="Handle" />
+      <Button fx:id="buttonSignIn" layoutX="351.0" layoutY="212.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" stylesheets="@Login.css" text="Sign In" textFill="WHITE" />
+      <PasswordField fx:id="signInPassword" layoutX="351.0" layoutY="169.0" promptText="Password" stylesheets="@Login.css" />
+      <TextField fx:id="signInHandle" layoutX="351.0" layoutY="123.0" promptText="Handle" stylesheets="@Login.css" />
       <AnchorPane fx:id="layer2" prefHeight="360.0" prefWidth="280.0" style="-fx-background-color: #141414;">
          <children>
             <Label fx:id="signInMsg" layoutX="60.0" layoutY="58.0" text="Welcome Back!" textFill="WHITE">
                <font>
-                  <Font size="23.0" />
+                  <Font name="System Bold" size="23.0" />
                </font>
             </Label>
             <Label fx:id="signUpMsg" layoutX="108.0" layoutY="58.0" text="Hello!" textFill="WHITE" visible="false">
                <font>
-                  <Font size="23.0" />
+                  <Font name="System Bold" size="23.0" />
                </font>
             </Label>
-            <Button fx:id="slideSignIn" layoutX="108.0" layoutY="257.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Sign In" visible="false" />
-            <Button fx:id="slideSignUp" layoutX="108.0" layoutY="257.0" mnemonicParsing="false" text="Sign Up" />
+            <Button fx:id="slideSignIn" layoutX="46.0" layoutY="257.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="188.0" stylesheets="@Login.css" text="Already have an account?" visible="false" />
+            <Button fx:id="slideSignUp" layoutX="52.0" layoutY="257.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="175.0" stylesheets="@Login.css" text="Don't have an account?" visible="false" />
          </children>
       </AnchorPane>
-      <Label fx:id="authenticationMsg" alignment="CENTER" cacheShape="false" layoutX="351.0" layoutY="299.0" prefHeight="19.0" prefWidth="149.0" style="-fx-background-color: #0A0A08;" text="You're signed in!" textFill="#39ff14" visible="false">
+      <Label fx:id="authenticationMsg" alignment="CENTER" cacheShape="false" layoutX="351.0" layoutY="306.0" prefHeight="19.0" prefWidth="119.0" stylesheets="@Login.css" text="You're signed in!" textFill="#39ff14" visible="false">
          <font>
             <Font size="13.0" />
          </font>
