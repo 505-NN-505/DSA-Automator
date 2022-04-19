@@ -2,9 +2,16 @@ package out.production.dsa_automator;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -62,6 +69,7 @@ public class CalculatorController implements Initializable {
     @FXML
     protected Button buttonXor;
 
+
     ArrayList<Integer> Primes = new ArrayList<Integer>();
 
     @Override
@@ -82,6 +90,8 @@ public class CalculatorController implements Initializable {
         buttondlog.setOnAction(eventdlog -> getdlog());
         buttonproot.setOnAction(eventproot -> getPrimitiveRoots());
         buttonXor.setOnAction(eventproot -> getXor());
+
+
     }
 
     int isNonPrime(int prime[], int x) {

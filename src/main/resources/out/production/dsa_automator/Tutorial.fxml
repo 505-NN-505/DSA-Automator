@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="out.production.dsa_automator.TutorialController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="574.0" prefWidth="623.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="out.production.dsa_automator.TutorialController">
+   <children>
+      <TextArea fx:id="tutorial" editable="false" layoutY="1.0" prefHeight="550.0" prefWidth="619.0" text="                                                             Welcome to DSA Automator                                                                     &#10;-Select button M, T, G for Math Calculator, Tree Algorithms and Graph Algorithms respectively.           &#10;-Sign up to create new account or log in to enter into your account                                               &#10;-Select Home button to access the users's repository                                                                        &#10;-Select Reset button to clear the dashboard                    &#10;-Enter Save button to save your work  and  Enter Close button to exit the program&#10;&#10;                                                                Math Calculator                                                                         &#10; - Buttons with parameter type are provided for different mathematical operations.                              &#10;  - Give your input on the input section according to the parameter                                               &#10;  -Output button shows the generated output     &#10;&#10;                                                                Tree Algorithms&#10;Tree input drop down menu:&#10;            Create vertex: Select create vertex and click mouse on dashboard to generate node&#10;            Create edge:   Select create edge and click on two nodes to create edge between them&#10;Algorithms drop down menu:&#10;            Lowest Common Anchestor: - Select this button and click on two nodes to find the lca between them.&#10;                                                          - Selected nodes are marked green and resultant lca is marked blue.&#10;            Centroid Finder: Selecting this will find the centroid of tree ( marked yellow)&#10;&#10;                                                                  Graph algorithms&#10;- Input toolbar to create vertex, add edge,assign source and destination.&#10;- graph type drop down menu to select weighted or unweighted graph&#10;- for weighted graph, click on the edges to give weight.&#10;- graph algorithm toolbar provides diiferent algorithms on drop down.&#10;- assign source (marked blue) and run bfs,dfs to see output provided in a list.&#10;-assign source(marked blue) and give weights to see shortest path given in a list.&#10;- Select Articulation point and Articulation bridge to see the articulation point(marked red) and bridge(marked red) of the graph&#10;- Assign weights(shown in label) and select Minimum spanning Tree to see MST (tree shown in color)&#10;&#10;&#10;&#10;&#10;&#10;&#10;            &#10;&#10;&#10;            &#10;          &#10;&#10;&#10;                " />
+   </children>
 </AnchorPane>
