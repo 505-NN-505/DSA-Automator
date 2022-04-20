@@ -534,6 +534,9 @@ public class DSA_AutomatorController implements Initializable {
         connectedcomponent = 1;
         source = 0;
         warning.setVisible(false);
+        checker = 0;
+        apdone = 0;
+        apdone1 = 0;
 
     }
 
@@ -806,22 +809,7 @@ public class DSA_AutomatorController implements Initializable {
 
     void BellmanFord(int src) {
 
-        if(src == 0){
-           // System.out.println("choose source");
-            warning.setText("No source selected\nChoose Source first");
-            warning.setVisible(true);
-            isshortestpath.setSelected(false);
-            return;
-        }
-        warning.setVisible(false);
-        if(countweights != countEdge){
-           // System.out.println("give weights");
-            warning.setText("No weights given\nGive weights first");
-            warning.setVisible(true);
-            isshortestpath.setSelected(false);
-            return;
-        }
-        warning.setVisible(false);
+
         int dist[] = new int[V];
 
         // Step 1: Initialize distances from src to all other
@@ -889,27 +877,7 @@ public class DSA_AutomatorController implements Initializable {
     Integer check = 0;
     void DFSUtil(int v, boolean visited[],int cnt,List<Integer>list1)
     {
-        if(v == 0){
-           // System.out.println("choose source");
-            warning.setText("No source selected\nChoose Source first");
-            warning.setVisible(true);
-            isDFS.setSelected(false);
-            check = 0;
-            return;
-        }
-        warning.setVisible(false);
 
-        if(countNode == -1){
-            // System.out.println("choose source");
-            warning.setText("No vertex created\nCreate vertex first");
-            warning.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(0.0), Insets.EMPTY)));
-            warning.setVisible(true);
-            isDFS.setSelected(false);
-            check = 0;
-            System.out.println("rgrgreg");
-            return;
-        }
-        warning.setVisible(false);
 
         check++;
         cnt++;
@@ -1057,18 +1025,69 @@ public class DSA_AutomatorController implements Initializable {
 
     }
 
+    int checker = 0, apdone = 0,apdone1=0;
     public void graphAlgo(ActionEvent event) throws IOException {
         createAdjacencyList();
         if (isBFS.isSelected()){
+            if(source == 0){
+                // System.out.println("choose source");
+                warning.setText("Bfs cannot run \nwithout a source!\nChoose Source");
+                warning.setVisible(true);
+                isBFS.setSelected(false);
+                return;
+            }
+
+            else {
+                warning.setVisible(false);
+                if (checker == 0) {
 //            System.out.println(countNode);
 //            System.out.println(countEdge);
-            BFS(source);
+                    BFS(source);
+                    checker = 1;
+                } else {
+                    warning.setText("reset to run\nanother algorithm");
+                    warning.setVisible(true);
+                    isBFS.setSelected(false);
+                }
+            }
 
         }
         if (isDFS.isSelected()){
-//            System.out.println("source: "+source);
-            DFS(source);
-            //placeList();
+
+            if(source == 0){
+                // System.out.println("choose source");
+                warning.setText("No source selected\nChoose Source first");
+                warning.setVisible(true);
+                isDFS.setSelected(false);
+                check = 0;
+                return;
+            }
+            warning.setVisible(false);
+
+            if(countNode == -1){
+                // System.out.println("choose source");
+                warning.setText("No vertex created\nCreate vertex first");
+                warning.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(0.0), Insets.EMPTY)));
+                warning.setVisible(true);
+                isDFS.setSelected(false);
+                check = 0;
+                // System.out.println("rgrgreg");
+                return;
+            }
+
+            else{
+                warning.setVisible(false);
+                if (checker == 0) {
+                    //System.out.println("source: "+source);
+                    DFS(source);
+                    //placeList();
+                    checker = 1;
+                } else {
+                    warning.setText("reset to run\nanother algorithm");
+                    warning.setVisible(true);
+                    isDFS.setSelected(false);
+                }
+            }
         }
         if(isAP.isSelected()) {
 
@@ -1088,39 +1107,47 @@ public class DSA_AutomatorController implements Initializable {
                 isAP.setSelected(false);
             }
             else {
-                warning.setVisible(false);
-                // System.out.println("AP");
-                Label[] nodes = {gNode1, gNode2, gNode3, gNode4, gNode5, gNode6, gNode7, gNode8, gNode9, gNode10};
-                buttonResetBoard.setOnAction(eventReset -> {
-                    for (int i = 0; i < 10; i++) {
-                        nodes[i].setVisible(false);
-                        nodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+                if (checker == 0 || (checker==1 && apdone == 1)) {
+                    warning.setVisible(false);
+                    // System.out.println("AP");
+                    Label[] nodes = {gNode1, gNode2, gNode3, gNode4, gNode5, gNode6, gNode7, gNode8, gNode9, gNode10};
+                    buttonResetBoard.setOnAction(eventReset -> {
+                        for (int i = 0; i < 10; i++) {
+                            nodes[i].setVisible(false);
+                            nodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
 
-                    }
-                    reset();
+                        }
+                        reset();
 
-                });
-                buttonSignout.setOnAction(eventSignOut -> {
-                    loggedIn = false;
-                    for (int i = 0; i < 10; i++) {
-                        nodes[i].setVisible(false);
-                        nodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
-                    }
-                    reset();
-                });
-                out.production.dsa_automator.ArticulationPoint_and_Bridge AP = new ArticulationPoint_and_Bridge(countNode);
-                AP.FindArticulationPoint(GraphEdges, countNode, nodes);
+                    });
+                    buttonSignout.setOnAction(eventSignOut -> {
+                        loggedIn = false;
+                        for (int i = 0; i < 10; i++) {
+                            nodes[i].setVisible(false);
+                            nodes[i].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(40.0), Insets.EMPTY)));
+                        }
+                        reset();
+                    });
+                    out.production.dsa_automator.ArticulationPoint_and_Bridge AP = new ArticulationPoint_and_Bridge(countNode);
+                    AP.FindArticulationPoint(GraphEdges, countNode, nodes);
             /*ArrayList<Integer>ArticulationPoints = APB.FindArticulationPoint(GraphEdges,countNode);
             for(int i=0;i<ArticulationPoints.size();i++){
                 int v=ArticulationPoints.get(i);
                 nodes[v].setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(40.0), Insets.EMPTY)));
             }
              */
-                warning.setText("Red node:\nArticulation point\nUncolored node: No\narticulation point");
-                warning.setVisible(true);
+                    warning.setText("Red node:\nArticulation point\nUncolored node: No\narticulation point");
+                    warning.setVisible(true);
+                    checker = 1;
+                    apdone = 1;
+                }
+                else{
+                    warning.setText("reset to run\nanother algorithm");
+                    warning.setVisible(true);
+                    isAP.setSelected(false);
+                }
+
             }
-
-
         }
         if(isBridge.isSelected()){
             if(countNode != -1) hudaiBFS(1);
@@ -1138,17 +1165,51 @@ public class DSA_AutomatorController implements Initializable {
                 isBridge.setSelected(false);
             }
             else {
-                out.production.dsa_automator.ArticulationPoint_and_Bridge B = new ArticulationPoint_and_Bridge(countNode);
-                B.FindBridge(countNode, graphedgeList);
-                warning.setText("Articulation edges:\ncolored");
-                warning.setVisible(true);
+                if(checker == 0 || (checker==1 && apdone == 1)) {
+                    out.production.dsa_automator.ArticulationPoint_and_Bridge B = new ArticulationPoint_and_Bridge(countNode);
+                    B.FindBridge(countNode, graphedgeList);
+                    warning.setText("Articulation edges:\ncolored");
+                    warning.setVisible(true);
+                    checker = 1;
+                    apdone1 = 1;
+                }
+                else{
+                    warning.setText("reset to run\nanother algorithm");
+                    warning.setVisible(true);
+                    isBridge.setSelected(false);
+                }
             }
+
         }
 
         if (isshortestpath.isSelected()){
 
-            BellmanFord(source);
-           // System.out.println("source: "+source);
+            if(source == 0){
+                // System.out.println("choose source");
+                warning.setText("No source selected\nChoose Source first");
+                warning.setVisible(true);
+                isshortestpath.setSelected(false);
+                //return;
+            }
+            //warning.setVisible(false);
+            if(countweights != countEdge){
+                // System.out.println("give weights");
+                warning.setText("No weights given\nGive weights first");
+                warning.setVisible(true);
+                isshortestpath.setSelected(false);
+               // return;
+            }
+            if (checker == 1) {
+                warning.setText("reset to run\nanother algorithm");
+                warning.setVisible(true);
+                isshortestpath.setSelected(false);
+            }
+            if(checker!=1 && countweights == countEdge && source!=0){
+                warning.setVisible(false);
+                BellmanFord(source);
+                // System.out.println("source: "+source);
+                checker = 1;
+            }
 
         }
         if(isMST.isSelected()){
@@ -1159,37 +1220,44 @@ public class DSA_AutomatorController implements Initializable {
                 warning.setVisible(true);
                 isMST.setSelected(false);
             }
-            else if (countNode == -1 ) {
+            if (countNode == -1 ) {
                 // System.out.println("choose source");
 
                 warning.setText("no vertex created!");
                 warning.setVisible(true);
                 isMST.setSelected(false);
             }
-            else if (connectedcomponent > 1 ) {
+            if (connectedcomponent > 1 ) {
                 // System.out.println("choose source");
                 warning.setText("graph is disconnected");
                 warning.setVisible(true);
                 isMST.setSelected(false);
             }
-            else {
-                warning.setVisible(false);
-                out.production.dsa_automator.MinimumSpanningTree MST = new MinimumSpanningTree(countNode);
-                ArrayList<Pair<Integer, Integer>> edgesMST = MST.FindMST(MSTEdges, countNode);
-                for (int j = 0; j < graphedgeList.size(); j++) {
-                    int p = graphedgeList.get(j).getKey().getKey();
-                    int q = graphedgeList.get(j).getKey().getValue();
-                    for (int i = 0; i < edgesMST.size(); i++) {
-                        int u = edgesMST.get(i).getKey();
-                        int v = edgesMST.get(i).getValue();
-                        if ((p - 1 == u && q - 1 == v) || (p - 1 == v && q - 1 == u)) {
-                            graphedgeList.get(j).getValue().setStroke(Color.LIMEGREEN);
-                        }
-                    }
-
-                }
-                warning.setText("Source: Blue Node\nBlue Labels: weights\ntree edges: colored\nUnused edges: white");
+            if (checker == 1) {
+                warning.setText("reset to run\nanother algorithm");
                 warning.setVisible(true);
+                isMST.setSelected(false);
+            }
+            if(checker!=1 && connectedcomponent<=1 && countNode!=-1 && countweights == countEdge) {
+                    warning.setVisible(false);
+                    out.production.dsa_automator.MinimumSpanningTree MST = new MinimumSpanningTree(countNode);
+                    ArrayList<Pair<Integer, Integer>> edgesMST = MST.FindMST(MSTEdges, countNode);
+                    for (int j = 0; j < graphedgeList.size(); j++) {
+                        int p = graphedgeList.get(j).getKey().getKey();
+                        int q = graphedgeList.get(j).getKey().getValue();
+                        for (int i = 0; i < edgesMST.size(); i++) {
+                            int u = edgesMST.get(i).getKey();
+                            int v = edgesMST.get(i).getValue();
+                            if ((p - 1 == u && q - 1 == v) || (p - 1 == v && q - 1 == u)) {
+                                graphedgeList.get(j).getValue().setStroke(Color.LIMEGREEN);
+                            }
+                        }
+
+                    }
+                    warning.setText("Source: Blue Node\nBlue Labels: weights\ntree edges: colored\nUnused edges: white");
+                    warning.setVisible(true);
+                    checker = 1;
+
             }
 
         }
