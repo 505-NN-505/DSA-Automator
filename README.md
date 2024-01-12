@@ -3,7 +3,7 @@
 </p>
 
 <h4 align="center">
-Your DSA playground - just create a Data Structure and experiment with the Algorithms prompts.
+Your DSA playground - just paint a Data Structure on the artboard and experiment with the Algorithms.
 </h4>
 
 # Demo
@@ -15,4 +15,4 @@ Your DSA playground - just create a Data Structure and experiment with the Algor
 ![2024-01-12 20-36-40](https://github.com/505-NN-505/DSA-Automator/assets/98690406/8a17d4d8-5d73-4087-b86c-8bbaf37e14e3)
 
 ## Math Algorithms
-<img src="https://github.com/505-NN-505/DSA-Automator/assets/98690406/92abec36-525b-4cf0-8a94-86d9f1aac03e" alt="Your Image" width="45%">
+<img src="https://github.com/505-NN-505/DSA-Automator/assets/98690406/92abec36-525b-4cf0-8a94-86d9f1aac03e" alt="Your Image" width="35%">
