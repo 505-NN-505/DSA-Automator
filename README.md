@@ -1,7 +1,10 @@
 <p align="center">
-  <img src="https://github.com/505-NN-505/DSA-Automator/assets/98690406/2aec22e0-8533-44ec-be29-475097e3396f" alt="Logo" width="40%">
-  Your DSA playground - just create a Data Structure and experiment with the Algorithms prompts.
+  <img src="https://github.com/505-NN-505/DSA-Automator/assets/98690406/2aec22e0-8533-44ec-be29-475097e3396f" alt="Logo" width="25%">
 </p>
+
+<h4 align="center">
+Your DSA playground - just create a Data Structure and experiment with the Algorithms prompts.
+</h4>
 
 # Demo
 
